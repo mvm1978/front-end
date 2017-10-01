@@ -1,0 +1,60 @@
+a:hover, a:visited {
+    text-decoration: none !important;
+}
+
+.logo-container {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.logo-block {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+}
+
+.mvm-logo {
+    content: url('../images/mvm-logo.png');
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  opacity: 0.5;
+  z-index: 99999;
+}
+
+.loading-overlay-gif {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+}
+
+#app {
+	background-image: url('/images/bg.jpg');
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+    background-size: cover;
+}
+
+#header, #footer {
+    opacity: 0.95;
+}
+
+.clear-float-left {
+    clear: left;
+}
+
+.mandatory-astrisk {
+    color: red;
+}

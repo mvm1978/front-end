@@ -1,0 +1,16 @@
+<div id="report">
+    <div *ngFor="let chart of chartData" class="charts">
+        <h3 class="chart-caption">{{chart.caption}}</h3>
+        <h4 class="chart-range">{{chart.dates}}</h4>
+        <pie-chart
+            [pieChartData]="chart.data"
+            [pieChartLabels]="chart.labels">
+
+        </pie-chart>
+    </div>
+    <div class="clear-float-left">
+    </div>
+    <button type="button" id="back-to-quiz" class="btn btn-info" (click)="toQuiz()">
+        Back to quiz
+    </button>
+</div>

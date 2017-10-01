@@ -1,0 +1,38 @@
+#sign-content-section {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 900;
+    overflow: auto;
+}
+
+#sign-content-section {
+	min-height: calc(100vh - 100px);
+	width: 100%;
+	text-align: center;
+    overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sign {
+    border-radius: 5px;
+	text-align: left;
+	background-color: #EFEFEF;
+	width: 300px;
+	padding: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+	margin-bottom: 100px;
+    opacity: 0.9;
+}
+
+#sign-wrap {
+    margin-bottom: 10px;
+}
+
+#close-signing-form {
+    float: right;
+}

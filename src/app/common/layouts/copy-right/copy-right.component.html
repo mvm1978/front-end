@@ -1,0 +1,7 @@
+<div id="copyright-links">
+    Copyright 2017. Trademarks are the property of their respective owners. All rights reserved.<br/>
+    <span *ngFor="let url of urls; let lastIndex = last">
+        <a href="{{url.link}}" title="{{url.caption}}" target="_blank">{{url.caption}}</a>
+        <span *ngIf="! lastIndex"> | </span>
+    </span>
+</div>
