@@ -104,6 +104,15 @@ export class AuthServices
 
     //**************************************************************************
 
+    public getRecoveryQuestions()
+    {
+        let url = this._api + '/questions/get';
+
+        return this._http.get(url).map(res => res.json());
+    }
+
+    //**************************************************************************
+
     private getUserToken()
     {
         return localStorage.getItem('userToken');
@@ -167,6 +176,8 @@ export class AuthServices
         jQuery('#sign-footer').html(message);
 
         this._globalEventsManager.showLoadingOverload(false);
+
+        return message;
     }
 
     //**************************************************************************

@@ -34,6 +34,12 @@ export class Constants
 
     //**************************************************************************
 
+    public static get RECOVERY_QUESTIONS_PATH(): string {
+        return 'app/auth/sign-up/recovery-questions/';
+    }
+
+    //**************************************************************************
+
     public static get SIGN_IN_PATH(): string {
         return 'app/auth/sign-in/';
     }

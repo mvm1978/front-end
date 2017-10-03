@@ -8,23 +8,25 @@
             <li><a href="#">Page 1</a></li>
             <li><a href="#">Page 2</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li *ngIf="! isSignedIn">
+        <ul *ngIf="! isSignedIn" class="nav navbar-nav navbar-right">
+            <li>
                 <a href="#" (click)="onSignUp()">
                     <span class="glyphicon glyphicon-user"></span> Sign Up
                 </a>
             </li>
-            <li *ngIf="! isSignedIn">
+            <li>
                 <a href="#" (click)="onSignIn()">
                     <span class="glyphicon glyphicon-log-in"></span> Sign In
                 </a>
             </li>
-            <li *ngIf="isSignedIn">
+        </ul>
+        <ul *ngIf="isSignedIn" class="nav navbar-nav navbar-right">
+            <li>
                 <a href="#" (click)="onPasswordReset()">
                     <span class="glyphicon glyphicon-lock"></span> Password Reset
                 </a>
             </li>
-            <li *ngIf="isSignedIn">
+            <li>
                 <a href="#" (click)="onSignOut()">
                     <span class="glyphicon glyphicon-log-out"></span> Sign Out
                 </a>

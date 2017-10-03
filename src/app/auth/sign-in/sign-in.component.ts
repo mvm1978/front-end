@@ -12,7 +12,8 @@ declare var jQuery: any;
 @Component({
     selector: 'sign-in',
     providers: [
-        AuthServices
+        AuthServices,
+        CredentialsRowComponent
     ],
     templateUrl: Constants.SIGN_IN_PATH + 'sign-in.component.html',
     styleUrls: [

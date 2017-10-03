@@ -1,21 +1,20 @@
 import {Component, ViewChild} from '@angular/core';
 
-import {Observable} from 'rxjs/Observable';
-
-import 'rxjs/add/observable/forkJoin';
-
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {Constants} from '../../common/core/constants';
 import {AuthServices} from '../../auth/auth.services';
 
 import {CredentialsRowComponent} from '../layouts/credentials-row/credentials-row.component';
+import {RecoveryQuestionsComponent} from './recovery-questions/recovery-questions.component';
 
 declare var jQuery: any;
 
 @Component({
     selector: 'sign-up',
     providers: [
-        AuthServices
+        AuthServices,
+        CredentialsRowComponent,
+        RecoveryQuestionsComponent
     ],
     templateUrl: Constants.SIGN_UP_PATH + 'sign-up.component.html',
     styleUrls: [
@@ -27,12 +26,16 @@ declare var jQuery: any;
 export class SignUpComponent
 {
     @ViewChild(CredentialsRowComponent) credentialRows: CredentialsRowComponent;
+    @ViewChild(RecoveryQuestionsComponent) recoveryQuestions: RecoveryQuestionsComponent;
+
+    public isRecoveryQuestions: boolean = false;
 
     public rows: any = [
         {
             caption: 'User Name',
             mandatory: true,
             id: 'username',
+            value: 'vmechnik_1',
             validate: 'username'
         },
         {
@@ -43,16 +46,19 @@ export class SignUpComponent
         {
             caption: 'First Name',
             id: 'first-name',
+            name: 'fname',
         },
         {
             caption: 'Last Name',
             id: 'last-name',
+            name: 'lname',
         },
         {
             caption: 'Password',
             mandatory: true,
             id: 'password',
             'type': 'password',
+            value: '1qaz@WSX',
             placeholder: 'password',
             validate: 'password'
         },
@@ -61,6 +67,7 @@ export class SignUpComponent
             mandatory: true,
             id: 'confirm-password',
             'type': 'password',
+            value: '1qaz@WSX',
             placeholder: 'confirnm password',
             validate: 'confirm',
             target: 'password'
@@ -78,6 +85,13 @@ export class SignUpComponent
 
     //**************************************************************************
 
+    public backToSignUp()
+    {
+        this.isRecoveryQuestions = false;
+    }
+
+    //**************************************************************************
+
     public onSignUp()
     {
         jQuery('#sign-up-footer').html('');
@@ -89,6 +103,54 @@ export class SignUpComponent
         }
 
         let data = results.data;
+
+        if (! data.email && ! this.isRecoveryQuestions) {
+            // show page with password recovery questions if no email was input
+            this.isRecoveryQuestions = true;
+
+            return false;
+        }
+
+        if (this.isRecoveryQuestions) {
+
+            data.questions = {};
+            data.duplicateQuestions = [];
+            data.noAnswer = [];
+
+            jQuery('.question-dropdown').map(function(count: number) {
+
+                let questionID = jQuery('option:selected', this).val(),
+                    answer = jQuery('#answer-' + count).val();
+                // checking for duplicate question being seleted
+                if (data.questions.hasOwnProperty(questionID)) {
+                    data.duplicateQuestions.push(count);
+                }
+
+                if (answer) {
+                    data.questions[questionID] = answer;
+                } else {
+                    data.noAnswer.push(count)
+                }
+            });
+
+            for (let count=0;count<data.duplicateQuestions.length; count++) {
+
+                let id = 'question-' + data.duplicateQuestions[count];
+
+                this._authServices.showRowError(id, 'Duplicate question');
+            }
+
+            for (let count=0;count<data.noAnswer.length; count++) {
+
+                let id = 'question-' + data.noAnswer[count];
+
+                this._authServices.showRowError(id, 'Answer for the question is mandatory');
+            }
+
+            if (data.duplicateQuestions.length || data.noAnswer.length) {
+                return false;
+            }
+        }
 
         data.first_name = data['first-name'];
         data.last_name = data['last-name'];
@@ -105,7 +167,18 @@ export class SignUpComponent
                     this._globalEventsManager.signIn(true);
                 },
                 err => {
-                    this._authServices.showSigningError(err, 'Error signing up');
+                    let message = this._authServices.showSigningError(err,
+                            'Error signing up');
+
+                    let firstPageErrors = [
+                        'username_exists',
+                        'email_exists',
+                        'Error signing up'
+                    ];
+
+                    if (! ~jQuery.inArray(message, firstPageErrors)) {
+                        this.isRecoveryQuestions = false;
+                    }
                 },
                 () => {
                     this._globalEventsManager.showLoadingOverload(false);

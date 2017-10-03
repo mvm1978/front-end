@@ -64,12 +64,10 @@ export class PasswordRecoveryComponent
         this._authServices.passwordRecoveryEmail(email)
             .subscribe(
                 response => {
-console.log(response);
                     this._globalEventsManager.passwordRecovery(false);
                     this._globalEventsManager.signIn(true);
                 },
                 err => {
-console.log(err);
                     this._authServices.showSigningError(err, 'Error recoveryting password');
                 },
                 () => {
@@ -84,7 +82,7 @@ console.log(err);
 
     public onClose()
     {
-//        this._globalEventsManager.passwordRecovery(false);
+        this._globalEventsManager.passwordRecovery(false);
 
         return false;
     }

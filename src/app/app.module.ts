@@ -36,7 +36,10 @@ import {CoreProviders} from './common/core/load';
     ],
     providers: [
         CoreProviders,
-        {provide: LocationStrategy, useClass: HashLocationStrategy}
+        {
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy
+        }
     ],
     bootstrap: [AppComponent]
 })

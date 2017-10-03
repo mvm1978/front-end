@@ -4,17 +4,11 @@ import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {SharedService} from '../../common/modules/shared.service';
 import {mvmConstants} from '../mvm.constants';
 
-
-import {WelcomeModule} from './welcome.module';
-
 declare var jQuery: any;
 
 @Component({
     selector: 'welcome',
     templateUrl: mvmConstants.WELCOME_PATH + 'welcome.component.html',
-    providers: [
-        WelcomeModule
-    ],
     styleUrls: [
         mvmConstants.WELCOME_PATH + 'welcome.component.css'
     ],

@@ -1,0 +1,20 @@
+<div *ngIf="isDataAvailable">
+    <div *ngFor="let questionNo of questionCount" id="question-{{questionNo}}-group" class="row-wrapper">
+        <label for="quiestion-{{questionNo}}" class="col-form-label">
+            Question {{questionNo + 1}}: <span class="mandatory-astrisk">*</span>
+        </label>
+        <br>
+        <select id="question-{{questionNo}}" class="question-dropdown"
+                (change)="onChange($event.target.id)">
+            <option *ngFor="let question of questions; let count = index" value="{{question.id}}"
+                    [attr.selected]="count == questionNo ? true : null"
+                    id="question-{{questionNo}}-{{question.id}}">{{question.question}}
+            </option>
+        </select>
+        <input type="text" id="answer-{{questionNo}}"
+               class="form-control input-sm answers"
+               placeholder="Answer for question {{questionNo + 1}}">
+
+        <small id="question-{{questionNo}}-footer" class="row-footer text-danger"></small>
+    </div>
+</div>
