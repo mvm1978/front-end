@@ -32,7 +32,6 @@ export class HeaderComponent
     public ngOnInit()
     {
         this.isSignedIn = !! localStorage.getItem('userToken');
-console.log(this.isSignedIn);
     }
 
     //**************************************************************************

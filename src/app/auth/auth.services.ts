@@ -113,6 +113,24 @@ export class AuthServices
 
     //**************************************************************************
 
+    public getRecoveryQuestion(username: string)
+    {
+        let url = this._api + '/user-questions/get/' + username;
+
+        return this._http.get(url).map(res => res.json());
+    }
+
+    //**************************************************************************
+
+    public verifyRecoveryQuestion(body: any)
+    {
+        let url = this._api + '/user-question/verify';
+
+        return this._http.post(url, body).map(res => res.json());
+    }
+
+    //**************************************************************************
+
     private getUserToken()
     {
         return localStorage.getItem('userToken');

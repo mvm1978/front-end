@@ -78,18 +78,16 @@ export class PasswordResetComponent
             newPassword = results.data['new-password'];
 
         this._globalEventsManager.showLoadingOverload(true);
-console.log(oldPassword + '|' + newPassword);
+
         this._authServices.passwordReset(oldPassword, newPassword)
             .subscribe(
                 response => {
-console.log(response);
                     this._globalEventsManager.passwordReset(false);
                     this._globalEventsManager.signIn(true);
 
                     this._globalEventsManager.showLoadingOverload(false);
                 },
                 err => {
-console.log(err);
                     this._authServices.showSigningError(err, 'Error resetting password');
                 },
                 () => {}

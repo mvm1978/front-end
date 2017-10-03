@@ -36,7 +36,8 @@ export class CredentialsRowServices extends BaseServices
                 message = '';
 
             let id = row.id,
-                caption = row.caption;
+                caption = row.hasOwnProperty('footer-nickname') ?
+                        row['footer-nickname'] : row.caption;
 
             let value = jQuery('#' + id).val();
 

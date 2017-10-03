@@ -35,7 +35,6 @@ export class SignUpComponent
             caption: 'User Name',
             mandatory: true,
             id: 'username',
-            value: 'vmechnik_1',
             validate: 'username'
         },
         {
@@ -58,7 +57,6 @@ export class SignUpComponent
             mandatory: true,
             id: 'password',
             'type': 'password',
-            value: '1qaz@WSX',
             placeholder: 'password',
             validate: 'password'
         },
@@ -67,7 +65,6 @@ export class SignUpComponent
             mandatory: true,
             id: 'confirm-password',
             'type': 'password',
-            value: '1qaz@WSX',
             placeholder: 'confirnm password',
             validate: 'confirm',
             target: 'password'

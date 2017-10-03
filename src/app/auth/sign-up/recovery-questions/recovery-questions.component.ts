@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {GlobalEventsManager} from '../../../common/modules/global-events-manager';
 import {Constants} from '../../../common/core/constants';
@@ -57,7 +57,6 @@ export class RecoveryQuestionsComponent
 
     public onChange(id: string)
     {
-console.log(id);
         jQuery('#' + id + '-group').removeClass('has-error');
         jQuery('#' + id + '-footer').html('');
     }
