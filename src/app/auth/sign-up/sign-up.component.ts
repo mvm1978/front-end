@@ -111,11 +111,12 @@ export class SignUpComponent
             return false;
         }
 
+        data.questions = {};
+
         if (this.isRecoveryQuestions) {
 
-            data.questions = {};
-            data.duplicateQuestions = [];
-            data.noAnswer = [];
+            let duplicateQuestions: any = [],
+                noAnswer: any = [];
 
             jQuery('.question-dropdown').map(function(count: number) {
 
@@ -123,31 +124,31 @@ export class SignUpComponent
                     answer = jQuery('#answer-' + count).val();
                 // checking for duplicate question being seleted
                 if (data.questions.hasOwnProperty(questionID)) {
-                    data.duplicateQuestions.push(count);
+                    duplicateQuestions.push(count);
                 }
 
                 if (answer) {
                     data.questions[questionID] = answer;
                 } else {
-                    data.noAnswer.push(count)
+                    noAnswer.push(count)
                 }
             });
 
-            for (let count=0;count<data.duplicateQuestions.length; count++) {
+            for (let count=0;count<duplicateQuestions.length; count++) {
 
-                let id = 'question-' + data.duplicateQuestions[count];
+                let id = 'question-' + duplicateQuestions[count];
 
                 this._authServices.showRowError(id, 'Duplicate question');
             }
 
-            for (let count=0;count<data.noAnswer.length; count++) {
+            for (let count=0;count<noAnswer.length; count++) {
 
-                let id = 'question-' + data.noAnswer[count];
+                let id = 'question-' + noAnswer[count];
 
                 this._authServices.showRowError(id, 'Answer for the question is mandatory');
             }
 
-            if (data.duplicateQuestions.length || data.noAnswer.length) {
+            if (duplicateQuestions.length || noAnswer.length) {
                 return false;
             }
         }
