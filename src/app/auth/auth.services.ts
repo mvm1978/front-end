@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, URLSearchParams} from '@angular/http';
+import {PlatformLocation} from '@angular/common';
+import {Http, Headers} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -15,6 +16,7 @@ declare var jQuery: any;
 export class AuthServices
 {
     constructor(
+        private _platformLocation: PlatformLocation,
         private _apiRoot: ApiRoot,
         private _httpModule: Http,
         private _globalEventsManager: GlobalEventsManager
@@ -78,14 +80,15 @@ export class AuthServices
 
     //**************************************************************************
 
-    public passwordReset(oldPassword: string, newPassword: string)
+    public passwordReset(body: any)
     {
-        let url = this._api + '/password-reset',
-            body = {
-                userID: localStorage.getItem('userID'),
-                oldPassword: oldPassword,
-                newPassword: newPassword
-            };
+        let url = this._api + '/password-reset';
+
+        if (localStorage.hasOwnProperty('password-recovery-token')) {
+            body['recoveryToken'] = localStorage.getItem('password-recovery-token');
+        } else {
+            body['userID'] = localStorage.getItem('userID');
+        }
 
         return this._http.post(url, body).map(res => res.json());
     }
@@ -94,9 +97,12 @@ export class AuthServices
 
     public passwordRecoveryEmail(email: string)
     {
+        let platform: any = this._platformLocation;
+
         let url = this._api + '/password-recovery-by-email',
             body = {
-                email: email
+                email: email,
+                url: platform['location']['href']
             };
 
         return this._http.post(url, body).map(res => res.json());
@@ -167,6 +173,12 @@ export class AuthServices
                 break;
             case 'failed_to_create_token':
                 message = 'Failed to create a token';
+                break;
+            case 'missing_password_recovery_token':
+                message = 'Missing password recovery token';
+                break;
+            case 'password_recovery_token_expired':
+                message = 'Password recovery token expired';
                 break;
             case 'missing_username':
                 this.showRowError('username', 'User Name is mandatory');

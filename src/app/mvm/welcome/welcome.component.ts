@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 
+import {ActivatedRoute} from '@angular/router';
+
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {SharedService} from '../../common/modules/shared.service';
 import {mvmConstants} from '../mvm.constants';
-
-declare var jQuery: any;
 
 @Component({
     selector: 'welcome',
@@ -20,8 +20,9 @@ export class WelcomeComponent
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
-        protected _sharedService: SharedService
+        private activatedRoute: ActivatedRoute,
+        private _globalEventsManager: GlobalEventsManager,
+        private _sharedService: SharedService
     )
     {
         this._sharedService.set('app', mvmConstants.APP);
@@ -31,13 +32,22 @@ export class WelcomeComponent
 
     public ngOnInit()
     {
+        localStorage.removeItem('password-recovery-token');
+
+        this.activatedRoute.queryParams
+            .subscribe(response => {
+                if (response.hasOwnProperty('password-recovery-token')) {
+
+                    localStorage.setItem('password-recovery-token',
+                            response['password-recovery-token']);
+
+                    this._globalEventsManager.passwordReset(true);
+                }
+            });
+
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);
     }
-
-    //**************************************************************************
-
-
 
     //**************************************************************************
 

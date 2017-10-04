@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
-import {SharedService} from '../../common/modules/shared.service';
 import {Constants} from '../../common/core/constants';
 import {AuthServices} from '../../auth/auth.services';
 
@@ -46,7 +45,7 @@ export class PasswordResetComponent
             mandatory: true,
             id: 'confirm-password',
             'type': 'password',
-            placeholder: 'confirnm password',
+            placeholder: 'confirm password',
             validate: 'confirm',
             target: 'new-password'
         }
@@ -56,10 +55,13 @@ export class PasswordResetComponent
 
     constructor (
         protected _globalEventsManager: GlobalEventsManager,
-        private _sharedService: SharedService,
         private _authServices: AuthServices
     )
     {
+        if (localStorage.hasOwnProperty('password-recovery-token')) {
+            // no need in "Old Password" when resettign passwords by token
+            this.rows.shift();
+        }
     }
 
     //**************************************************************************
@@ -74,12 +76,17 @@ export class PasswordResetComponent
             return false;
         }
 
-        let oldPassword = results.data['old-password'],
-            newPassword = results.data['new-password'];
+        let params: any = {
+            newPassword: results.data['new-password']
+        };
+
+        if (results.data.hasOwnProperty('old-password')) {
+            params['oldPassword'] = results.data['old-password'];
+        }
 
         this._globalEventsManager.showLoadingOverload(true);
 
-        this._authServices.passwordReset(oldPassword, newPassword)
+        this._authServices.passwordReset(params)
             .subscribe(
                 response => {
                     this._globalEventsManager.passwordReset(false);

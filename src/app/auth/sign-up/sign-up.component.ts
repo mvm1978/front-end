@@ -65,7 +65,7 @@ export class SignUpComponent
             mandatory: true,
             id: 'confirm-password',
             'type': 'password',
-            placeholder: 'confirnm password',
+            placeholder: 'confirm password',
             validate: 'confirm',
             target: 'password'
         }

@@ -9,6 +9,10 @@ const ableToRoutes: Routes = [
     {
         path: 'mvm/welcome',
         component: WelcomeComponent
+    },
+    {
+        path: 'mvm/password-recovery',
+        component: WelcomeComponent
 //    },
 //    {
 //        path: 'mvm/quizzes',

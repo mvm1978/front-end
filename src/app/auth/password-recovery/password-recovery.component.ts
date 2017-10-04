@@ -74,7 +74,7 @@ export class PasswordRecoveryComponent
             mandatory: true,
             id: 'confirm-password',
             'type': 'password',
-            placeholder: 'Confirnm password',
+            placeholder: 'Confirm password',
             validate: 'confirm',
             target: 'new-password'
         }
