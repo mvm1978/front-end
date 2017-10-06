@@ -10,35 +10,25 @@ import {GlobalEventsManager} from './common/modules/global-events-manager';
 
 export class AppComponent
 {
-    public isLoadingOverlay: boolean = true;
-    public isHeader: boolean = true;
-    public isFooter: boolean = true;
+    public isLoadingOverlay: boolean = false;
 
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager
+        private _globalEventsManager: GlobalEventsManager
     )
     {
-        this._globalEventsManager.showHeaderEmitter
-            .subscribe((isHeader) => {
-                this.isHeader = isHeader;
-            }
-        );
+    }
 
-        this._globalEventsManager.showFooterEmitter
-            .subscribe((isFooter) => {
-                this.isFooter = isFooter;
-            }
-        );
+    //**************************************************************************
 
+    public ngOnInit()
+    {
         this._globalEventsManager.showLoadingOverlayEmitter
             .subscribe((isLoadingOverlay) => {
                 this.isLoadingOverlay = isLoadingOverlay;
             }
         );
-
-        this.isLoadingOverlay = false;
     }
 
     //**************************************************************************

@@ -26,6 +26,8 @@ export class SignInComponent
 {
     @ViewChild(CredentialsRowComponent) credentialRows: CredentialsRowComponent;
 
+    public isSignIn: boolean = false;
+
     public rows: any = [
         {
             caption: 'User Name',
@@ -44,11 +46,22 @@ export class SignInComponent
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
+        private _globalEventsManager: GlobalEventsManager,
         private _sharedService: SharedService,
         private _authServices: AuthServices
     )
     {
+    }
+
+    //**************************************************************************
+
+    public ngOnInit()
+    {
+        this._globalEventsManager.signInEmitter
+            .subscribe((isSignIn) => {
+                this.isSignIn = isSignIn;
+            }
+        );
     }
 
     //**************************************************************************
@@ -72,10 +85,11 @@ export class SignInComponent
             .subscribe(
                 response => {
 
-                    localStorage.setItem('userToken', response.token);
-                    localStorage.setItem('userID', response.id);
+                    localStorage.setItem('userInfo', JSON.stringify(response));
 
                     this._globalEventsManager.signedIn(true);
+
+                    this._globalEventsManager.signIn(false);
 
                     let app = this._sharedService.get('app');
 
@@ -83,6 +97,7 @@ export class SignInComponent
                 },
                 err => {
                     this._authServices.showSigningError(err, 'Error signing to the account');
+                    this._globalEventsManager.showLoadingOverload(false);
                 },
                 () => {
                     this._globalEventsManager.showLoadingOverload(false);

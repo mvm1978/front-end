@@ -9,6 +9,11 @@ const appRoutes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'mvm',
+        redirectTo: '/mvm/welcome',
+        pathMatch: 'full'
+    },
+    {
         path: '**',
         component: PageNotFoundComponent
     }

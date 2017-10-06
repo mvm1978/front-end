@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav *ngIf="isHeader" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">WebSiteName</a>
@@ -21,6 +21,9 @@
             </li>
         </ul>
         <ul *ngIf="isSignedIn" class="nav navbar-nav navbar-right">
+            <li>
+                <div class="navbar-text">Hello, {{userWelcomeName}}</div>
+            </li>
             <li>
                 <a href="#" (click)="onPasswordReset()">
                     <span class="glyphicon glyphicon-lock"></span> Password Reset

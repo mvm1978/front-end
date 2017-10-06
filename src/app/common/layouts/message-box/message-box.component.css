@@ -1,11 +1,33 @@
-#footer {
-	width: 100%;
-	padding-top: 10px;
-	text-align: center;
-	bottom: 0px;
-	background-color: #003cb3;
-	border-top: 1px solid #cd0a0a;
-	color: white;
-	display: inline-block;
-	min-height: 50px;
+#message-box {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow: auto;
+}
+
+#message-content {
+    border-style: solid;
+    border-width: 1px;
+	border-color: #CFCFCF;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	background-color: #EFEFEF;
+	text-align: left;
+	width: 400px;
+	padding: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+}
+
+#message-content a {
+    float: right;
+    margin-top: -25px;
+}
+
+#message-content p {
+    margin: 10px 5px 40px 5px;
 }

@@ -24,6 +24,8 @@ export class PasswordResetComponent
 {
     @ViewChild(CredentialsRowComponent) credentialRows: CredentialsRowComponent;
 
+    public isPasswordReset: boolean = false;
+
     public rows: any = [
         {
             caption: 'Old Password',
@@ -54,7 +56,7 @@ export class PasswordResetComponent
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
+        private _globalEventsManager: GlobalEventsManager,
         private _authServices: AuthServices
     )
     {
@@ -62,6 +64,17 @@ export class PasswordResetComponent
             // no need in "Old Password" when resettign passwords by token
             this.rows.shift();
         }
+    }
+
+    //**************************************************************************
+
+    public ngOnInit()
+    {
+        this._globalEventsManager.passwordResetEmitter
+            .subscribe((isPasswordReset) => {
+                this.isPasswordReset = isPasswordReset;
+            }
+        );
     }
 
     //**************************************************************************
@@ -96,6 +109,7 @@ export class PasswordResetComponent
                 },
                 err => {
                     this._authServices.showSigningError(err, 'Error resetting password');
+                    this._globalEventsManager.showLoadingOverload(false);
                 },
                 () => {}
             );

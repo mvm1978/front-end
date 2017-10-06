@@ -15,6 +15,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './common/layouts/header/header.component';
 import {FooterComponent} from './common/layouts/footer/footer.component';
 import {MainBodyComponent} from './common/layouts/main-body/main-body.component';
+import {MessageBoxComponent} from './common/layouts/message-box/message-box.component';
 
 import {CoreProviders} from './common/core/load';
 
@@ -32,7 +33,8 @@ import {CoreProviders} from './common/core/load';
         AppComponent,
         HeaderComponent,
         FooterComponent,
-        MainBodyComponent
+        MainBodyComponent,
+        MessageBoxComponent
     ],
     providers: [
         CoreProviders,

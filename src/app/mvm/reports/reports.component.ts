@@ -25,7 +25,7 @@ export class ReportsComponent
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
+        private _globalEventsManager: GlobalEventsManager,
         private _quizResultsServices: QuizResultsServices
     )
     {

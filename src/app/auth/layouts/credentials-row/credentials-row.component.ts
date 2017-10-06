@@ -27,8 +27,8 @@ export class CredentialsRowComponent
     //**************************************************************************
 
     constructor (
-        protected _сredentialsRowServices: CredentialsRowServices,
-        protected _globalEventsManager: GlobalEventsManager,
+        private _сredentialsRowServices: CredentialsRowServices,
+        private _globalEventsManager: GlobalEventsManager,
         private _authServices: AuthServices
     )
     {

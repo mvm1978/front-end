@@ -27,7 +27,7 @@ export class RecoveryQuestionsComponent
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
+        private _globalEventsManager: GlobalEventsManager,
         private _authServices: AuthServices
     )
     {
@@ -46,9 +46,7 @@ export class RecoveryQuestionsComponent
                 err => {
                     this._authServices.showSigningError(err, 'Error getting recovery question');
                 },
-                () => {
-                    this._globalEventsManager.showLoadingOverload(false);
-                }
+                () => {}
             );
     }
 

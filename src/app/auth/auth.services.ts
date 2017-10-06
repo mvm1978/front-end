@@ -7,8 +7,6 @@ import 'rxjs/add/operator/catch';
 
 import {ApiRoot} from '../common/api-root';
 
-import {GlobalEventsManager} from '../common/modules/global-events-manager';
-
 declare var jQuery: any;
 
 @Injectable()
@@ -18,8 +16,7 @@ export class AuthServices
     constructor(
         private _platformLocation: PlatformLocation,
         private _apiRoot: ApiRoot,
-        private _httpModule: Http,
-        private _globalEventsManager: GlobalEventsManager
+        private _httpModule: Http
     )
     {
 
@@ -27,7 +24,7 @@ export class AuthServices
 
     private _api = this._apiRoot.authApi + '/auth';
 
-    protected _http = this._httpModule;
+    private _http = this._httpModule;
 
     //**************************************************************************
 
@@ -46,8 +43,8 @@ export class AuthServices
     {
         let authHeader = new Headers();
 
-        var token = this.getUserToken(),
-            userID = this.getUserID();
+        var token = this.getUserInfo('token'),
+            userID = this.getUserInfo('id');
 
         authHeader.append('Content-Type', 'application/json');
         authHeader.append('token', token);
@@ -87,7 +84,7 @@ export class AuthServices
         if (localStorage.hasOwnProperty('password-recovery-token')) {
             body['recoveryToken'] = localStorage.getItem('password-recovery-token');
         } else {
-            body['userID'] = localStorage.getItem('userID');
+            body['userID'] = this.getUserInfo('id');
         }
 
         return this._http.post(url, body).map(res => res.json());
@@ -137,16 +134,27 @@ export class AuthServices
 
     //**************************************************************************
 
-    private getUserToken()
+    public signOut()
     {
-        return localStorage.getItem('userToken');
+        localStorage.removeItem('userInfo');
     }
 
     //**************************************************************************
 
-    private getUserID()
+    private userInfo()
     {
-        return localStorage.getItem('userID');
+        let userInfo = localStorage.getItem('userInfo');
+
+        return userInfo ? JSON.parse(userInfo) : {};
+    }
+
+    //**************************************************************************
+
+    public getUserInfo(field: string)
+    {
+        let userInfo = this.userInfo();
+
+        return userInfo.hasOwnProperty(field) ? userInfo[field] : null;
     }
 
     //**************************************************************************
@@ -204,8 +212,6 @@ export class AuthServices
         }
 
         jQuery('#sign-footer').html(message);
-
-        this._globalEventsManager.showLoadingOverload(false);
 
         return message;
     }

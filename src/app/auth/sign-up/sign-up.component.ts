@@ -29,6 +29,7 @@ export class SignUpComponent
     @ViewChild(RecoveryQuestionsComponent) recoveryQuestions: RecoveryQuestionsComponent;
 
     public isRecoveryQuestions: boolean = false;
+    public isSignUp: boolean = false;
 
     public rows: any = [
         {
@@ -74,10 +75,21 @@ export class SignUpComponent
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
+        private _globalEventsManager: GlobalEventsManager,
         private _authServices: AuthServices
     )
     {
+    }
+
+    //**************************************************************************
+
+    public ngOnInit()
+    {
+        this._globalEventsManager.signUpEmitter
+            .subscribe((isSignUp) => {
+                this.isSignUp = isSignUp;
+            }
+        );
     }
 
     //**************************************************************************
@@ -177,6 +189,8 @@ export class SignUpComponent
                     if (! ~jQuery.inArray(message, firstPageErrors)) {
                         this.isRecoveryQuestions = false;
                     }
+
+                    this._globalEventsManager.showLoadingOverload(false);
                 },
                 () => {
                     this._globalEventsManager.showLoadingOverload(false);

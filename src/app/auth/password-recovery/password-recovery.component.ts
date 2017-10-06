@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
-import {SharedService} from '../../common/modules/shared.service';
 import {Constants} from '../../common/core/constants';
 import {AuthServices} from '../../auth/auth.services';
 
@@ -24,6 +23,8 @@ declare var jQuery: any;
 export class PasswordRecoveryComponent
 {
     @ViewChild(CredentialsRowComponent) credentialRows: CredentialsRowComponent;
+
+    public isPasswordRecovery: boolean = false;
 
     public submitCaption: string = 'Password Recovery';
 
@@ -84,11 +85,21 @@ export class PasswordRecoveryComponent
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
-        private _sharedService: SharedService,
+        private _globalEventsManager: GlobalEventsManager,
         private _authServices: AuthServices
     )
     {
+    }
+
+    //**************************************************************************
+
+    public ngOnInit()
+    {
+        this._globalEventsManager.passwordRecoveryEmitter
+            .subscribe((isPasswordRecovery) => {
+                this.isPasswordRecovery = isPasswordRecovery;
+            }
+        );
     }
 
     //**************************************************************************
@@ -117,12 +128,19 @@ export class PasswordRecoveryComponent
             this._authServices.passwordRecoveryEmail(email)
                 .subscribe(
                     response => {
+
                         this._globalEventsManager.passwordRecovery(false);
                         this._globalEventsManager.signIn(true);
+
+                        this._globalEventsManager.messageBox({
+                            text: 'A recovery link was sent to the provided email address. ' +
+                                  'Check your email box and follow the instructions'
+                        });
                     },
                     err => {
                         this._authServices.showSigningError(err,
                                 'Error recoveryting password');
+                        this._globalEventsManager.showLoadingOverload(false);
                     },
                     () => {
                         this._globalEventsManager.showLoadingOverload(false);
@@ -146,6 +164,7 @@ export class PasswordRecoveryComponent
                         err => {
                             this._authServices.showSigningError(err,
                                     'No recovery questions found for the username');
+                            this._globalEventsManager.showLoadingOverload(false);
                         },
                         () => {
                             this._globalEventsManager.showLoadingOverload(false);
@@ -177,12 +196,11 @@ export class PasswordRecoveryComponent
                         response => {
                             this._globalEventsManager.passwordRecovery(false);
                             this._globalEventsManager.signIn(true);
-
-                            this._globalEventsManager.showLoadingOverload(false);
                         },
                         err => {
                             this._authServices.showSigningError(err,
                                     'Invalid answer for the recovery question');
+                            this._globalEventsManager.showLoadingOverload(false);
                         },
                         () => {
                             this._globalEventsManager.showLoadingOverload(false);

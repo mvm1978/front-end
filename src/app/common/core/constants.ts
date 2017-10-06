@@ -9,6 +9,12 @@ export class Constants
 
     //**************************************************************************
 
+    public static get MESSAGE_BOX_PATH(): string {
+        return this.LAYOUTS_PATH + 'message-box/';
+    }
+
+    //**************************************************************************
+
     public static get AUTH_LAYOUTS_PATH(): string {
         return 'app/auth/layouts/';
     }

@@ -37,16 +37,13 @@ export class WelcomeComponent
         this.activatedRoute.queryParams
             .subscribe(response => {
                 if (response.hasOwnProperty('password-recovery-token')) {
-
+                    // password reset by email was requested
                     localStorage.setItem('password-recovery-token',
                             response['password-recovery-token']);
-
+                    // redirect to password reset page
                     this._globalEventsManager.passwordReset(true);
                 }
             });
-
-        this._globalEventsManager.showHeader(true);
-        this._globalEventsManager.showFooter(true);
     }
 
     //**************************************************************************

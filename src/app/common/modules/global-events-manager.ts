@@ -9,8 +9,8 @@ import {SharedService} from './shared.service'
 export class GlobalEventsManager
 {
     private isLoadingOverlay: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private isHeader: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private isFooter: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private isHeader: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+    private isFooter: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     private isSignUp: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private isSignIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -19,6 +19,8 @@ export class GlobalEventsManager
     private isPasswordRecovery: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     private isSignedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+    private isMessageBox: BehaviorSubject<any> = new BehaviorSubject<string>(null);
 
     public showLoadingOverlayEmitter: Observable<boolean> = this.isLoadingOverlay.asObservable();
     public showHeaderEmitter: Observable<boolean> = this.isHeader.asObservable();
@@ -31,6 +33,8 @@ export class GlobalEventsManager
     public passwordRecoveryEmitter: Observable<boolean> = this.isPasswordRecovery.asObservable();
 
     public signedInEmitter: Observable<boolean> = this.isSignedIn.asObservable();
+
+    public messageBoxEmitter: Observable<any> = this.isMessageBox.asObservable();
 
     //**************************************************************************
 
@@ -66,9 +70,6 @@ export class GlobalEventsManager
 
     public forceSignIn()
     {
-        localStorage.setItem('userToken', '');
-        localStorage.setItem('userID', '');
-
         let app = this._sharedService.get('app');
 
         this.isSignUp.next(false);
@@ -83,7 +84,6 @@ export class GlobalEventsManager
     public signUp(isSignUp: boolean)
     {
         this.isSignUp.next(isSignUp);
-console.log('forceSignUp');
     };
 
     //**************************************************************************
@@ -91,16 +91,6 @@ console.log('forceSignUp');
     public signIn(isSignIn: boolean)
     {
         this.isSignIn.next(isSignIn);
-console.log('forceSignIn');
-    };
-
-    //**************************************************************************
-
-    public signOut()
-    {
-console.log(localStorage);
-        localStorage.setItem('userToken', '');
-        localStorage.setItem('userID', '');
     };
 
     //**************************************************************************
@@ -108,7 +98,6 @@ console.log(localStorage);
     public passwordReset(isPasswordReset: boolean)
     {
         this.isPasswordReset.next(isPasswordReset);
-console.log('isPasswordReset');
     };
 
     //**************************************************************************
@@ -116,15 +105,20 @@ console.log('isPasswordReset');
     public passwordRecovery(isPasswordRecovery: boolean)
     {
         this.isPasswordRecovery.next(isPasswordRecovery);
-console.log('isPasswordRecovery');
     };
 
     //**************************************************************************
 
     public signedIn(isSignedIn: boolean)
     {
-console.log('isSignedIn');
         this.isSignedIn.next(isSignedIn);
+    };
+
+    //**************************************************************************
+
+    public messageBox(data: any)
+    {
+        this.isMessageBox.next(data);
     };
 
     //**************************************************************************

@@ -1,5 +1,12 @@
-<div id="footer">
-	<font face="verdana" size="1">
-        <copy-right></copy-right>
-	</font>
+<div *ngIf="!! message" id="message-box">
+    <div id="message-content">
+
+        <p>{{message}}</p>
+
+        <a href="#" class="btn btn-primary btn-sm"
+           (click)="onClose()">
+            Okay
+        </a>
+
+    </div>
 </div>

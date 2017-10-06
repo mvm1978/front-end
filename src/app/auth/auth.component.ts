@@ -13,45 +13,23 @@ import {Constants} from '../common/core/constants';
 
 export class AuthComponent
 {
-    public isSignIn: boolean = false;
-    public isSignUp: boolean = false;
     public isSignOut: boolean = false;
-    public isPasswordReset: boolean = false;
-    public isPasswordRecovery: boolean = false;
 
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
+        private _globalEventsManager: GlobalEventsManager,
     )
     {
-        this._globalEventsManager.signUpEmitter
-            .subscribe((isSignUp) => {
-                this.isSignUp = isSignUp;
-            }
-        );
+    }
 
-        this._globalEventsManager.signInEmitter
-            .subscribe((isSignIn) => {
-                this.isSignIn = isSignIn;
-            }
-        );
+    //**************************************************************************
 
+    public ngOnInit()
+    {
         this._globalEventsManager.signOutEmitter
             .subscribe((isSignOut) => {
                 this.isSignOut = isSignOut;
-            }
-        );
-
-        this._globalEventsManager.passwordResetEmitter
-            .subscribe((isPasswordReset) => {
-                this.isPasswordReset = isPasswordReset;
-            }
-        );
-
-        this._globalEventsManager.passwordRecoveryEmitter
-            .subscribe((isPasswordRecovery) => {
-                this.isPasswordRecovery = isPasswordRecovery;
             }
         );
     }

@@ -2,8 +2,13 @@ import {Component} from '@angular/core';
 
 import {GlobalEventsManager} from '../../../common/modules/global-events-manager';
 
+import {AuthServices} from '../../../auth/auth.services';
+
 @Component({
     selector: 'header',
+    providers: [
+        AuthServices
+    ],
     templateUrl: './app/common/layouts/header/header.component.html',
     styleUrls: [
         './app/common/layouts/header/header.component.css'
@@ -12,26 +17,37 @@ import {GlobalEventsManager} from '../../../common/modules/global-events-manager
 
 export class HeaderComponent
 {
-    isSignedIn: boolean = false;
+    public isHeader: boolean = false;
+    public isSignedIn: boolean = false;
+    public userWelcomeName: string = '';
 
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager
+        private _globalEventsManager: GlobalEventsManager,
+        private _authServices: AuthServices
     )
     {
-        this._globalEventsManager.signedInEmitter
-            .subscribe((isSignedIn) => {
-                this.isSignedIn = isSignedIn;
-            }
-        );
     }
 
     //**************************************************************************
 
     public ngOnInit()
     {
-        this.isSignedIn = !! localStorage.getItem('userToken');
+        this._globalEventsManager.showHeaderEmitter
+            .subscribe((isHeader) => {
+                this.isHeader = isHeader;
+            }
+        );
+
+        this._globalEventsManager.signedInEmitter
+            .subscribe((isSignedIn) => {
+
+                this.isSignedIn = isSignedIn;
+
+                this.updateUserWelcome();
+            }
+        );
     }
 
     //**************************************************************************
@@ -65,10 +81,20 @@ export class HeaderComponent
 
     public onSignOut()
     {
-        localStorage.setItem('userToken', '');
-        localStorage.setItem('userID', '');
+        this._authServices.signOut();
 
         this.isSignedIn = false;
+    }
+
+    //**************************************************************************
+
+    private updateUserWelcome()
+    {
+        this.isSignedIn = this._authServices.getUserInfo('token') != undefined;
+
+        if (this.isSignedIn) {
+            this.userWelcomeName = this._authServices.getUserInfo('fullName');
+        }
     }
 
     //**************************************************************************

@@ -32,7 +32,7 @@ export class QuizzesComponent
     //**************************************************************************
 
     constructor (
-        protected _globalEventsManager: GlobalEventsManager,
+        private _globalEventsManager: GlobalEventsManager,
         private _answersServices: AnswersServices,
         private _quizzesServices: QuizzesServices,
         private _quizResultsServices: QuizResultsServices

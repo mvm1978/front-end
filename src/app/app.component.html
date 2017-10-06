@@ -2,7 +2,8 @@
     <header id="header"></header>
     <main-body></main-body>
     <footer id="footer"></footer>
-    <div class="loading-overlay" *ngIf="isLoadingOverlay">
+    <message-box></message-box>
+    <div *ngIf="isLoadingOverlay" class="loading-overlay">
         <img class="loading-overlay-gif" src="../images/loading-overlay.gif" alt="">
     </div>
 </div>
