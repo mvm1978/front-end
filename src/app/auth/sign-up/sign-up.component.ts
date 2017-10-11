@@ -5,7 +5,7 @@ import {Constants} from '../../common/core/constants';
 import {AuthServices} from '../../auth/auth.services';
 
 import {CredentialsRowComponent} from '../layouts/credentials-row/credentials-row.component';
-import {RecoveryQuestionsComponent} from './recovery-questions/recovery-questions.component';
+import {RecoveryQuestionsComponent} from '../layouts/recovery-questions/recovery-questions.component';
 
 declare var jQuery: any;
 
@@ -124,41 +124,12 @@ export class SignUpComponent
 
         if (this.isRecoveryQuestions) {
 
-            let duplicateQuestions: any = [],
-                noAnswer: any = [];
+            let results = this._authServices.checkRecoveryQuestions();
 
-            jQuery('.question-dropdown').map(function(count: number) {
-
-                let questionID = jQuery('option:selected', this).val(),
-                    answer = jQuery('#answer-' + count).val();
-                // checking for duplicate question being seleted
-                if (data.questions.hasOwnProperty(questionID)) {
-                    duplicateQuestions.push(count);
-                }
-
-                if (answer) {
-                    data.questions[questionID] = answer;
-                } else {
-                    noAnswer.push(count)
-                }
-            });
-
-            for (let count=0;count<duplicateQuestions.length; count++) {
-
-                let id = 'question-' + duplicateQuestions[count];
-
-                this._authServices.showRowError(id, 'Duplicate question');
-            }
-
-            for (let count=0;count<noAnswer.length; count++) {
-
-                let id = 'question-' + noAnswer[count];
-
-                this._authServices.showRowError(id, 'Answer for the question is mandatory');
-            }
-
-            if (duplicateQuestions.length || noAnswer.length) {
+            if (results.duplicate.length || results.noAnswer.length) {
                 return false;
+            } else {
+                data.questions = results.questions;
             }
         }
 

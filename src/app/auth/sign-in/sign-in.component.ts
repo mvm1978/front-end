@@ -90,6 +90,7 @@ export class SignInComponent
                     this._globalEventsManager.signedIn(true);
 
                     this._globalEventsManager.signIn(false);
+                    this._globalEventsManager.updateUserWelcome();
 
                     let app = this._sharedService.get('app');
 

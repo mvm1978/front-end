@@ -52,7 +52,6 @@ export class RecoveryQuestionsComponent
 
     //**************************************************************************
 
-
     public onChange(id: string)
     {
         jQuery('#' + id + '-group').removeClass('has-error');

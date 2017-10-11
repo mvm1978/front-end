@@ -8,9 +8,9 @@ import {SignInComponent} from '../auth/sign-in/sign-in.component';
 import {SignUpComponent} from '../auth/sign-up/sign-up.component';
 import {PasswordResetComponent} from '../auth/password-reset/password-reset.component';
 import {PasswordRecoveryComponent} from '../auth/password-recovery/password-recovery.component';
-import {RecoveryQuestionsComponent} from './sign-up/recovery-questions/recovery-questions.component';
+import {UserInfoComponent} from '../auth/user-info/user-info.component';
+import {RecoveryQuestionsComponent} from './layouts/recovery-questions/recovery-questions.component';
 import {CredentialsRowComponent} from './layouts/credentials-row/credentials-row.component';
-
 
 @NgModule({
     imports: [
@@ -25,6 +25,7 @@ import {CredentialsRowComponent} from './layouts/credentials-row/credentials-row
         SignUpComponent,
         PasswordResetComponent,
         PasswordRecoveryComponent,
+        UserInfoComponent,
         RecoveryQuestionsComponent,
         CredentialsRowComponent
     ],
@@ -34,6 +35,7 @@ import {CredentialsRowComponent} from './layouts/credentials-row/credentials-row
         SignUpComponent,
         PasswordResetComponent,
         PasswordRecoveryComponent,
+        UserInfoComponent,
         RecoveryQuestionsComponent,
         CredentialsRowComponent
     ]

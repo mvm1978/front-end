@@ -42,9 +42,12 @@ export class HeaderComponent
 
         this._globalEventsManager.signedInEmitter
             .subscribe((isSignedIn) => {
-
                 this.isSignedIn = isSignedIn;
+            }
+        );
 
+        this._globalEventsManager.updateUserWelcomeEmitter
+            .subscribe(() => {
                 this.updateUserWelcome();
             }
         );
@@ -54,27 +57,46 @@ export class HeaderComponent
 
     public onSignUp()
     {
+        this.hideAllWindows();
+
         this._globalEventsManager.signUp(true);
-        this._globalEventsManager.signIn(false);
-        this._globalEventsManager.passwordReset(false);
     }
 
     //**************************************************************************
 
     public onSignIn()
     {
-        this._globalEventsManager.signUp(false);
+        this.hideAllWindows();
+
         this._globalEventsManager.signIn(true);
-        this._globalEventsManager.passwordReset(false);
     }
 
     //**************************************************************************
 
     public onPasswordReset()
     {
+        this.hideAllWindows();
+
+        this._globalEventsManager.passwordReset(true);
+    }
+
+    //**************************************************************************
+
+    public onUserInfoUpdate()
+    {
+        this.hideAllWindows();
+
+        this._globalEventsManager.userInfo(true);
+    }
+
+    //**************************************************************************
+
+    private hideAllWindows()
+    {
         this._globalEventsManager.signUp(false);
         this._globalEventsManager.signIn(false);
-        this._globalEventsManager.passwordReset(true);
+        this._globalEventsManager.passwordReset(false);
+        this._globalEventsManager.userInfo(false);
     }
 
     //**************************************************************************
@@ -90,10 +112,10 @@ export class HeaderComponent
 
     private updateUserWelcome()
     {
-        this.isSignedIn = this._authServices.getUserInfo('token') != undefined;
+        this.isSignedIn = this._authServices.getUserInfoValue('token') != undefined;
 
         if (this.isSignedIn) {
-            this.userWelcomeName = this._authServices.getUserInfo('fullName');
+            this.userWelcomeName = this._authServices.getUserInfoValue('fullName');
         }
     }
 

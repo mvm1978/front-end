@@ -26,14 +26,11 @@ export class PasswordRecoveryComponent
 
     public isPasswordRecovery: boolean = false;
 
-    public submitCaption: string = 'Password Recovery';
-
-    public recoverByEmail: boolean = true;
-    public recoverByQuestion: boolean = false;
-
-    public recoveryQuestionID: number = 0;
-
-    private username: string = '';
+    public submitCaption: string;
+    public recoverByEmail: boolean;
+    public recoverByQuestion: boolean;
+    private recoveryQuestionID: number;
+    private username: string;
 
     public byEmailRows: any = [
         {
@@ -97,7 +94,14 @@ export class PasswordRecoveryComponent
     {
         this._globalEventsManager.passwordRecoveryEmitter
             .subscribe((isPasswordRecovery) => {
+
                 this.isPasswordRecovery = isPasswordRecovery;
+
+                this.submitCaption = 'Password Recovery';
+                this.recoverByEmail = true;
+                this.recoverByQuestion = false;
+                this.recoveryQuestionID = 0;
+                this.username = '';
             }
         );
     }

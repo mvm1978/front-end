@@ -17,6 +17,8 @@ export class GlobalEventsManager
     private isSignOut: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private isPasswordReset: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private isPasswordRecovery: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private isUserInfo: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private isUpdateUserWelcome: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     private isSignedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -31,6 +33,8 @@ export class GlobalEventsManager
     public signOutEmitter: Observable<boolean> = this.isSignOut.asObservable();
     public passwordResetEmitter: Observable<boolean> = this.isPasswordReset.asObservable();
     public passwordRecoveryEmitter: Observable<boolean> = this.isPasswordRecovery.asObservable();
+    public userInfoEmitter: Observable<boolean> = this.isUserInfo.asObservable();
+    public updateUserWelcomeEmitter: Observable<boolean> = this.isUpdateUserWelcome.asObservable();
 
     public signedInEmitter: Observable<boolean> = this.isSignedIn.asObservable();
 
@@ -105,6 +109,20 @@ export class GlobalEventsManager
     public passwordRecovery(isPasswordRecovery: boolean)
     {
         this.isPasswordRecovery.next(isPasswordRecovery);
+    };
+
+    //**************************************************************************
+
+    public userInfo(isUserInfo: boolean)
+    {
+        this.isUserInfo.next(isUserInfo);
+    };
+
+    //**************************************************************************
+
+    public updateUserWelcome()
+    {
+        this.isUpdateUserWelcome.next(true);
     };
 
     //**************************************************************************
