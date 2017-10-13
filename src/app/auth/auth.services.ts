@@ -243,8 +243,8 @@ export class AuthServices
         } catch (err) {
             message = defaultMessage;
         } finally {
-            if (response.hasOwnProperty('error')) {
-                switch (response['error']) {
+            if (response.hasOwnProperty('message')) {
+                switch (response['message']) {
                     case 'password_expired':
                         message = 'Password expired';
                         break;
@@ -271,6 +271,12 @@ export class AuthServices
                         break;
                     case 'error_updating_recovery_questions':
                         message = 'Error updating recovery questions';
+                        break;
+                    case 'error_recovering_password':
+                        message = 'Error recovering password';
+                        break;
+                    case 'failed_to_get_user':
+                        message = 'Failed to get user';
                         break;
                     case 'missing_username':
                         this.showRowError('username', 'User Name is mandatory');
