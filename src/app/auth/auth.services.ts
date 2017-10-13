@@ -236,7 +236,7 @@ export class AuthServices
     public showSigningError(err: any, defaultMessage: string)
     {
         let message = '',
-            response = {};
+            response: any = {};
 
         try {
             response = JSON.parse(err._body);
