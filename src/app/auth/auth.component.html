@@ -1,7 +1,16 @@
-<div id="auth">
-    <sign-in></sign-in>
-    <sign-up></sign-up>
-    <user-info></user-info>
-    <password-reset></password-reset>
-    <password-recovery></password-recovery>
+<div *ngIf="authPopup" id="sign-content-section">
+    <div id="sign-content">
+
+        <a href="#" id="close-signing-form" (click)="onClose()">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <h3>{{authPopup}}</h3>
+        <hr class="popup-section-delimiter">
+
+        <sign-in *ngIf="authPopup == 'Sign In'"></sign-in>
+        <sign-up *ngIf="authPopup == 'Sign Up'"></sign-up>
+        <user-info *ngIf="authPopup == 'User Info'"></user-info>
+        <password-reset *ngIf="authPopup == 'Password Reset'"></password-reset>
+        <password-recovery *ngIf="authPopup == 'Password Recovery'"></password-recovery>
+    </div>
 </div>

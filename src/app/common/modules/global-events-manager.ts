@@ -12,12 +12,8 @@ export class GlobalEventsManager
     private isHeader: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     private isFooter: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-    private isSignUp: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private isSignIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private showAuthPopup: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private isSignOut: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private isPasswordReset: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private isPasswordRecovery: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private isUserInfo: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private isUpdateUserWelcome: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     private isSignedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -28,12 +24,8 @@ export class GlobalEventsManager
     public showHeaderEmitter: Observable<boolean> = this.isHeader.asObservable();
     public showFooterEmitter: Observable<boolean> = this.isFooter.asObservable();
 
-    public signUpEmitter: Observable<boolean> = this.isSignUp.asObservable();
-    public signInEmitter: Observable<boolean> = this.isSignIn.asObservable();
+    public authPopupEmitter: Observable<string> = this.showAuthPopup.asObservable();
     public signOutEmitter: Observable<boolean> = this.isSignOut.asObservable();
-    public passwordResetEmitter: Observable<boolean> = this.isPasswordReset.asObservable();
-    public passwordRecoveryEmitter: Observable<boolean> = this.isPasswordRecovery.asObservable();
-    public userInfoEmitter: Observable<boolean> = this.isUserInfo.asObservable();
     public updateUserWelcomeEmitter: Observable<boolean> = this.isUpdateUserWelcome.asObservable();
 
     public signedInEmitter: Observable<boolean> = this.isSignedIn.asObservable();
@@ -76,7 +68,8 @@ export class GlobalEventsManager
     {
         let app = this._sharedService.get('app');
 
-        this.isSignUp.next(false);
+        this.authPopup('Sign In');
+        this.isSignedIn.next(false);
 
         window.open('/#/' + app + '/welcome', '_self');
 
@@ -85,37 +78,9 @@ export class GlobalEventsManager
 
     //**************************************************************************
 
-    public signUp(isSignUp: boolean)
+    public authPopup(title: string)
     {
-        this.isSignUp.next(isSignUp);
-    };
-
-    //**************************************************************************
-
-    public signIn(isSignIn: boolean)
-    {
-        this.isSignIn.next(isSignIn);
-    };
-
-    //**************************************************************************
-
-    public passwordReset(isPasswordReset: boolean)
-    {
-        this.isPasswordReset.next(isPasswordReset);
-    };
-
-    //**************************************************************************
-
-    public passwordRecovery(isPasswordRecovery: boolean)
-    {
-        this.isPasswordRecovery.next(isPasswordRecovery);
-    };
-
-    //**************************************************************************
-
-    public userInfo(isUserInfo: boolean)
-    {
-        this.isUserInfo.next(isUserInfo);
+        this.showAuthPopup.next(title);
     };
 
     //**************************************************************************
@@ -129,7 +94,15 @@ export class GlobalEventsManager
 
     public signedIn(isSignedIn: boolean)
     {
+        this.authPopup('');
         this.isSignedIn.next(isSignedIn);
+    };
+
+    //**************************************************************************
+
+    public signOut()
+    {
+        localStorage.removeItem('userInfo');
     };
 
     //**************************************************************************

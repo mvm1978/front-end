@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {ApiRoot} from '../common/api-root';
+import {GlobalEventsManager} from '../common/modules/global-events-manager';
 
 declare var jQuery: any;
 
@@ -13,7 +14,11 @@ declare var jQuery: any;
 
 export class AuthServices
 {
+    private _api = this._apiRoot.authApi + '/auth';
+    private _http = this._httpModule;
+
     constructor(
+        private _globalEventsManager: GlobalEventsManager,
         private _platformLocation: PlatformLocation,
         private _apiRoot: ApiRoot,
         private _httpModule: Http
@@ -22,19 +27,17 @@ export class AuthServices
 
     }
 
-    private _api = this._apiRoot.authApi + '/auth';
-
-    private _http = this._httpModule;
-
     //**************************************************************************
 
     public getHeader()
     {
-        let authHeader = new Headers();
+        let header = new Headers();
 
-        authHeader.append('Content-Type', 'application/json');
+        header.append('Content-Type', 'application/json');
 
-        return authHeader;
+        return new RequestOptions({
+            headers: header
+        });
     }
 
     //**************************************************************************
@@ -90,12 +93,13 @@ export class AuthServices
     public signIn(username: string, password: string)
     {
         let url = this._api + '/users/login',
+            header = this.getHeader(),
             body = {
                 username: username,
                 password: password
             };
 
-        return this._http.post(url, body).map(res => res.json());
+        return this._http.post(url, body, header).map(res => res.json());
     }
 
     //**************************************************************************
@@ -164,7 +168,7 @@ export class AuthServices
 
     //**************************************************************************
 
-    private getUserInfo()
+    public getUserInfo()
     {
         let userInfo = localStorage.getItem('userInfo');
 
@@ -235,7 +239,8 @@ export class AuthServices
 
     public showSigningError(err: any, defaultMessage: string)
     {
-        let message = '',
+        let forseSignIn = false,
+            message = '',
             response: any = {};
 
         try {
@@ -252,9 +257,11 @@ export class AuthServices
                         message = 'Invalid User ID or Password';
                         break;
                     case 'invalid_token':
+                        forseSignIn = true;
                         message = 'Invalid token';
                         break;
                     case 'invalid_or_expired_token':
+                        forseSignIn = true;
                         message = 'Invalid or expired token';
                         break;
                     case 'failed_to_create_token':
@@ -264,6 +271,7 @@ export class AuthServices
                         message = 'Missing password recovery token';
                         break;
                     case 'password_recovery_token_expired':
+                        forseSignIn = true;
                         message = 'Password recovery token expired';
                         break;
                     case 'error_updating_user_info':
@@ -303,7 +311,18 @@ export class AuthServices
             }
         }
 
-        jQuery('#sign-footer').html(message);
+        if (forseSignIn) {
+
+            this._globalEventsManager.messageBox({
+                text: message + '. Please sign in.'
+            });
+
+            this._globalEventsManager.forceSignIn();
+        } else {
+            if (jQuery('#sign-footer').length) {
+                jQuery('#sign-footer').html(message);
+            }
+        }
 
         return message;
     }

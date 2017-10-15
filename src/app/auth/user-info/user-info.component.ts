@@ -31,8 +31,8 @@ export class UserInfoComponent
     public isUserInfo: boolean = false;
 
     public updateMode: string;
-    public isUserInfoTab: boolean;
-    public isRecoveryQuestionsTab: boolean;
+    public isUserInfoTab: boolean = true;
+    public isRecoveryQuestionsTab: boolean = false;
 
     public rows: any = [
         {
@@ -68,18 +68,7 @@ export class UserInfoComponent
 
     public ngOnInit()
     {
-        this._globalEventsManager.userInfoEmitter
-            .subscribe((isUserInfo) => {
-
-                this.isUserInfo = isUserInfo;
-
-                this.updateMode = 'User Info'
-                this.isUserInfoTab = true;
-                this.isRecoveryQuestionsTab = false;
-
-                this.updateUserInfoRows();
-            }
-        );
+        this.updateUserInfoRows();
     }
 
     //**************************************************************************
@@ -101,10 +90,10 @@ export class UserInfoComponent
         jQuery('.recovery-tab').removeClass('active');
         jQuery('#' + updateMode).parent().addClass('active');
 
-        this.isUserInfoTab = updateMode == 'user-info';
+        this.isUserInfoTab = updateMode == 'personal-data';
         this.isRecoveryQuestionsTab = updateMode == 'questions';
 
-        this.updateMode = updateMode == 'user-info' ? 'User Info' :
+        this.updateMode = updateMode == 'personal-data' ? 'Personal Data' :
                 'Recovery Questions';
 
         return false;
@@ -144,12 +133,12 @@ export class UserInfoComponent
                         localStorage.setItem('userInfo', JSON.stringify(response));
 
                         this.updateUserInfoRows();
-
                         this._globalEventsManager.updateUserWelcome();
-
                         this._globalEventsManager.messageBox({
-                            text: 'User Info was updated!'
+                            text: 'User Info updated successfully'
                         });
+
+                        this._globalEventsManager.authPopup('');
                     },
                     err => {
                         this._authServices.showSigningError(err,
@@ -178,9 +167,12 @@ export class UserInfoComponent
                 this._authServices.updateRecoveryQuestions(results)
                     .subscribe(
                         response => {
+
                             this._globalEventsManager.messageBox({
                                 text: 'Password recovery questions were updated!'
                             });
+
+                            this._globalEventsManager.authPopup('');
                         },
                         err => {
                             this._authServices.showSigningError(err,
@@ -193,15 +185,6 @@ export class UserInfoComponent
                     );
             }
         }
-
-        return false;
-    }
-
-    //**************************************************************************
-
-    public onClose()
-    {
-        this._globalEventsManager.userInfo(false);
 
         return false;
     }

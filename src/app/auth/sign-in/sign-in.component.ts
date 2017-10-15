@@ -26,8 +26,6 @@ export class SignInComponent
 {
     @ViewChild(CredentialsRowComponent) credentialRows: CredentialsRowComponent;
 
-    public isSignIn: boolean = false;
-
     public rows: any = [
         {
             caption: 'User Name',
@@ -55,17 +53,6 @@ export class SignInComponent
 
     //**************************************************************************
 
-    public ngOnInit()
-    {
-        this._globalEventsManager.signInEmitter
-            .subscribe((isSignIn) => {
-                this.isSignIn = isSignIn;
-            }
-        );
-    }
-
-    //**************************************************************************
-
     public onSignIn()
     {
         jQuery('#sign-in-footer').html('');
@@ -85,11 +72,11 @@ export class SignInComponent
             .subscribe(
                 response => {
 
+                    localStorage.removeItem('password-recovery-token');
                     localStorage.setItem('userInfo', JSON.stringify(response));
 
                     this._globalEventsManager.signedIn(true);
 
-                    this._globalEventsManager.signIn(false);
                     this._globalEventsManager.updateUserWelcome();
 
                     let app = this._sharedService.get('app');
@@ -110,19 +97,9 @@ export class SignInComponent
 
     //**************************************************************************
 
-    public onClose()
-    {
-        this._globalEventsManager.signIn(false);
-
-        return false;
-    }
-
-    //**************************************************************************
-
     public onForgotCredentials()
     {
-        this._globalEventsManager.signIn(false);
-        this._globalEventsManager.passwordRecovery(true);
+        this._globalEventsManager.authPopup('Password Recovery');
 
         return false;
     }

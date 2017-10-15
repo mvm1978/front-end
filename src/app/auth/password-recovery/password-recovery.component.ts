@@ -26,11 +26,11 @@ export class PasswordRecoveryComponent
 
     public isPasswordRecovery: boolean = false;
 
-    public submitCaption: string;
-    public recoverByEmail: boolean;
-    public recoverByQuestion: boolean;
-    private recoveryQuestionID: number;
-    private username: string;
+    public submitCaption: string = 'Password Recovery';
+    public recoverByEmail: boolean = true;
+    public recoverByQuestion: boolean = false;
+    private recoveryQuestionID: number = 0;
+    private username: string = '';
 
     public byEmailRows: any = [
         {
@@ -90,24 +90,6 @@ export class PasswordRecoveryComponent
 
     //**************************************************************************
 
-    public ngOnInit()
-    {
-        this._globalEventsManager.passwordRecoveryEmitter
-            .subscribe((isPasswordRecovery) => {
-
-                this.isPasswordRecovery = isPasswordRecovery;
-
-                this.submitCaption = 'Password Recovery';
-                this.recoverByEmail = true;
-                this.recoverByQuestion = false;
-                this.recoveryQuestionID = 0;
-                this.username = '';
-            }
-        );
-    }
-
-    //**************************************************************************
-
     public onSubmit()
     {
         jQuery('#password-recovery-footer').html('');
@@ -133,12 +115,11 @@ export class PasswordRecoveryComponent
                 .subscribe(
                     response => {
 
-                        this._globalEventsManager.passwordRecovery(false);
-                        this._globalEventsManager.signIn(true);
+                        this._globalEventsManager.authPopup('Sign In');
 
                         this._globalEventsManager.messageBox({
                             text: 'A recovery link was sent to the provided email address. ' +
-                                  'Check your email box and follow the instructions'
+                                  'Check your email box and follow the instructions.'
                         });
                     },
                     err => {
@@ -198,8 +179,12 @@ export class PasswordRecoveryComponent
                 this._authServices.verifyRecoveryQuestion(params)
                     .subscribe(
                         response => {
-                            this._globalEventsManager.passwordRecovery(false);
-                            this._globalEventsManager.signIn(true);
+
+                            this._globalEventsManager.messageBox({
+                                text: response.message + '. Please sign in.'
+                            });
+
+                            this._globalEventsManager.authPopup('Sign In');
                         },
                         err => {
                             this._authServices.showSigningError(err,
@@ -236,15 +221,6 @@ export class PasswordRecoveryComponent
 
         this.submitCaption = recoveryMode == 'by-email' ? 'Recovery Password' :
                 'Get Question';
-
-        return false;
-    }
-
-    //**************************************************************************
-
-    public onClose()
-    {
-        this._globalEventsManager.passwordRecovery(false);
 
         return false;
     }

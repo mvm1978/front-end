@@ -1,33 +1,25 @@
-<div *ngIf="isSignUp" id="sign-content-section">
-    <div class="sign">
-        <a href="#" id="close-signing-form" (click)="onClose()">
-            <span class="glyphicon glyphicon-remove"></span>
-        </a>
-        <h3>Sign Up</h3>
-        <div [hidden]="isRecoveryQuestions" class="sign-wrap">
-            <credentials-row
-                [rows]="rows">
+<div [hidden]="isRecoveryQuestions" class="sign-wrap">
+    <credentials-row
+        [rows]="rows">
 
-            </credentials-row>
-        </div>
-
-        <div [hidden]="! isRecoveryQuestions" class="sign-wrap">
-            <div>
-                <recovery-questions>
-                </recovery-questions>
-            </div>
-
-            <a href="#" class="btn btn-primary btn-sm btn-block"
-               (click)="backToSignUp()">
-                Back
-            </a>
-        </div>
-
-        <a href="#" class="btn btn-primary btn-sm btn-block"
-           (click)="onSignUp()">
-            Sign Up
-        </a>
-
-        <small id="sign-footer" class="text-danger"></small>
-    </div>
+    </credentials-row>
 </div>
+
+<div [hidden]="! isRecoveryQuestions" class="sign-wrap">
+    <div>
+        <recovery-questions>
+        </recovery-questions>
+    </div>
+
+    <a href="#" class="btn btn-primary btn-sm btn-block"
+       (click)="backToSignUp()">
+        Back
+    </a>
+</div>
+
+<a href="#" class="btn btn-primary btn-sm btn-block"
+   (click)="onSignUp()">
+    Sign Up
+</a>
+
+<small id="sign-footer" class="text-danger"></small>

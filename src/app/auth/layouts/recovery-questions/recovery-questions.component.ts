@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 
-import {GlobalEventsManager} from '../../../common/modules/global-events-manager';
 import {Constants} from '../../../common/core/constants';
 import {AuthServices} from '../../../auth/auth.services';
 
@@ -27,7 +26,6 @@ export class RecoveryQuestionsComponent
     //**************************************************************************
 
     constructor (
-        private _globalEventsManager: GlobalEventsManager,
         private _authServices: AuthServices
     )
     {
@@ -44,7 +42,8 @@ export class RecoveryQuestionsComponent
                     this.isDataAvailable = true;
                 },
                 err => {
-                    this._authServices.showSigningError(err, 'Error getting recovery question');
+                    this._authServices.showSigningError(err,
+                            'Error getting recovery question');
                 },
                 () => {}
             );
@@ -56,15 +55,6 @@ export class RecoveryQuestionsComponent
     {
         jQuery('#' + id + '-group').removeClass('has-error');
         jQuery('#' + id + '-footer').html('');
-    }
-
-    //**************************************************************************
-
-    public onClose()
-    {
-        this._globalEventsManager.signUp(false);
-
-        return false;
     }
 
     //**************************************************************************

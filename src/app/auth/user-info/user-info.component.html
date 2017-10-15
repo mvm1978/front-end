@@ -1,37 +1,28 @@
-<div *ngIf="isUserInfo" id="sign-content-section">
-    <div class="sign">
-        <a href="#" id="close-signing-form" (click)="onClose()">
-            <span class="glyphicon glyphicon-remove"></span>
+<ul class="nav nav-tabs">
+  <li class="active recovery-tab">
+        <a data-toggle="tab" href="#personal-data" (click)="onTabClick('personal-data')">
+            Personal Data
         </a>
-        <h3>Update</h3>
-
-        <ul class="nav nav-tabs">
-          <li class="active recovery-tab">
-                <a data-toggle="tab" href="#user-info" (click)="onTabClick('user-info')">
-                    User Info
-                </a>
-          </li>
-          <li class="recovery-tab">
-                <a data-toggle="tab" href="#questions" (click)="onTabClick('questions')">
-                    Recovery Questions
-                </a>
-          </li>
-        </ul>
-        <div *ngIf="isUserInfoTab" id="user-info" class="sign-wrap tab-pane">
-            <credentials-row
-                [rows]="rows">
-
-            </credentials-row>
-        </div>
-        <div *ngIf="isRecoveryQuestionsTab" id="questions" class="sign-wrap tab-pane">
-            <recovery-questions></recovery-questions>
-        </div>
-
-        <a href="#" class="btn btn-primary btn-sm btn-block"
-           (click)="onSubmit()">
-            Update {{updateMode}}
+  </li>
+  <li class="recovery-tab">
+        <a data-toggle="tab" href="#questions" (click)="onTabClick('questions')">
+            Recovery Questions
         </a>
+  </li>
+</ul>
+<div *ngIf="isUserInfoTab" id="personal-data" class="sign-wrap tab-pane">
+    <credentials-row
+        [rows]="rows">
 
-        <small id="sign-footer" class="text-danger"></small>
-    </div>
+    </credentials-row>
 </div>
+<div *ngIf="isRecoveryQuestionsTab" id="questions" class="sign-wrap tab-pane">
+    <recovery-questions></recovery-questions>
+</div>
+
+<a href="#" class="btn btn-primary btn-sm btn-block"
+   (click)="onSubmit()">
+    Update {{updateMode}}
+</a>
+
+<small id="sign-footer" class="text-danger"></small>

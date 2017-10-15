@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 a:hover, a:visited {
     text-decoration: none !important;
 }
@@ -57,4 +61,13 @@ a:hover, a:visited {
 
 .mandatory-astrisk {
     color: red;
+}
+
+.popup-section-delimiter {
+    margin: 2px 0px;
+    border: 1px solid #CCC;
+}
+
+.btn {
+    box-shadow: 4px 4px 8px #888888;
 }

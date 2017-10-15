@@ -13,6 +13,7 @@ import {Constants} from '../common/core/constants';
 
 export class AuthComponent
 {
+    public authPopup: string = '';
     public isSignOut: boolean = false;
 
     //**************************************************************************
@@ -27,6 +28,12 @@ export class AuthComponent
 
     public ngOnInit()
     {
+        this._globalEventsManager.authPopupEmitter
+            .subscribe((authPopup) => {
+                this.authPopup = authPopup;
+            }
+        );
+
         this._globalEventsManager.signOutEmitter
             .subscribe((isSignOut) => {
                 this.isSignOut = isSignOut;
@@ -36,4 +43,13 @@ export class AuthComponent
 
     //**************************************************************************
 
+    public onClose()
+    {
+        // hide signing popups
+        this.authPopup = '';
+
+        return false;
+    }
+
+    //**************************************************************************
 }

@@ -9,14 +9,10 @@
             <li><a href="#">Page 2</a></li>
         </ul>
         <ul *ngIf="! isSignedIn" class="nav navbar-nav navbar-right">
-            <li>
-                <a href="#" (click)="onSignUp()">
-                    <span class="glyphicon glyphicon-user"></span> Sign Up
-                </a>
-            </li>
-            <li>
-                <a href="#" (click)="onSignIn()">
-                    <span class="glyphicon glyphicon-log-in"></span> Sign In
+            <li *ngFor="let item of signMenu['signedOut']">
+                <a href="#" (click)="onClick(item.caption)">
+                    <span class="glyphicon glyphicon-{{item.glyphicon}}"></span>
+                    {{item.caption}}
                 </a>
             </li>
         </ul>
@@ -24,19 +20,10 @@
             <li>
                 <div class="navbar-text">Hello, {{userWelcomeName}}</div>
             </li>
-            <li>
-                <a href="#" (click)="onPasswordReset()">
-                    <span class="glyphicon glyphicon-lock"></span> Password Reset
-                </a>
-            </li>
-            <li>
-                <a href="#" (click)="onUserInfoUpdate()">
-                    <span class="glyphicon glyphicon-user"></span> Update User Info
-                </a>
-            </li>
-            <li>
-                <a href="#" (click)="onSignOut()">
-                    <span class="glyphicon glyphicon-log-out"></span> Sign Out
+            <li *ngFor="let item of signMenu['signedIn']">
+                <a href="#" (click)="onClick(item.caption)">
+                    <span class="glyphicon glyphicon-{{item.glyphicon}}"></span>
+                    {{item.caption}}
                 </a>
             </li>
         </ul>

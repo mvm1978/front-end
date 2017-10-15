@@ -41,7 +41,8 @@ export class WelcomeComponent
                     localStorage.setItem('password-recovery-token',
                             response['password-recovery-token']);
                     // redirect to password reset page
-                    this._globalEventsManager.passwordReset(true);
+                    this._globalEventsManager.authPopup('Password Reset');
+                    this._globalEventsManager.signOut();
                 }
             });
     }

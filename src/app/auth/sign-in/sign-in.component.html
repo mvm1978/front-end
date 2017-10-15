@@ -1,24 +1,17 @@
-<div *ngIf="isSignIn" id="sign-content-section">
-    <div class="sign">
-        <a href="#" id="close-signing-form" (click)="onClose()">
-            <span class="glyphicon glyphicon-remove"></span>
-        </a>
-        <h3>Sign In</h3>
-        <div class="sign-wrap">
-            <credentials-row
-                [rows]="rows">
+<div class="sign-wrap">
+    <credentials-row
+        [rows]="rows">
 
-            </credentials-row>
-        </div>
-
-        <a href="#" class="btn btn-primary btn-sm btn-block"
-                (click)="onSignIn()">
-            Sign in
-        </a>
-        <small id="sign-footer" class="text-danger"></small>
-        <br>
-        <a href="#" id="forgot-credentials-link" (click)="onForgotCredentials()">
-            Forgot Password/Username?
-        </a>
-    </div>
+    </credentials-row>
 </div>
+
+<a href="#" class="btn btn-primary btn-sm btn-block"
+        (click)="onSignIn()">
+    Sign in
+</a>
+
+<small id="sign-footer" class="text-danger"></small>
+<br>
+<a href="#" id="forgot-credentials-link" (click)="onForgotCredentials()">
+    Forgot Password/Username?
+</a>

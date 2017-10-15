@@ -20,6 +20,32 @@ export class HeaderComponent
     public isHeader: boolean = false;
     public isSignedIn: boolean = false;
     public userWelcomeName: string = '';
+    public signMenu: any = {
+        signedOut: [
+            {
+                caption: 'Sign Up',
+                glyphicon: 'user'
+            },
+            {
+                caption: 'Sign In',
+                glyphicon: 'log-in'
+            }
+        ],
+        signedIn: [
+            {
+                caption: 'Password Reset',
+                glyphicon: 'lock'
+            },
+            {
+                caption: 'User Info',
+                glyphicon: 'user'
+            },
+            {
+                caption: 'Sign Out',
+                glyphicon: 'log-out'
+            }
+        ]
+    };
 
     //**************************************************************************
 
@@ -55,57 +81,16 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    public onSignUp()
+    public onClick(caption: string)
     {
-        this.hideAllWindows();
+        if (caption == 'Sign Out') {
 
-        this._globalEventsManager.signUp(true);
-    }
+            this._globalEventsManager.signOut();
 
-    //**************************************************************************
-
-    public onSignIn()
-    {
-        this.hideAllWindows();
-
-        this._globalEventsManager.signIn(true);
-    }
-
-    //**************************************************************************
-
-    public onPasswordReset()
-    {
-        this.hideAllWindows();
-
-        this._globalEventsManager.passwordReset(true);
-    }
-
-    //**************************************************************************
-
-    public onUserInfoUpdate()
-    {
-        this.hideAllWindows();
-
-        this._globalEventsManager.userInfo(true);
-    }
-
-    //**************************************************************************
-
-    private hideAllWindows()
-    {
-        this._globalEventsManager.signUp(false);
-        this._globalEventsManager.signIn(false);
-        this._globalEventsManager.passwordReset(false);
-        this._globalEventsManager.userInfo(false);
-    }
-
-    //**************************************************************************
-
-    public onSignOut()
-    {
-        this._authServices.signOut();
-
-        this.isSignedIn = false;
+            this.isSignedIn = false;
+        } else {
+            this._globalEventsManager.authPopup(caption);
+        }
     }
 
     //**************************************************************************

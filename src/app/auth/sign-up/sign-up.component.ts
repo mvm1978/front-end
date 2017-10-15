@@ -29,7 +29,6 @@ export class SignUpComponent
     @ViewChild(RecoveryQuestionsComponent) recoveryQuestions: RecoveryQuestionsComponent;
 
     public isRecoveryQuestions: boolean = false;
-    public isSignUp: boolean = false;
 
     public rows: any = [
         {
@@ -79,17 +78,6 @@ export class SignUpComponent
         private _authServices: AuthServices
     )
     {
-    }
-
-    //**************************************************************************
-
-    public ngOnInit()
-    {
-        this._globalEventsManager.signUpEmitter
-            .subscribe((isSignUp) => {
-                this.isSignUp = isSignUp;
-            }
-        );
     }
 
     //**************************************************************************
@@ -144,8 +132,7 @@ export class SignUpComponent
         this._authServices.signUp(data)
             .subscribe(
                 response => {
-                    this._globalEventsManager.signUp(false);
-                    this._globalEventsManager.signIn(true);
+                    this._globalEventsManager.authPopup('Sign In');
                 },
                 err => {
                     let message = this._authServices.showSigningError(err,
@@ -167,15 +154,6 @@ export class SignUpComponent
                     this._globalEventsManager.showLoadingOverload(false);
                 }
             );
-
-        return false;
-    }
-
-    //**************************************************************************
-
-    public onClose()
-    {
-        this._globalEventsManager.signUp(false);
 
         return false;
     }

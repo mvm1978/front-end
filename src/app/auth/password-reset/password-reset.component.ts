@@ -24,8 +24,6 @@ export class PasswordResetComponent
 {
     @ViewChild(CredentialsRowComponent) credentialRows: CredentialsRowComponent;
 
-    public isPasswordReset: boolean = false;
-
     public rows: any = [
         {
             caption: 'Old Password',
@@ -68,17 +66,6 @@ export class PasswordResetComponent
 
     //**************************************************************************
 
-    public ngOnInit()
-    {
-        this._globalEventsManager.passwordResetEmitter
-            .subscribe((isPasswordReset) => {
-                this.isPasswordReset = isPasswordReset;
-            }
-        );
-    }
-
-    //**************************************************************************
-
     public onPasswordChange()
     {
         jQuery('#password-reset-footer').html('');
@@ -102,9 +89,12 @@ export class PasswordResetComponent
         this._authServices.passwordReset(params)
             .subscribe(
                 response => {
-                    this._globalEventsManager.passwordReset(false);
-                    this._globalEventsManager.signIn(true);
 
+                    this._globalEventsManager.messageBox({
+                        text: response.message + '. Please sign in.'
+                    });
+
+                    this._globalEventsManager.authPopup('Sign In');
                     this._globalEventsManager.showLoadingOverload(false);
                 },
                 err => {
@@ -113,15 +103,6 @@ export class PasswordResetComponent
                 },
                 () => {}
             );
-
-        return false;
-    }
-
-    //**************************************************************************
-
-    public onClose()
-    {
-        this._globalEventsManager.passwordReset(false);
 
         return false;
     }
