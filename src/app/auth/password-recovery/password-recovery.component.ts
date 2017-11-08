@@ -172,13 +172,12 @@ export class PasswordRecoveryComponent
                 }
 
                 let params = {
-                    username: this.username,
                     questionID: this.recoveryQuestionID,
                     answer: answer,
                     password: jQuery('#new-password').val()
                 };
 
-                this._authServices.verifyRecoveryQuestion(params)
+                this._authServices.verifyRecoveryQuestion(this.username, params)
                     .subscribe(
                         response => {
 

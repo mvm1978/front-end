@@ -61,7 +61,7 @@ export class AuthServices
 
     public signUp(body: any)
     {
-        let url = this._api + '/users/register';
+        let url = this._api + '/users';
 
         return this._http.post(url, body).map(res => res.json());
     }
@@ -70,7 +70,7 @@ export class AuthServices
 
     public updateUserInfo(body: any)
     {
-        let url = this._api + '/users/update',
+        let url = this._api + '/users',
             header = this.getAuthHeader();
 
         return this._http.put(url, body, header).map(res => res.json());
@@ -80,7 +80,7 @@ export class AuthServices
 
     public updateRecoveryQuestions(body: any)
     {
-        let url = this._api + '/user-questions/update',
+        let url = this._api + '/user-questions',
             header = this.getAuthHeader();
 
         return this._http.put(url, body, header).map(res => res.json());
@@ -104,7 +104,7 @@ export class AuthServices
 
     public passwordReset(body: any)
     {
-        let url = this._api + '/users/password-reset';
+        let url = this._api + '/users/password';
 
         if (localStorage.hasOwnProperty('password-recovery-token')) {
             body['recoveryToken'] = localStorage.getItem('password-recovery-token');
@@ -121,20 +121,20 @@ export class AuthServices
     {
         let platform: any = this._platformLocation;
 
-        let url = this._api + '/users/password-recovery-by-email',
+        let url = this._api + '/users/password',
             body = {
                 email: email,
                 url: platform['location']['href']
             };
 
-        return this._http.post(url, body).map(res => res.json());
+        return this._http.patch(url, body).map(res => res.json());
     }
 
     //**************************************************************************
 
     public getRecoveryQuestions()
     {
-        let url = this._api + '/questions/get';
+        let url = this._api + '/questions';
 
         return this._http.get(url).map(res => res.json());
     }
@@ -143,18 +143,18 @@ export class AuthServices
 
     public getRecoveryQuestion(username: string)
     {
-        let url = this._api + '/user-questions/get/' + username;
+        let url = this._api + '/user-questions/' + username;
 
         return this._http.get(url).map(res => res.json());
     }
 
     //**************************************************************************
 
-    public verifyRecoveryQuestion(body: any)
+    public verifyRecoveryQuestion(username: string, body: any)
     {
-        let url = this._api + '/user-questions/verify';
+        let url = this._api + '/user-questions/' + username;
 
-        return this._http.post(url, body).map(res => res.json());
+        return this._http.patch(url, body).map(res => res.json());
     }
 
     //**************************************************************************
@@ -236,7 +236,7 @@ export class AuthServices
 
     public checkToken(): void
     {
-        let url = this._api + '/users/check-token',
+        let url = this._api + '/users/token',
             header = this.getAuthHeader();
 
         this._http.get(url, header)
