@@ -4,6 +4,8 @@ import {Injectable} from '@angular/core';
 
 export class ApiRoot
 {
+    public library = 'http://127.0.0.1:8000';
+
     public api = 'http://127.0.0.1:8000/api';
     public authApi = 'http://127.0.0.1:8080/api';
 

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {Constants} from '../../../common/core/constants';
+import {SharedServices} from '../../../common/services/shared.services';
 import {AuthServices} from '../../../auth/auth.services';
 
 declare var jQuery: any;
@@ -26,6 +27,7 @@ export class RecoveryQuestionsComponent
     //**************************************************************************
 
     constructor (
+        private _sharedServices: SharedServices,
         private _authServices: AuthServices
     )
     {
@@ -42,7 +44,7 @@ export class RecoveryQuestionsComponent
                     this.isDataAvailable = true;
                 },
                 err => {
-                    this._authServices.showSigningError(err,
+                    this._authServices.showError(err,
                             'Error getting recovery question');
                 },
                 () => {}
@@ -53,8 +55,7 @@ export class RecoveryQuestionsComponent
 
     public onChange(id: string)
     {
-        jQuery('#' + id + '-group').removeClass('has-error');
-        jQuery('#' + id + '-footer').html('');
+        this._sharedServices.clearRowErrors(id);
     }
 
     //**************************************************************************

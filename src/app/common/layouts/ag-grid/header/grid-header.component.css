@@ -1,0 +1,9 @@
+.custom-header-menu-button {
+    margin-top: 5px;
+    float: left;
+}
+
+.custom-header-label, .custom-icon {
+    float: left;
+    margin: 4px;
+}

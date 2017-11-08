@@ -1,0 +1,25 @@
+<nav *ngIf="lastPage != 1">
+    <ul class="pagination">
+        <li *ngIf="currentPage > 1">
+            <a href="#" (click)="goPage('first')">1</a>
+        </li>
+        <li *ngIf="currentPage > 3">
+            <a href="#" (click)="goPage('left')">...</a>
+        </li>
+        <li *ngIf="currentPage > 2">
+            <a href="#" (click)="goPage('prev')">{{currentPage - 1}}</a>
+        </li>
+        <li class="active">
+            <a href="#" (click)="goPage()">{{currentPage}}</a>
+        </li>
+        <li *ngIf="lastPage > currentPage">
+            <a href="#" (click)="goPage('next')">{{currentPage + 1}}</a>
+        </li>
+        <li *ngIf="lastPage - currentPage > 2">
+            <a href="#" (click)="goPage('right')">...</a>
+        </li>
+        <li *ngIf="lastPage - currentPage > 1">
+            <a href="#" (click)="goPage('last')">{{lastPage}}</a>
+        </li>
+    </ul>
+</nav>

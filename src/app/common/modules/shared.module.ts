@@ -1,20 +1,27 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {CopyRightComponent} from '../layouts/copy-right/copy-right.component';
+import {RichGridModule} from '../layouts/ag-grid/ag-grid.module';
+
 import {PageNotFoundComponent} from '../layouts/page-not-found/page-not-found.component';
+import {InlineInputRowInputGroupComponent} from '../layouts/row-input-group/inline-input/inline-input-row-input-group.component';
+import {InlineBrowseRowInputGroupComponent} from '../layouts/row-input-group/inline-browse/inline-browse-row-input-group.component';
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        RichGridModule,
     ],
     declarations: [
-        CopyRightComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        InlineInputRowInputGroupComponent,
+        InlineBrowseRowInputGroupComponent
     ],
     exports: [
-        CopyRightComponent,
-        PageNotFoundComponent
+        RichGridModule,
+        PageNotFoundComponent,
+        InlineInputRowInputGroupComponent,
+        InlineBrowseRowInputGroupComponent
     ]
 })
 

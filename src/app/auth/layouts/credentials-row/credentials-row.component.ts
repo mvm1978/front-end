@@ -3,9 +3,10 @@ import {Component, Input} from '@angular/core';
 import {Constants} from '../../../common/core/constants';
 
 import {GlobalEventsManager} from '../../../common/modules/global-events-manager';
+import {SharedServices} from '../../../common/services/shared.services';
+import {AuthServices} from '../../../auth/auth.services';
 
 import {CredentialsRowServices} from './credentials-row.services';
-import {AuthServices} from '../../../auth/auth.services';
 
 declare var jQuery: any;
 
@@ -29,6 +30,7 @@ export class CredentialsRowComponent
     constructor (
         private _сredentialsRowServices: CredentialsRowServices,
         private _globalEventsManager: GlobalEventsManager,
+        private _sharedServices: SharedServices,
         private _authServices: AuthServices
     )
     {
@@ -39,8 +41,7 @@ export class CredentialsRowComponent
 
     public onKeyPress(id: string)
     {
-        jQuery('#' + id + '-group').removeClass('has-error');
-        jQuery('#' + id + '-footer').html('');
+        this._sharedServices.clearRowErrors(id);
     }
 
     //**************************************************************************
@@ -49,8 +50,7 @@ export class CredentialsRowComponent
     {
         let results: any = {};
 
-        jQuery('.row-wrapper').removeClass('has-error');
-        jQuery('.row-footer').html('');
+        this._sharedServices.clearRowErrors();
 
         results = this._сredentialsRowServices.validate(this.rows);
 

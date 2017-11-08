@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 
 import {GlobalEventsManager} from '../../../common/modules/global-events-manager';
 
+import {SharedServices} from '../../../common/services/shared.services';
 import {AuthServices} from '../../../auth/auth.services';
 
 @Component({
@@ -19,7 +20,7 @@ export class HeaderComponent
 {
     public isHeader: boolean = false;
     public isSignedIn: boolean = false;
-    public userWelcomeName: string = '';
+    public userHomeName: string = '';
     public signMenu: any = {
         signedOut: [
             {
@@ -51,6 +52,7 @@ export class HeaderComponent
 
     constructor (
         private _globalEventsManager: GlobalEventsManager,
+        private _sharedServices: SharedServices,
         private _authServices: AuthServices
     )
     {
@@ -72,9 +74,9 @@ export class HeaderComponent
             }
         );
 
-        this._globalEventsManager.updateUserWelcomeEmitter
+        this._globalEventsManager.updateUserHomeEmitter
             .subscribe(() => {
-                this.updateUserWelcome();
+                this.updateUserHome();
             }
         );
     }
@@ -95,13 +97,20 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    private updateUserWelcome()
+    private updateUserHome()
     {
         this.isSignedIn = this._authServices.getUserInfoValue('token') != undefined;
 
         if (this.isSignedIn) {
-            this.userWelcomeName = this._authServices.getUserInfoValue('fullName');
+            this.userHomeName = this._authServices.getUserInfoValue('fullName');
         }
+    }
+
+    //**************************************************************************
+
+    public onResumeDownload()
+    {
+        this._sharedServices.fileDownload('Resume.doc', 'test.doc');
     }
 
     //**************************************************************************

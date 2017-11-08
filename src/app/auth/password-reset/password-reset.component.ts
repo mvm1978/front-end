@@ -98,7 +98,7 @@ export class PasswordResetComponent
                     this._globalEventsManager.showLoadingOverload(false);
                 },
                 err => {
-                    this._authServices.showSigningError(err, 'Error resetting password');
+                    this._authServices.showError(err, 'Error resetting password');
                     this._globalEventsManager.showLoadingOverload(false);
                 },
                 () => {}

@@ -133,7 +133,7 @@ export class UserInfoComponent
                         localStorage.setItem('userInfo', JSON.stringify(response));
 
                         this.updateUserInfoRows();
-                        this._globalEventsManager.updateUserWelcome();
+                        this._globalEventsManager.updateUserHome();
                         this._globalEventsManager.messageBox({
                             text: 'User Info updated successfully'
                         });
@@ -141,7 +141,7 @@ export class UserInfoComponent
                         this._globalEventsManager.authPopup('');
                     },
                     err => {
-                        this._authServices.showSigningError(err,
+                        this._authServices.showError(err,
                                 'Error updating user info');
                         this._globalEventsManager.showLoadingOverload(false);
                     },
@@ -175,7 +175,7 @@ export class UserInfoComponent
                             this._globalEventsManager.authPopup('');
                         },
                         err => {
-                            this._authServices.showSigningError(err,
+                            this._authServices.showError(err,
                                     'Error updating password recovery questions');
                             this._globalEventsManager.showLoadingOverload(false);
                         },

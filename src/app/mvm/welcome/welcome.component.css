@@ -1,8 +1,0 @@
-#welcome-content-section {
-	padding-bottom: 30px;
-	min-height: calc(100vh - 100px);
-	width: 100%;
-	text-align: center;
-    overflow-y: auto;
-	overflow-x: hidden;
-}

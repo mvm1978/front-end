@@ -1,16 +1,17 @@
 import {RouterModule, Routes} from '@angular/router';
 
 import {PageNotFoundComponent} from './common/layouts/page-not-found/page-not-found.component';
+import {HomeComponent} from './home/home.component';
 
 const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: '/mvm/welcome',
+        redirectTo: '/home',
         pathMatch: 'full'
     },
     {
-        path: 'mvm',
-        redirectTo: '/mvm/welcome',
+        path: 'home',
+        component: HomeComponent,
         pathMatch: 'full'
     },
     {

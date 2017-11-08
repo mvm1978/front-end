@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
-import {SharedService} from '../../common/modules/shared.service';
+import {SharedServices} from '../../common/services/shared.services';
 import {Constants} from '../../common/core/constants';
 import {AuthServices} from '../../auth/auth.services';
 
@@ -45,7 +45,7 @@ export class SignInComponent
 
     constructor (
         private _globalEventsManager: GlobalEventsManager,
-        private _sharedService: SharedService,
+        private _sharedServices: SharedServices,
         private _authServices: AuthServices
     )
     {
@@ -77,14 +77,14 @@ export class SignInComponent
 
                     this._globalEventsManager.signedIn(true);
 
-                    this._globalEventsManager.updateUserWelcome();
+                    this._globalEventsManager.updateUserHome();
 
-                    let app = this._sharedService.get('app');
+                    let app = this._sharedServices.get('app');
 
                     window.open('/#/' + app, '_self');
                 },
                 err => {
-                    this._authServices.showSigningError(err, 'Error signing to the account');
+                    this._authServices.showError(err, 'Error signing to the account');
                     this._globalEventsManager.showLoadingOverload(false);
                 },
                 () => {

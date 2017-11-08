@@ -1,0 +1,35 @@
+<div class="popup-wrapper">
+    <div class="popup-content container">
+
+        <a href="#" class="close-popup" (click)="onClose()">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <h3>"{{_agGridServices.get('filterColumn')}}" Column Filter</h3>
+        <hr class="popup-section-delimiter">
+
+        <div *ngFor="let row of rows; let index = index" class="row-wrapper">
+            <div id="{{row.id}}-group">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        {{row.caption}}
+                    </span>
+                    <input class="form-control" id="{{row.id}}">
+                </div>
+
+                <select *ngIf="index < rows.length - 1"
+                        id="{{row.id}}-operator" class="form-control filter-operator">
+                    <option selected>OR</option>
+                    <option>AND</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row-wrapper">
+            <button type="button" id="grid-filter-submit" class="btn btn-info btn-block"
+                    (click)="onSubmit()">
+                Submit
+            </button>
+            <small id="filter-footer" class="row-footer text-danger"></small>
+        </div>
+    </div>
+</div>

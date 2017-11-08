@@ -16,12 +16,12 @@
     height: auto;
 }
 
-#header-mvm-logo-container {
+#header-library-logo-container {
 	position: absolute;
 	left: 7%;
 }
 
-#header-mvm-logo-text {
+#header-library-logo-text {
     margin-top: 10px;
     font-weight: 500;
 	font-size: 16px;

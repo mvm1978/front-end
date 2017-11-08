@@ -1,0 +1,15 @@
+<div id="{{data.gridID}}" class="ag-grid">
+    <grid class="ag-fresh"
+        [data]="data">
+
+    </grid>
+
+    <grid-filter *ngIf="filterField"
+        [gridID]="data.gridID"></grid-filter>
+
+    <grid-navigation></grid-navigation>
+
+    <div *ngIf="isLoadingOverlay" id="loading-overlay">
+        <img class="loading-overlay-gif" src="../images/loading-overlay.gif" alt="">
+    </div>
+</div>

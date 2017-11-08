@@ -1,0 +1,28 @@
+<div id="quiz">
+    <div>
+        <div *ngFor="let quizType of quizTypes" class="quiz-type">
+            <h3 class="caption">{{quizType}}</h3>
+
+            <div *ngFor="let item of quizAuthors" class="authors">
+               <div *ngIf="item.type == quizType">
+                    <strong>{{item.author}}</strong>
+                    <div *ngFor="let genre of item.genres">
+                        <input type="checkbox" id="{{item.author_id}}-{{genre.id}}"
+                               class="quiz-genres"
+                               attr.data-author="{{item.author_id}}" attr.data-genre="{{genre.id}}"
+                               (click)="onSelect($event.target.id)">
+                        <label class="genre" id="{{item.author_id}}-{{genre.id}}-label"
+                               for="{{item.author_id}}-{{genre.id}}">
+                            {{genre.genre}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear-float-left">
+    </div>
+    <button type="button" id="submit" class="btn btn-info" (click)="onSubmit()">
+        Submit
+    </button>
+</div>

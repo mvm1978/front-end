@@ -1,0 +1,10 @@
+<div id="{{data.id}}-group">
+    <div class="input-group">
+        <span class="input-group-addon">
+            {{data.caption}} <span *ngIf="data.hasOwnProperty('mandatory') && data.mandatory" class="mandatory-astrisk">*</span>
+        </span>
+        <input class="form-control" id="{{data.id}}" placeholder="{{data.hasOwnProperty('placeHolder') ? data.placeHolder : ''}}"
+               (keypress)="onKeyPress()">
+    </div>
+    <small id="{{data.id}}-footer" class="row-footer text-danger"></small>
+</div>

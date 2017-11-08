@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {BaseServices} from '../../../common/services/base.services';
 import {ValidateInputServices} from '../../../common/services/validate-input.services';
+import {SharedServices} from '../../../common/services/shared.services';
 import {AuthServices} from '../../auth.services';
 
 declare var jQuery: any;
@@ -12,6 +13,7 @@ export class CredentialsRowServices extends BaseServices
 {
     constructor (
         private _validateInputServices: ValidateInputServices,
+        private _sharedServices: SharedServices,
         private _authServices: AuthServices
     )
     {
@@ -27,8 +29,7 @@ export class CredentialsRowServices extends BaseServices
             data: {}
         };
 
-        jQuery('.row-wrapper').removeClass('has-error');
-        jQuery('.row-footer').html('');
+        this._sharedServices.clearRowErrors();
 
         for (let rowCount=0; rowCount<stru.length; rowCount++) {
 
@@ -51,7 +52,7 @@ export class CredentialsRowServices extends BaseServices
 
             if (message) {
 
-                this._authServices.showRowError(id, message);
+                this._sharedServices.showRowError(id, message);
 
                 results.isValid = false;
             }

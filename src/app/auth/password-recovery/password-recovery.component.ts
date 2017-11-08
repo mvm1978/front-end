@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
+import {SharedServices} from '../../common/services/shared.services';
 import {Constants} from '../../common/core/constants';
 import {AuthServices} from '../../auth/auth.services';
 
@@ -83,6 +84,7 @@ export class PasswordRecoveryComponent
 
     constructor (
         private _globalEventsManager: GlobalEventsManager,
+        private _sharedServices: SharedServices,
         private _authServices: AuthServices
     )
     {
@@ -123,7 +125,7 @@ export class PasswordRecoveryComponent
                         });
                     },
                     err => {
-                        this._authServices.showSigningError(err,
+                        this._authServices.showError(err,
                                 'Error recoveryting password');
                         this._globalEventsManager.showLoadingOverload(false);
                     },
@@ -147,7 +149,7 @@ export class PasswordRecoveryComponent
                             this.submitCaption = 'Reset Password';
                         },
                         err => {
-                            this._authServices.showSigningError(err,
+                            this._authServices.showError(err,
                                     'No recovery questions found for the username');
                             this._globalEventsManager.showLoadingOverload(false);
                         },
@@ -161,7 +163,7 @@ export class PasswordRecoveryComponent
 
                 if (! answer) {
 
-                    this._authServices.showRowError('recovery-answer-footer',
+                    this._sharedServices.showRowError('recovery-answer-footer',
                             'Answer the question');
 
                     this._globalEventsManager.showLoadingOverload(false);
@@ -187,7 +189,7 @@ export class PasswordRecoveryComponent
                             this._globalEventsManager.authPopup('Sign In');
                         },
                         err => {
-                            this._authServices.showSigningError(err,
+                            this._authServices.showError(err,
                                     'Invalid answer for the recovery question');
                             this._globalEventsManager.showLoadingOverload(false);
                         },
@@ -205,8 +207,7 @@ export class PasswordRecoveryComponent
 
     public onKeyPress(id: string)
     {
-        jQuery('#' + id + '-group').removeClass('has-error');
-        jQuery('#' + id + '-footer').html('');
+        this._sharedServices.clearRowErrors(id);
     }
 
     //**************************************************************************

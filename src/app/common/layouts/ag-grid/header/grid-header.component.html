@@ -1,0 +1,40 @@
+<div>
+<!--    <div class="custom-header-menu-button"
+         [hidden]="! params.enableMenu"
+         (click)="onMenuClick()">
+        <i class="glyphicon glyphicon-menu-hamburger"></i>
+    </div>-->
+    <div class="custom-header-label">{{params.displayName}}</div>
+    <div *ngIf="columnInfo.hasOwnProperty('enableSorting') && columnInfo.enableSorting"
+         class="{{'custom-icon'}}"
+         [hidden]="this.sorted == 'desc'"
+         (click)="onSortRequested('desc')">
+        <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+    </div>
+    <div *ngIf="columnInfo.hasOwnProperty('enableSorting') && columnInfo.enableSorting"
+         class="{{'custom-icon'}}"
+         [hidden]="this.sorted == 'asc'"
+         (click)="onSortRequested('asc')">
+        <i class="glyphicon glyphicon-sort-by-attributes"></i>
+    </div>
+    <div *ngIf="columnInfo.hasOwnProperty('enableSorting') && columnInfo.enableSorting"
+         class="{{'custom-icon'}}"
+         [hidden]="! this.sorted"
+         (click)="onSortRequested('')">
+        <i class="glyphicon glyphicon-sort"></i>
+    </div>
+    <div *ngIf="columnInfo.hasOwnProperty('enableFilterfing') && columnInfo.enableFilterfing
+             && ! _agGridServices.get('output')['filter'].hasOwnProperty(field)"
+         class="custom-icon"
+         [hidden]="params.enableFilter"
+         (click)="onFilterRequested()">
+        <i class="glyphicon glyphicon-filter"></i>
+    </div>
+    <div *ngIf="columnInfo.hasOwnProperty('enableFilterfing') && columnInfo.enableFilterfing
+            && _agGridServices.get('output')['filter'].hasOwnProperty(field)"
+         class="custom-icon"
+         [hidden]="params.removeFilter"
+         (click)="onFilterRemove()">
+        <i class="glyphicon glyphicon-remove"></i>
+    </div>
+</div>

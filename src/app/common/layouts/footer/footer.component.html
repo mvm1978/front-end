@@ -1,5 +1,13 @@
 <div *ngIf="isFooter" id="footer">
-	<font face="verdana" size="1">
-        <copy-right></copy-right>
-	</font>
+    <ul>
+        <li *ngFor="let skills of skillList">
+            <a *ngFor="let skill of skills.skills" href="{{skill.link}}"
+               data-toggle="tooltip" data-placement="top" title="{{skill['tool-tip']}}"
+               target="_blank">
+                <img src="/images/logos/{{skill.logo}}.png" alt="{{skill.logo}}"
+                     class="logo {{skill.hasOwnProperty('class') ? skill.class : 'square-logo'}}">
+                <img>
+            </a>
+        </li>
+    </ul>
 </div>

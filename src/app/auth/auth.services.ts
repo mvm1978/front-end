@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {ApiRoot} from '../common/api-root';
-import {GlobalEventsManager} from '../common/modules/global-events-manager';
+import {SharedServices} from '../common/services/shared.services';
 
 declare var jQuery: any;
 
@@ -15,13 +15,12 @@ declare var jQuery: any;
 export class AuthServices
 {
     private _api = this._apiRoot.authApi + '/auth';
-    private _http = this._httpModule;
 
     constructor(
-        private _globalEventsManager: GlobalEventsManager,
         private _platformLocation: PlatformLocation,
         private _apiRoot: ApiRoot,
-        private _httpModule: Http
+        private _http: Http,
+        private _sharedServices: SharedServices
     )
     {
 
@@ -55,7 +54,7 @@ export class AuthServices
 
         return new RequestOptions({
             headers: authHeader
-        });;
+        });
     }
 
     //**************************************************************************
@@ -85,7 +84,6 @@ export class AuthServices
             header = this.getAuthHeader();
 
         return this._http.put(url, body, header).map(res => res.json());
-
     }
 
     //**************************************************************************
@@ -188,13 +186,12 @@ export class AuthServices
 
     public showRowError(id: string, message: string)
     {
-        jQuery('#' + id + '-footer').html(message);
-        jQuery('#' + id + '-group').addClass('has-error');
+        this._sharedServices.showRowError(id, message);
     }
 
     //**************************************************************************
 
-    public checkRecoveryQuestions()
+    public checkRecoveryQuestions(): {questions: any, duplicate: any, noAnswer: any}
     {
         let results: any = {
             questions: {},
@@ -237,94 +234,105 @@ export class AuthServices
 
     //**************************************************************************
 
-    public showSigningError(err: any, defaultMessage: string)
+    public checkToken(): void
     {
-        let forseSignIn = false,
-            message = '',
-            response: any = {};
+        let url = this._api + '/users/check-token',
+            header = this.getAuthHeader();
 
-        try {
-            response = JSON.parse(err._body);
-        } catch (err) {
-            message = defaultMessage;
-        } finally {
-            if (response.hasOwnProperty('message')) {
-                switch (response['message']) {
-                    case 'password_expired':
-                        message = 'Password expired';
-                        break;
-                    case 'invalid_login_or_password':
-                        message = 'Invalid User ID or Password';
-                        break;
-                    case 'invalid_token':
-                        forseSignIn = true;
-                        message = 'Invalid token';
-                        break;
-                    case 'invalid_or_expired_token':
-                        forseSignIn = true;
-                        message = 'Invalid or expired token';
-                        break;
-                    case 'failed_to_create_token':
-                        message = 'Failed to create a token';
-                        break;
-                    case 'missing_password_recovery_token':
-                        message = 'Missing password recovery token';
-                        break;
-                    case 'password_recovery_token_expired':
-                        forseSignIn = true;
-                        message = 'Password recovery token expired';
-                        break;
-                    case 'error_updating_user_info':
-                        message = 'Error updating user info';
-                        break;
-                    case 'error_updating_recovery_questions':
-                        message = 'Error updating recovery questions';
-                        break;
-                    case 'error_recovering_password':
-                        message = 'Error recovering password';
-                        break;
-                    case 'failed_to_get_user':
-                        message = 'Failed to get user';
-                        break;
-                    case 'missing_username':
-                        this.showRowError('username', 'User Name is mandatory');
-                        break;
-                    case 'username_exists':
-                        this.showRowError('username', 'Username exists');
-                        break;
-                    case 'email_exists':
-                        this.showRowError('email', 'Email exists');
-                        break;
-                    case 'email_does_not_exist':
-                        this.showRowError('email', 'Email does not exist');
-                        break;
-                    case 'missing_password':
-                        this.showRowError('password', 'Password is mandatory');
-                        break;
-                    case 'invalid_old_password':
-                        this.showRowError('old-password', 'Old password is invalid');
-                        break;
-                    default:
-                        message = defaultMessage;
-                        break;
-                }
-            }
+        this._http.get(url, header)
+            .map(res => res.json())
+            .subscribe(
+                response => {},
+                err => {
+                    this.showError(err, 'Unknown Error');
+                },
+                () => {}
+            );
+    }
+
+    //**************************************************************************
+
+    public showError(err: any, defaultMessage: string): string
+    {
+        return this._sharedServices.handleInputErrors({
+            err: err,
+            defaultMessage: defaultMessage,
+            service: this,
+            footer: 'sign'
+        });
+    }
+
+    //**************************************************************************
+
+    public getErrorInfo(response, defaultMessage): {message: string, forseSignIn: boolean}
+    {
+        let message: string = '',
+            forseSignIn: boolean = false;
+
+        switch (response['message']) {
+            case 'password_expired':
+                message = 'Password expired';
+                break;
+            case 'invalid_login_or_password':
+                message = 'Invalid User ID or Password';
+                break;
+            case 'invalid_token':
+                forseSignIn = true;
+                message = 'Invalid token. You was signed out';
+                break;
+            case 'invalid_or_expired_token':
+                forseSignIn = true;
+                message = 'Invalid or expired token. You was signed out';
+                break;
+            case 'failed_to_create_token':
+                message = 'Failed to create a token';
+                break;
+            case 'missing_password_recovery_token':
+                message = 'Missing password recovery token';
+                break;
+            case 'password_recovery_token_expired':
+                forseSignIn = true;
+                message = 'Password recovery token expired';
+                break;
+            case 'error_updating_user_info':
+                message = 'Error updating user info';
+                break;
+            case 'error_updating_recovery_questions':
+                message = 'Error updating recovery questions';
+                break;
+            case 'error_recovering_password':
+                message = 'Error recovering password';
+                break;
+            case 'failed_to_get_user':
+                message = 'Failed to get user';
+                break;
+            case 'missing_username':
+                this.showRowError('username', 'User Name is mandatory');
+                break;
+            case 'username_exists':
+                this.showRowError('username', 'Username exists');
+                break;
+            case 'email_exists':
+                this.showRowError('email', 'Email exists');
+                break;
+            case 'email_does_not_exist':
+                this.showRowError('email', 'Email does not exist');
+                break;
+            case 'missing_password':
+                this.showRowError('password', 'Password is mandatory');
+                break;
+            case 'invalid_old_password':
+                this.showRowError('old-password', 'Old password is invalid');
+                break;
+            default:
+                message = defaultMessage;
+                break;
         }
 
-        if (forseSignIn) {
-
-            this._globalEventsManager.messageBox({
-                text: message + '. Please sign in.'
-            });
-
-            this._globalEventsManager.forceSignIn();
-        } else {
-            if (jQuery('#sign-footer').length) {
-                jQuery('#sign-footer').html(message);
-            }
+        return {
+            message: message,
+            forseSignIn: forseSignIn
         }
-
-        return message;
     }
 
     //**************************************************************************

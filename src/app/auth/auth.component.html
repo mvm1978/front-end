@@ -1,7 +1,7 @@
-<div *ngIf="authPopup" id="sign-content-section">
-    <div id="sign-content">
+<div *ngIf="authPopup" class="popup-wrapper">
+    <div class="popup-content container">
 
-        <a href="#" id="close-signing-form" (click)="onClose()">
+        <a href="#" class="close-popup" (click)="onClose()">
             <span class="glyphicon glyphicon-remove"></span>
         </a>
         <h3>{{authPopup}}</h3>

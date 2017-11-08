@@ -1,0 +1,28 @@
+.quiz-type {
+    float: left;
+    padding: 10px;
+}
+
+.caption {
+    text-align: center;
+}
+
+#quiz {
+	padding-bottom: 30px;
+	min-height: calc(100vh - 100px);
+	width: 100%;
+    overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.genre {
+    color: #078
+}
+
+.selected-genre {
+    color: #2980b9;
+}
+
+#submit {
+    margin-left: 10px;
+}

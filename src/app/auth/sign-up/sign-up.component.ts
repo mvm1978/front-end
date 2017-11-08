@@ -135,7 +135,7 @@ export class SignUpComponent
                     this._globalEventsManager.authPopup('Sign In');
                 },
                 err => {
-                    let message = this._authServices.showSigningError(err,
+                    let message = this._authServices.showError(err,
                             'Error signing up');
 
                     let firstPageErrors = [

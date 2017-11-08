@@ -1,0 +1,74 @@
+.ag-fresh {
+    width: 100%;
+}
+
+.ag-root {
+    width: auto;
+    height: auto;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.ag-body {
+    width: auto;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.ag-header-row {
+    border-bottom: 2px solid #000;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 1em;
+    color: #000;
+    background: LightGrey; /* Old browsers */
+    background: -moz-linear-gradient(White, LightGrey); /* FF3.6-15 */
+    background: -webkit-linear-gradient(White, LightGrey); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(White, LightGrey); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.ag-header-cell {
+    border-top: 1px solid #000;
+}
+
+.ag-header-cell:not(:first-child) {
+    border-left: 1px solid #ddd;
+}
+
+.ag-header-cell, .ag-cell:first-child {
+    border-left: 1px solid #ddd;
+}
+
+.ag-header-cell:last-child, .ag-cell:last-child {
+    border-right: 1px solid #ddd;
+}
+
+.ag-row:nth-child(even) {
+    background-color: #eee;
+}
+
+.ag-row:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.ag-row:hover {
+    background-color: #d9edf7;
+}
+
+.ag-cell {
+    padding: 0px 3px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.ag-cell:not(:first-child) {
+    border-left: 1px solid #ddd;
+}
+
+.alert {
+    margin: 2px 0px;
+    padding: 2px 5px;
+    display: none;
+}
