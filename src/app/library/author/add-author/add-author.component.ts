@@ -1,14 +1,18 @@
-import {Component} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
+import {ModalPopupComponent} from '../../../common/layouts/modal-popup/modal-popup.component';
 import {GlobalEventsManager} from '../../../common/modules/global-events-manager';
 import {LibraryConstants} from '../../library.constants';
 import {AuthServices} from '../../../auth/auth.services';
-import {AuthorsServices} from '../../services/author.services';
+import {AuthorsServices} from '../../author/author.services';
 
 declare var jQuery: any;
 
 @Component({
     selector: 'add-author',
+    host: {
+        '(document:click)': 'handleClick($event)',
+    },
     providers: [
         AuthServices,
         AuthorsServices
@@ -19,8 +23,11 @@ declare var jQuery: any;
     ],
 })
 
-export class AddAuthorComponent
+export class AddAuthorComponent extends ModalPopupComponent
 {
+    @Input() addAuthorStatus: boolean;
+    @Output() addAuthorStatusChange = new EventEmitter<boolean>();
+
     public rows: any = [
         {
             id: 'author-name',
@@ -56,6 +63,15 @@ export class AddAuthorComponent
     public ngOnInit()
     {
         this._authorsServices.checkToken();
+    }
+
+    //**************************************************************************
+
+    public onClose()
+    {
+        this.addAuthorStatusChange.emit(false);
+
+        return false;
     }
 
     //**************************************************************************

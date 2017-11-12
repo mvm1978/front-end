@@ -31,6 +31,13 @@ export class Constants
 
     //**************************************************************************
 
+    public static get MODAL_POPUP_PATH(): string {
+
+        return this.LAYOUTS_PATH + 'modal-popup/';
+    }
+
+    //**************************************************************************
+
     public static get AUTH_LAYOUTS_PATH(): string {
 
         return 'app/auth/layouts/';

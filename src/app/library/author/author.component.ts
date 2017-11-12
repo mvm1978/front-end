@@ -5,7 +5,7 @@ import {LibraryConstants} from '../library.constants';
 import {SharedServices} from '../../common/services/shared.services';
 import {ApiRoot} from '../../common/api-root';
 import {AuthServices} from '../../auth/auth.services';
-import {AuthorsServices} from '../services/author.services';
+import {AuthorsServices} from '../author/author.services';
 
 declare var jQuery: any;
 
@@ -23,26 +23,7 @@ declare var jQuery: any;
 
 export class AuthorComponent
 {
-    public rows: any = [
-        {
-            id: 'author-name',
-            caption: 'Author',
-            placeholder: 'Author Name',
-            mandatory: true
-        },
-        {
-            id: 'description',
-            caption: 'Description',
-            placeholder: 'Description'
-        },
-        {
-            id: 'upload',
-            spanID: 'browse',
-            inputID: 'picture-selected',
-            placeHolder: 'Upload image ...',
-            browse: true
-        }
-    ];
+    public showAddAuthor:boolean = false;
 
     public gridInfo: any = {
         gridID: 'authors-table',
@@ -118,6 +99,13 @@ export class AuthorComponent
         this._globalEventsManager.showFooter(true);
 
         this._authorsServices.checkToken();
+    }
+
+    //**************************************************************************
+
+    public onAddAuthor()
+    {
+        this.showAddAuthor = true;
     }
 
     //**************************************************************************
