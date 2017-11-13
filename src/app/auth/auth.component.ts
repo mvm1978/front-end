@@ -1,18 +1,24 @@
 import {Component} from '@angular/core';
 
+import {ModalPopupComponent} from '../common/layouts/modal-popup/modal-popup.component';
 import {GlobalEventsManager} from '../common/modules/global-events-manager';
 import {Constants} from '../common/core/constants';
 
 @Component({
     selector: 'auth',
+    host: {
+        '(document:click)': 'handleClick($event)',
+    },
     templateUrl: Constants.AUTH_PATH + 'auth.component.html',
     styleUrls: [
         Constants.AUTH_PATH + 'auth.component.css'
     ],
 })
 
-export class AuthComponent
+export class AuthComponent extends ModalPopupComponent
 {
+    protected selector: string = 'auth';
+
     public authPopup: string = '';
     public isSignOut: boolean = false;
 
@@ -22,6 +28,7 @@ export class AuthComponent
         private _globalEventsManager: GlobalEventsManager,
     )
     {
+        super();
     }
 
     //**************************************************************************

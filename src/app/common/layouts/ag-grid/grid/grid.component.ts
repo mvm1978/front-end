@@ -23,10 +23,12 @@ export class GridComponent
 {
     @Input() data: any;
 
+    private initSubscription: any = null;
+
     public isLoadingOverlay: boolean = false;
     private gridOptions: GridOptions;
-    public showGrid: boolean;
     public rowData: any[];
+    public columnDefs: any[];
     public gridID: string;
     public rowCount: string;
 
@@ -42,19 +44,25 @@ export class GridComponent
         private _agGridServices: AgGridServices
     )
     {
-
         // we pass an empty gridOptions in, so we can grab the api out
-        this.gridOptions = <GridOptions>{};
+        this.gridOptions = <GridOptions> {};
 
-        this.showGrid = true;
         this.gridOptions.defaultColDef = {
             headerComponentFramework : <{new():GridHeaderComponent}>GridHeaderComponent
         }
     }
 
+    //**************************************************************************
+
     private ngOnInit()
     {
-        this._agGridServices.reloadEmitter
+        this._agGridServices.set('output', {
+            page: 1,
+            sort: {},
+            filter: {}
+        });
+
+        this.initSubscription = this._agGridServices.reloadEmitter
             .subscribe(() => {
                 this.reload();
             }
@@ -81,32 +89,51 @@ export class GridComponent
         }
     }
 
+    //**************************************************************************
+
+    private onGridReady()
+    {
+        console.log('onGridReady');
+    }
+
+    //**************************************************************************
+
+    private ngOnDestroy()
+    {
+        this.initSubscription.unsubscribe();
+    }
+
+    //**************************************************************************
+
     private reload()
     {
-console.log(this.pagination);
-        this._agGridServices.getTableData(this.pagination.path)
-            .subscribe(
-                response => {
+        if (this.pagination.hasOwnProperty('path') && this.pagination.path) {
+            this._agGridServices.getTableData(this.pagination.path)
+                .subscribe(
+                    response => {
 
-                    this.rowData = response.data;
-console.log(response.data);
-                    delete response.data;
+                        this.rowData = response.data;
 
-                    this.pagination = response;
+                        delete response.data;
 
-                    this._agGridServices.setGridNavigation({
-                        currentPage: response.current_page,
-                        lastPage: response.last_page
-                    });
-                },
-                err => {
-                    this.isLoadingOverlay = false;
-                },
-                () => {
-                    this.isLoadingOverlay = false;
-                }
-            );
+                        this.pagination = response;
+
+                        this._agGridServices.setGridNavigation({
+                            currentPage: response.current_page,
+                            lastPage: response.last_page
+                        });
+                    },
+                    err => {
+                        this.isLoadingOverlay = false;
+                    },
+                    () => {
+                        this.isLoadingOverlay = false;
+                    }
+                );
+        }
     }
+
+    //**************************************************************************
 
     private onModelUpdated()
     {
@@ -117,13 +144,13 @@ console.log(response.data);
         jQuery('ag-grid-angular', $gridContainer).height(height + 25);
     }
 
-    private onReady() {
-        console.log('onReady');
-    }
+    //**************************************************************************
 
     private onCellClicked($event) {
         console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
     }
+
+    //**************************************************************************
 
     private onCellValueChanged($event: any)
     {
@@ -144,11 +171,6 @@ console.log(response.data);
                     let message = '"' + colDef.headerName + '" was updated';
 
                     this.footerMessage(message, 'success');
-
-console.log($event);
-console.log(this.rowData);
-console.log(this.rowData[$event.rowIndex]);
-
                 },
                 err => {
                     let message = 'Error updaing "' + colDef.headerName + '"';
@@ -162,47 +184,69 @@ console.log(this.rowData[$event.rowIndex]);
         }
     }
 
+    //**************************************************************************
+
     private onCellDoubleClicked($event)
     {
     console.log('onCellDoubleClicked:');
     }
 
+    //**************************************************************************
+
     private onCellContextMenu($event) {
         console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
     }
 
+    //**************************************************************************
+
     private onCellFocused($event) {
         console.log('onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
     }
+
+    //**************************************************************************
 
     private onRowSelected($event) {
         // taking out, as when we 'select all', it prints to much to the console!!
         // console.log('onRowSelected: ' + $event.node.data.name);
     }
 
+    //**************************************************************************
+
     private onSelectionChanged() {
         console.log('selectionChanged');
     }
+
+    //**************************************************************************
 
     private onBeforeFilterChanged() {
         console.log('beforeFilterChanged');
     }
 
+    //**************************************************************************
+
     private onAfterFilterChanged() {
         console.log('afterFilterChanged');
     }
+
+    //**************************************************************************
 
     private onFilterModified() {
         console.log('onFilterModified');
     }
 
+    //**************************************************************************
+
     private onBeforeSortChanged() {
         console.log('onBeforeSortChanged');
     }
 
+    //**************************************************************************
+
     private onAfterSortChanged() {
         console.log('onAfterSortChanged');
     }
+
+    //**************************************************************************
 
     private onVirtualRowRemoved($event) {
         // because this event gets fired LOTS of times, we don't print it to the
@@ -210,18 +254,25 @@ console.log(this.rowData[$event.rowIndex]);
         // console.log('onVirtualRowRemoved: ' + $event.rowIndex);
     }
 
+    //**************************************************************************
+
     private onRowClicked($event) {
         console.log('onRowClicked: ' + $event.node.data.name);
     }
+
+    //**************************************************************************
 
     public onQuickFilterChanged($event) {
         this.gridOptions.api.setQuickFilter($event.target.value);
     }
 
+    //**************************************************************************
+
     // here we use one generic event to handle all the column type events.
     // the method just prints the event name
     private onColumnEvent($event) {
-        console.log('onColumnEvent: ' + $event);
+        console.log('onColumnEvent: ');
+        console.log($event);
     }
 
     //**************************************************************************

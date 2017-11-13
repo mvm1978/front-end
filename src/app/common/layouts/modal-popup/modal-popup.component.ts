@@ -1,19 +1,15 @@
 import {Component} from '@angular/core';
 
-import {Constants} from '../../../common/core/constants';
-
 declare var jQuery: any;
 
 @Component({
     selector: 'modal-popup',
-    template: Constants.MODAL_POPUP_PATH + 'modal-popup.component.html',
-    styleUrls: [
-        Constants.MODAL_POPUP_PATH + 'modal-popup.component.css'
-    ]
+    template: ``
 })
 
 export class ModalPopupComponent
 {
+    protected selector: string;
     private isReady: boolean;
 
     constructor ()
@@ -22,7 +18,7 @@ export class ModalPopupComponent
 
     //**************************************************************************
 
-    private handleClick($event)
+    public handleClick($event: any)
     {
         if (! this.isReady) {
 
@@ -31,7 +27,11 @@ export class ModalPopupComponent
             return false;
         }
 
-        let $content = jQuery('add-author .popup-content');
+        let $content = jQuery(this.selector + ' .popup-content');
+
+        if (! $content.length) {
+            return false;
+        }
 
         let offset = $content.offset(),
             x = $event.x,
@@ -44,6 +44,9 @@ export class ModalPopupComponent
             maxY = minY + $content.outerHeight();
 
         if (x < minX || x > maxX || y < minY || y > maxY) {
+
+            this.isReady = false;
+
             this.onClose(); // require this method in child component
         }
     }

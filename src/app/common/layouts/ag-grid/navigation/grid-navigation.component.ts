@@ -19,6 +19,8 @@ export class GridNavigationComponent
     public currentPage: number = 1;
     public lastPage: number = 1;
 
+    private setNavigationSubscription: any = null;
+
     constructor(
         private _agGridServices: AgGridServices
     )
@@ -30,11 +32,18 @@ export class GridNavigationComponent
 
     private ngOnInit(): void
     {
-        this._agGridServices.setNavigationEmitter
+        this.setNavigationSubscription = this._agGridServices.setNavigationEmitter
             .subscribe((data: any) => {
                 this.setGridNavigation(data);
             }
         );
+    }
+
+    //**************************************************************************
+
+    private ngOnDestroy()
+    {
+        this.setNavigationSubscription.unsubscribe();
     }
 
     //**************************************************************************

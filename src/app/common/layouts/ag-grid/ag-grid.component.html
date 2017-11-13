@@ -1,7 +1,9 @@
 <div id="{{data.gridID}}" class="ag-grid">
+
+    <h3 class="ag-grid-title">{{data.title}}</h3>
+
     <grid class="ag-fresh"
         [data]="data">
-
     </grid>
 
     <grid-filter *ngIf="filterField"

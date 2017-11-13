@@ -29,7 +29,8 @@ a:hover, a:visited {
   right: 0;
   bottom: 0;
   background: #fff;
-  opacity: 0.5;  z-index: 99999;
+  opacity: 0.5;
+  z-index: 99999;
 }
 
 .loading-overlay-gif {
@@ -131,4 +132,9 @@ a:hover, a:visited {
 
 .row-wrapper {
     margin: 5px 0px;
+}
+
+header {
+    position: relative;
+    z-index: 1;
 }

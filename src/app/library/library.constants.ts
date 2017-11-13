@@ -14,6 +14,12 @@ export class LibraryConstants
 
     //**************************************************************************
 
+    public static get GENRE_PATH(): string {
+        return Constants.LIBRARY_PATH + 'genre/';
+    }
+
+    //**************************************************************************
+
     public static get AUTHOR_PATH(): string {
         return Constants.LIBRARY_PATH + 'author/';
     }

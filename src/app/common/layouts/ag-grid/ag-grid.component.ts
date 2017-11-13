@@ -15,7 +15,10 @@ import {Constants} from '../../core/constants';
 export class AgGridComponent
 {
     @Input() data: any;
+
     public filterField: string;
+
+    private showFilterSubscription: any = null;
 
     constructor(
         private _agGridServices: AgGridServices
@@ -28,12 +31,19 @@ export class AgGridComponent
     private ngOnInit()
     {
         this._agGridServices.set('gridID', this.data.gridID);
-        this._agGridServices.showFilterEmitter
+        this.showFilterSubscription = this._agGridServices.showFilterEmitter
             .subscribe((data: any) => {
                 this._agGridServices.set('filterColumn', data.caption);
                 this.filterField = data.field;
             }
         );
+    }
+
+    //**************************************************************************
+
+    private ngOnDestroy()
+    {
+        this.showFilterSubscription.unsubscribe();
     }
 
     //**************************************************************************

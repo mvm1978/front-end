@@ -28,6 +28,8 @@ export class AddAuthorComponent extends ModalPopupComponent
     @Input() addAuthorStatus: boolean;
     @Output() addAuthorStatusChange = new EventEmitter<boolean>();
 
+    protected selector: string = 'add-author';
+
     public rows: any = [
         {
             id: 'author-name',
@@ -56,6 +58,7 @@ export class AddAuthorComponent extends ModalPopupComponent
         private _authorsServices: AuthorsServices
     )
     {
+        super();
     }
 
     //**************************************************************************

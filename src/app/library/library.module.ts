@@ -5,6 +5,9 @@ import {LibraryRouting} from './library.routes';
 import {SharedModule} from '../common/modules/shared.module';
 import {GlobalEventsManager} from '../common/modules/global-events-manager';
 
+import {GenreComponent} from '../library/genre/genre.component';
+import {AddGenreComponent} from '../library/genre/add-genre/add-genre.component';
+
 import {AuthorComponent} from '../library/author/author.component';
 import {AddAuthorComponent} from '../library/author/add-author/add-author.component';
 
@@ -27,11 +30,15 @@ import {AuthServices} from '../auth/auth.services';
         AuthServices
     ],
     declarations: [
+        GenreComponent,
+        AddGenreComponent,
         AuthorComponent,
         AddAuthorComponent,
         BookUploadComponent
     ],
     exports: [
+        GenreComponent,
+        AddGenreComponent,
         AuthorComponent,
         AddAuthorComponent,
         BookUploadComponent

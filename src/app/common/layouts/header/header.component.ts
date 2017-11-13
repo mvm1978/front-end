@@ -5,6 +5,8 @@ import {GlobalEventsManager} from '../../../common/modules/global-events-manager
 import {SharedServices} from '../../../common/services/shared.services';
 import {AuthServices} from '../../../auth/auth.services';
 
+declare var jQuery: any;
+
 @Component({
     selector: 'header',
     providers: [
@@ -48,6 +50,10 @@ export class HeaderComponent
         ]
     };
 
+    private showHeaderSubscription: any = null;
+    private signedInSubscription: any = null;
+    private updateUserHomeSubscription: any = null;
+
     //**************************************************************************
 
     constructor (
@@ -62,23 +68,50 @@ export class HeaderComponent
 
     public ngOnInit()
     {
-        this._globalEventsManager.showHeaderEmitter
+        this.showHeaderSubscription = this._globalEventsManager.showHeaderEmitter
             .subscribe((isHeader) => {
                 this.isHeader = isHeader;
             }
         );
 
-        this._globalEventsManager.signedInEmitter
+        this.signedInSubscription = this._globalEventsManager.signedInEmitter
             .subscribe((isSignedIn) => {
                 this.isSignedIn = isSignedIn;
             }
         );
 
-        this._globalEventsManager.updateUserHomeEmitter
+        this.updateUserHomeSubscription = this._globalEventsManager.updateUserHomeEmitter
             .subscribe(() => {
                 this.updateUserHome();
             }
         );
+    }
+
+    //**************************************************************************
+
+    private ngOnDestroy()
+    {
+        this.showHeaderSubscription.unsubscribe();
+        this.signedInSubscription.unsubscribe();
+        this.updateUserHomeSubscription.unsubscribe();
+    }
+
+    //**************************************************************************
+
+    public mouseEnter(target: any)
+    {
+        let id = target.attributes.id.nodeValue;
+
+        jQuery('#' + id + ' .dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+    }
+
+    //**************************************************************************
+
+    public mouseLeave(target: any)
+    {
+        let id = target.attributes.id.nodeValue;
+
+        jQuery('#' + id + ' .dropdown-menu').stop(true, true).delay(200).fadeOut(500);
     }
 
     //**************************************************************************
