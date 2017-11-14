@@ -23,10 +23,10 @@ export class GridComponent
 {
     @Input() data: any;
 
-    private initSubscription: any = null;
+    public gridLoadingOverlay: boolean = false;
 
-    public isLoadingOverlay: boolean = false;
-    private gridOptions: GridOptions;
+    public message: string;
+
     public rowData: any[];
     public columnDefs: any[];
     public gridID: string;
@@ -37,7 +37,9 @@ export class GridComponent
         last_page: 1
     };
 
-    public message: string;
+
+    private initSubscription: any = null;
+    private gridOptions: GridOptions;
 
     constructor(
         private _globalEventsManager: GlobalEventsManager,
@@ -107,6 +109,8 @@ export class GridComponent
 
     private reload()
     {
+        this.gridLoadingOverlay = true;
+
         if (this.pagination.hasOwnProperty('path') && this.pagination.path) {
             this._agGridServices.getTableData(this.pagination.path)
                 .subscribe(
@@ -124,10 +128,10 @@ export class GridComponent
                         });
                     },
                     err => {
-                        this.isLoadingOverlay = false;
+                        this.gridLoadingOverlay = false;
                     },
                     () => {
-                        this.isLoadingOverlay = false;
+                        this.gridLoadingOverlay = false;
                     }
                 );
         }
