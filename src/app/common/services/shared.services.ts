@@ -125,21 +125,22 @@ export class SharedServices extends BaseServices
         let params = '';
 
         Object.keys(data).forEach(function(key) {
-//console.log(data[key]);
-            params += params ? '&' : '';
 
             let value = '';
 
             if (typeof data[key] === 'object' && data[key] !== null) {
+                if (jQuery.isEmptyObject(data[key])) {
+                    return;
+                }
 
                 let stringified = JSON.stringify(data[key])
 
                 value = encodeURI(stringified);
-
             } else {
                 value = data[key];
             }
 
+            params += params ? '&' : '';
             params += key + '=' + value;
         });
 

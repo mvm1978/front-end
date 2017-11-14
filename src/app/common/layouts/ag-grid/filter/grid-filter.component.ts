@@ -95,6 +95,8 @@ export class GridFilterComponent
         } else {
             this._agGridServices.outputUpdate({filter: filterField}, params);
         }
+        // go to 1-st page if a filter was applied
+        this._agGridServices.outputUpdate('page', 1);
 
         this._agGridServices.reloadTable();
 

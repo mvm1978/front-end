@@ -41,7 +41,7 @@ export class AgGridServices extends BaseServices
 
     //**************************************************************************
 
-    public getTableData(url:string)
+    public getTableData(url: string)
     {
         let data = this.get('output');
 
