@@ -11,7 +11,8 @@ import {AddGenreComponent} from '../library/genre/add-genre/add-genre.component'
 import {AuthorComponent} from '../library/author/author.component';
 import {AddAuthorComponent} from '../library/author/add-author/add-author.component';
 
-import {BookUploadComponent} from '../library/book-upload/book-upload.component';
+import {BookComponent} from '../library/book/book.component';
+import {AddBookComponent} from '../library/book/add-book/add-book.component';
 
 import {RowInputGroupServices} from '../common/layouts/row-input-group/row-input-group.services';
 import {ApiServices} from './api.services';
@@ -34,14 +35,16 @@ import {AuthServices} from '../auth/auth.services';
         AddGenreComponent,
         AuthorComponent,
         AddAuthorComponent,
-        BookUploadComponent
+        BookComponent,
+        AddBookComponent
     ],
     exports: [
         GenreComponent,
         AddGenreComponent,
         AuthorComponent,
         AddAuthorComponent,
-        BookUploadComponent
+        BookComponent,
+        AddBookComponent
     ]
 })
 

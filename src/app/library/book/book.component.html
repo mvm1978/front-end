@@ -1,0 +1,11 @@
+<div class="table-div" id="{{gridInfo.gridID}}">
+    <div id="book-grid">
+        <ag-grid
+            [data]="gridInfo">
+        </ag-grid>
+
+        <button class="btn btn-success" (click)="onAddBook()">Add Book</button>
+    </div>
+    <add-book *ngIf="showAddBook" [(addBookStatus)]="showAddBook"></add-book>
+</div>
+

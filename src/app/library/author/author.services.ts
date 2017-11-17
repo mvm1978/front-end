@@ -28,6 +28,15 @@ export class AuthorsServices
 
     //**************************************************************************
 
+    public getDropdown()
+    {
+        let header = this._apiServices.getAuthHeader();
+
+        return this._http.get(this.api + '/dropdown', header).map(res => res.json());
+    }
+
+    //**************************************************************************
+
     public patch(id: number, payload: any)
     {
         let url = this.api + '/' + id,

@@ -74,16 +74,18 @@ export class GridComponent
 
         this.reload();
 
-        let that: any = this;
+        let data: any = this.data;
 
-        Object.keys(this.data).forEach(function(key) {
-            that[key] = that.data[key];
-        });
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                this[key] = data[key];
+            }
+        }
 
-        if (this.data.hasOwnProperty('customFunctions')
-         && this.data.customFunctions.hasOwnProperty('rowHeight')) {
+        if (data.hasOwnProperty('customFunctions')
+         && data.customFunctions.hasOwnProperty('rowHeight')) {
 
-            let customRowHeight = this.data.customFunctions.rowHeight;
+            let customRowHeight = data.customFunctions.rowHeight;
 
             this.gridOptions.getRowHeight = function(params: any) {
                 return customRowHeight(params.data);
@@ -167,6 +169,15 @@ export class GridComponent
             field: $event.colDef.field,
             value: $event.newValue
         };
+
+        if (colDef.hasOwnProperty('cellEditor')
+         && colDef.cellEditor == 'select') {
+            // the cell being edited has a dropdown
+            let editorParams = colDef.cellEditorParams;
+            // substituting with data derived from the dropdown
+            payload.field = editorParams.foreignKey;
+            payload.value = editorParams.dbValues[$event.newValue];
+        }
 
         this.data.service.patch(this.rowData[$event.rowIndex].id, payload)
             .subscribe(

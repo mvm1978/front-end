@@ -69,7 +69,7 @@ export class AuthorComponent
                 headerName: 'Picture',
                 field: 'picture',
                 width: 60,
-                cellRenderer: authorPictureCellRenderer,
+                cellRenderer: this.pictureCellRenderer,
                 rootUrl: this._apiRoot.library,
                 pinned: true
             }
@@ -107,16 +107,13 @@ export class AuthorComponent
 
     //**************************************************************************
 
-}
+    private pictureCellRenderer(data: any)
+    {
+        let url = data.colDef.rootUrl;
 
-//******************************************************************************
-
-function authorPictureCellRenderer(data: any)
-{
-    let url = data.colDef.rootUrl;
-
-    return ! data.value ? '' :
-        '<img class="table-picture" src="' + url + '/storage/' + data.value + '">';
+        return ! data.value ? '' :
+            '<img class="table-picture" src="' + url + '/storage/' + data.value + '">';
+    }
 }
 
 //******************************************************************************

@@ -8,8 +8,8 @@ export class LibraryConstants
 
     //**************************************************************************
 
-    public static get BOOK_UPLOAD_PATH(): string {
-        return Constants.LIBRARY_PATH + 'book-upload/';
+    public static get BOOK_PATH(): string {
+        return Constants.LIBRARY_PATH + 'book/';
     }
 
     //**************************************************************************
