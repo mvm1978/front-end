@@ -23,7 +23,16 @@ declare var jQuery: any;
 
 export class GenreComponent
 {
-    public showAddGenre:boolean = false;
+    public showAddPopup: boolean = false;
+
+    public addPopupInfo: any = {
+        id: 'genre-popup',
+        title: 'Add a Genre',
+        successMessage: 'The genre was added to the list of books',
+        errorMessage: 'Error adding genre',
+        method: 'upload',
+        rows: []
+    };
 
     public gridInfo: any = {
         title: 'Genres',
@@ -34,7 +43,7 @@ export class GenreComponent
             {
                 headerName: 'Genre',
                 field: 'genre',
-                width: 120,
+                width: 200,
                 cellStyle: {
                     'white-space': 'normal'
                 },
@@ -43,7 +52,10 @@ export class GenreComponent
                 editable: true,
                 cellEditor: 'popupText',
                 cellEditorParams: {
-                    maxLength: '100'
+                    maxLength: '190'
+                },
+                addRow: {
+                    mandatory: true
                 },
                 pinned: true
             }
@@ -77,7 +89,10 @@ export class GenreComponent
 
     public onAddGenre()
     {
-        this.showAddGenre = true;
+        this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :
+                this._sharedServices.getAddPopupInfo(this.addPopupInfo, this.gridInfo);
+
+        this.showAddPopup = true;
     }
 
     //**************************************************************************

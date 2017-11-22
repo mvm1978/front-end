@@ -17,8 +17,13 @@ export class AgGridComponent
     @Input() data: any;
 
     public filterField: string;
+    public uploaderInfo: any = {
+        field: '',
+        id: 0
+    };
 
     private showFilterSubscription: any = null;
+    private showUploaderSubscription: any = null;
 
     constructor(
         private _agGridServices: AgGridServices
@@ -31,10 +36,18 @@ export class AgGridComponent
     private ngOnInit()
     {
         this._agGridServices.set('gridID', this.data.gridID);
+
         this.showFilterSubscription = this._agGridServices.showFilterEmitter
             .subscribe((data: any) => {
                 this._agGridServices.set('filterColumn', data.caption);
                 this.filterField = data.field;
+            }
+        );
+
+        this.showUploaderSubscription = this._agGridServices.showUploaderEmitter
+            .subscribe((data: any) => {
+                this._agGridServices.set('uploaderColumn', data.caption);
+                this.uploaderInfo = data;
             }
         );
     }
@@ -44,6 +57,7 @@ export class AgGridComponent
     private ngOnDestroy()
     {
         this.showFilterSubscription.unsubscribe();
+        this.showUploaderSubscription.unsubscribe();
     }
 
     //**************************************************************************

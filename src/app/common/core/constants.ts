@@ -38,6 +38,20 @@ export class Constants
 
     //**************************************************************************
 
+    public static get ADD_POPUP_PATH(): string {
+
+        return this.LAYOUTS_PATH + 'add-popup/';
+    }
+
+    //**************************************************************************
+
+    public static get ROW_INPUT_GROUP_PATH(): string {
+
+        return this.LAYOUTS_PATH + 'row-input-group/';
+    }
+
+    //**************************************************************************
+
     public static get AUTH_LAYOUTS_PATH(): string {
 
         return 'app/auth/layouts/';
@@ -118,6 +132,13 @@ export class Constants
     public static get AG_GRID_FILTER(): string {
 
         return 'app/common/layouts/ag-grid/filter/';
+    }
+
+    //**************************************************************************
+
+    public static get AG_GRID_UPLOADER(): string {
+
+        return 'app/common/layouts/ag-grid/uploader/';
     }
 
     //**************************************************************************

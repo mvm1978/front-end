@@ -164,4 +164,52 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
+    public getAddPopupInfo(addPopupInfo: any, gridInfo: any): any
+    {
+        let rows = [];
+
+        for (var key in gridInfo.columnDefs) {
+            if (gridInfo.columnDefs.hasOwnProperty(key)) {
+
+                let colInfo = gridInfo.columnDefs[key];
+
+                if (colInfo.hasOwnProperty('addRow')) {
+
+                    let addRow = colInfo.addRow;
+
+                    addRow['id'] = colInfo.field;
+                    addRow['caption'] = colInfo.headerName;
+
+                    if (colInfo.hasOwnProperty('cellEditor')) {
+
+                        if (colInfo.cellEditor == 'select') {
+
+                            let info = colInfo.cellEditorParams;
+
+                            addRow['id'] = info.foreignKey;
+                            addRow['dropdown'] = info.values;
+                            addRow['dbValues'] = info.dbValues;
+                        }
+
+                        if (colInfo.cellEditor == 'uploader') {
+                            addRow['uploader'] = true;
+                        }
+                    }
+
+                    rows.push(addRow);
+                }
+            }
+        }
+
+        if (rows.length) {
+            addPopupInfo['rows'] = rows;
+            addPopupInfo['service'] = gridInfo.service;
+            addPopupInfo['parent'] = gridInfo.gridID;
+        }
+
+        return addPopupInfo;
+    }
+
+    //**************************************************************************
+
 }

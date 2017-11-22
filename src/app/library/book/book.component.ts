@@ -2,10 +2,12 @@ import {Component} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {LibraryConstants} from '../library.constants';
+import {SharedServices} from '../../common/services/shared.services';
 import {ApiRoot} from '../../common/api-root';
 import {AuthServices} from '../../auth/auth.services';
 import {GenresServices} from '../genre/genre.services';
 import {AuthorsServices} from '../author/author.services';
+import {TypesServices} from '../type/type.services';
 import {BooksServices} from '../book/book.services';
 
 @Component({
@@ -14,6 +16,7 @@ import {BooksServices} from '../book/book.services';
         AuthServices,
         GenresServices,
         AuthorsServices,
+        TypesServices,
         BooksServices
     ],
     templateUrl: LibraryConstants.BOOK_PATH + 'book.component.html',
@@ -24,7 +27,16 @@ import {BooksServices} from '../book/book.services';
 
 export class BookComponent
 {
-    public showAddBook:boolean = false;
+    public showAddPopup: boolean = false;
+
+    public addPopupInfo: any = {
+        id: 'book-popup',
+        title: 'Add a Book',
+        successMessage: 'The book was added to the list of books',
+        errorMessage: 'Error book uploading',
+        method: 'upload',
+        rows: []
+    };
 
     public gridInfo: any = {
         title: 'Books',
@@ -47,6 +59,9 @@ export class BookComponent
                     foreignKey: 'genre_id',
                     values: []
                 },
+                addRow: {
+                    mandatory: true
+                },
                 editable: true,
                 pinned: true
             },
@@ -63,6 +78,27 @@ export class BookComponent
                     values: []
                 },
                 editable: true,
+                addRow: {
+                    mandatory: true
+                },
+                pinned: true
+            },
+            {
+                headerName: 'Type',
+                field: 'type',
+                width: 120,
+                enableSorting: true,
+                enableFilterfing: true,
+                cellEditor: 'select',
+                cellEditorParams: {
+                    dbValues: [],
+                    foreignKey: 'type_id',
+                    values: []
+                },
+                editable: true,
+                addRow: {
+                    mandatory: true
+                },
                 pinned: true
             },
             {
@@ -75,6 +111,9 @@ export class BookComponent
                 cellEditor: 'popupText',
                 cellEditorParams: {
                     maxLength: '100'
+                },
+                addRow: {
+                    mandatory: true
                 },
                 pinned: true
             },
@@ -94,6 +133,23 @@ export class BookComponent
                     cols: '50',
                     rows: '4'
                 },
+                addRow: {
+                    mandatory: true
+                },
+                pinned: true
+            },
+            {
+                headerName: 'Length',
+                field: 'length',
+                width: 60,
+                cellEditor: 'popupText',
+                cellEditorParams: {
+                    maxLength: '10'
+                },
+                addRow: {
+                    placeHolder: 'Book length',
+                    mandatory: true
+                },
                 pinned: true
             },
             {
@@ -102,6 +158,20 @@ export class BookComponent
                 width: 60,
                 cellRenderer: this.pictureCellRenderer,
                 rootUrl: this._apiRoot.library,
+                cellEditor: 'uploader',
+                addRow: {
+                    placeHolder: 'Upload image ...'
+                },
+                pinned: true
+            },
+            {
+                headerName: 'Content',
+                field: 'source',
+                width: 60,
+                cellEditor: 'uploader',
+                addRow: {
+                    placeHolder: 'Upload content ...'
+                },
                 pinned: true
             },
             {
@@ -130,6 +200,8 @@ export class BookComponent
         private _globalEventsManager: GlobalEventsManager,
         private _genresServices: GenresServices,
         private _authorsServices: AuthorsServices,
+        private _sharedServices: SharedServices,
+        private _typesServices: TypesServices,
         private _booksServices: BooksServices
     )
     {
@@ -163,6 +235,22 @@ export class BookComponent
                 err => {},
                 () => {}
             );
+
+        this._typesServices.getDropdown()
+            .subscribe(
+                response => {
+                    this.setCellEditor(response, 'type')
+                },
+                err => {},
+                () => {}
+            );
+//
+//let that = this;
+//
+//setTimeout(function() {
+//    that.onAddBook();
+//}, 3000);
+
     }
 
     //**************************************************************************
@@ -185,7 +273,10 @@ export class BookComponent
 
     public onAddBook()
     {
-        this.showAddBook = true;
+        this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :
+                this._sharedServices.getAddPopupInfo(this.addPopupInfo, this.gridInfo);
+
+        this.showAddPopup = true;
     }
 
     //**************************************************************************

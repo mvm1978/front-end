@@ -37,9 +37,9 @@ export class GenresServices
 
     //**************************************************************************
 
-    public patch(id: number, payload: any)
+    public patch(field: string, id: number, payload: any)
     {
-        let url = this.api + '/' + id,
+        let url = this.api + '/' + field + '/' + id,
             header = this._apiServices.getAuthHeader();
 
         return this._http.patch(url, payload, header).map(res => res.json());
@@ -51,6 +51,8 @@ export class GenresServices
     {
         let url = this.api,
             header = this._apiServices.getAuthHeader();
+
+        header.headers.delete('Content-Type');
 
         return this._http.post(url, payload, header).map(res => res.json());
     }

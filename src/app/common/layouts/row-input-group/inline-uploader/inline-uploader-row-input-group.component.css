@@ -1,11 +1,7 @@
-.input-row {
-    padding: 5px 0px;
-}
-
 .upload {
     display: none;
 }
 
-.browse {
+.uploader {
     box-shadow: none;
 }

@@ -1,27 +1,27 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {RichGridModule} from '../layouts/ag-grid/ag-grid.module';
-
-import {PageNotFoundComponent} from '../layouts/page-not-found/page-not-found.component';
+import {InlineDropdownRowInputGroupComponent} from '../layouts/row-input-group/inline-dropdown/inline-dropdown-row-input-group.component';
 import {InlineInputRowInputGroupComponent} from '../layouts/row-input-group/inline-input/inline-input-row-input-group.component';
-import {InlineBrowseRowInputGroupComponent} from '../layouts/row-input-group/inline-browse/inline-browse-row-input-group.component';
+import {InlineUploaderRowInputGroupComponent} from '../layouts/row-input-group/inline-uploader/inline-uploader-row-input-group.component';
+import {AddPopupComponent} from '../layouts/add-popup/add-popup.component';
 
 @NgModule({
     imports: [
-        CommonModule,
-        RichGridModule,
+        CommonModule
     ],
     declarations: [
-        PageNotFoundComponent,
+        InlineDropdownRowInputGroupComponent,
         InlineInputRowInputGroupComponent,
-        InlineBrowseRowInputGroupComponent
+        InlineUploaderRowInputGroupComponent,
+        AddPopupComponent
     ],
     exports: [
-        RichGridModule,
-        PageNotFoundComponent,
+        CommonModule,
+        InlineDropdownRowInputGroupComponent,
         InlineInputRowInputGroupComponent,
-        InlineBrowseRowInputGroupComponent
+        InlineUploaderRowInputGroupComponent,
+        AddPopupComponent
     ]
 })
 

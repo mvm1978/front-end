@@ -1,0 +1,36 @@
+<div class="popup-wrapper">
+    <div class="popup-content container">
+
+        <a href="#" class="close-popup" (click)="onClose()">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <h3>{{addPopupInfo.title}}</h3>
+        <hr class="popup-section-delimiter">
+
+        <div id="{{addPopupInfo.id}}">
+
+            <div *ngFor="let row of addPopupInfo.rows" class="row-wrapper">
+                <inline-dropdown-row-input-group *ngIf="row.hasOwnProperty('dropdown')"
+                    [data]="row">
+                </inline-dropdown-row-input-group>
+
+                <inline-uploader-row-input-group *ngIf="row.hasOwnProperty('uploader')"
+                    [data]="row">
+                </inline-uploader-row-input-group>
+
+                <inline-input-row-input-group *ngIf="(! row.hasOwnProperty('uploader')) && (! row.hasOwnProperty('dropdown'))"
+                    [data]="row">
+                </inline-input-row-input-group>
+            </div>
+
+            <div class="row-wrapper">
+                <button type="button" id="submit" class="btn btn-info btn-block"
+                       (click)="onSubmit()">
+                    Submit
+                </button>
+                <small id="{{addPopupInfo.id}}-footer" class="row-footer text-danger"></small>
+            </div>
+
+        </div>
+    </div>
+</div>

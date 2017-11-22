@@ -6,6 +6,11 @@
 
         <button class="btn btn-success" (click)="onAddGenre()">Add Genre</button>
     </div>
-    <add-genre *ngIf="showAddGenre" [(addGenreStatus)]="showAddGenre"></add-genre>
+
+    <add-popup *ngIf="showAddPopup"
+        [addPopupInfo]="addPopupInfo"
+        [(addPopupStatus)]="showAddPopup">
+
+    </add-popup>
 </div>
 

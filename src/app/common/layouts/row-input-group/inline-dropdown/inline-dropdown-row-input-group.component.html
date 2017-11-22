@@ -1,0 +1,13 @@
+<div id="{{data.id}}-group">
+    <div class="input-group">
+        <span class="input-group-addon">
+            {{data.caption}} <span *ngIf="data.hasOwnProperty('mandatory') && data.mandatory" class="mandatory-astrisk">*</span>
+        </span>
+        <select class="form-control" id="{{data.id}}">
+            <option *ngFor="let option of data.dropdown; let index = index" value="{{data.dbValues[option]}}" [attr.selected]="index == 0 ? true : null">
+                {{option}}
+            </option>
+        </select>
+    </div>
+    <small id="{{data.id}}-footer" class="row-footer text-danger"></small>
+</div>

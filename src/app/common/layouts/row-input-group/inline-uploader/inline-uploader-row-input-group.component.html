@@ -1,12 +1,12 @@
 <div class="input-group">
     <label class="input-group-btn">
-        <span id="{{data.spanID}}" class="btn btn-primary browse">
-            Browse&hellip;
+        <span id="{{data.id}}-uploader" class="btn btn-primary uploader">
+            Uploader&hellip;
             <span *ngIf="data.hasOwnProperty('mandatory') && data.mandatory" class="mandatory-astrisk">*</span>
             <input type="file" id="{{data.id}}" class="upload" (change)="onFileSelect()">
         </span>
     </label>
-    <input type="text" id="{{data.inputID}}" class="form-control" readonly
+    <input type="text" id="{{data.id}}-selected" class="form-control" readonly
            placeholder="{{data.hasOwnProperty('placeHolder') ? data.placeHolder : ''}}">
 </div>
 <small id="{{data.id}}-footer" class="row-footer text-danger"></small>

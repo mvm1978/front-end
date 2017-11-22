@@ -37,12 +37,18 @@ export class AuthorsServices
 
     //**************************************************************************
 
-    public patch(id: number, payload: any)
+    public patch(field: string, id: number, payload: any)
     {
-        let url = this.api + '/' + id,
+        let url = this.api + '/' + field + '/' + id,
             header = this._apiServices.getAuthHeader();
 
-        return this._http.patch(url, payload, header).map(res => res.json());
+        if (field == 'picture') {
+            header.headers.delete('Content-Type');
+        }
+
+        return field == 'picture' ?
+            this._http.post(url, payload, header).map(res => res.json()) :
+            this._http.patch(url, payload, header).map(res => res.json());
     }
 
     //**************************************************************************

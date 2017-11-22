@@ -9,5 +9,9 @@
     <grid-filter *ngIf="filterField"
         [gridID]="data.gridID"></grid-filter>
 
+    <grid-uploader *ngIf="uploaderInfo.field"
+        [gridData]="data"
+        [info]="uploaderInfo"></grid-uploader>
+
     <grid-navigation></grid-navigation>
 </div>

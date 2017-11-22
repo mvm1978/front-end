@@ -6,6 +6,10 @@
 
         <button class="btn btn-success" (click)="onAddBook()">Add Book</button>
     </div>
-    <add-book *ngIf="showAddBook" [(addBookStatus)]="showAddBook"></add-book>
+    <add-popup *ngIf="showAddPopup"
+        [addPopupInfo]="addPopupInfo"
+        [(addPopupStatus)]="showAddPopup">
+
+    </add-popup>
 </div>
 

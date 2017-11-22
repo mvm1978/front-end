@@ -21,12 +21,16 @@ export class AgGridServices extends BaseServices
     };
     private filterField: string;
     private filterColumn: string;
+    private uploaderInfo: any;
+    private uploaderColumn: string;
 
     private isFilter: BehaviorSubject<any> = new BehaviorSubject<any>({});
+    private isUploader: BehaviorSubject<any> = new BehaviorSubject<any>({});
     private setNavigation: BehaviorSubject<any> = new BehaviorSubject<any>({});
     private reload: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
     public showFilterEmitter: Observable<any> = this.isFilter.asObservable();
+    public showUploaderEmitter: Observable<any> = this.isUploader.asObservable();
     public setNavigationEmitter: Observable<any> = this.setNavigation.asObservable();
     public reloadEmitter: Observable<any> = this.reload.asObservable();
 
@@ -56,6 +60,13 @@ export class AgGridServices extends BaseServices
     public showFilter(data: any)
     {
         this.isFilter.next(data);
+    }
+
+    //**************************************************************************
+
+    public showUploader(data: any)
+    {
+        this.isUploader.next(data);
     }
 
     //**************************************************************************

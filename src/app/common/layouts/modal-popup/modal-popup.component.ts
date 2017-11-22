@@ -9,8 +9,7 @@ declare var jQuery: any;
 
 export class ModalPopupComponent
 {
-    protected selector: string;
-    private isReady: boolean;
+    protected status: string = '';
 
     constructor ()
     {
@@ -18,37 +17,39 @@ export class ModalPopupComponent
 
     //**************************************************************************
 
+    public ngAfterViewInit()
+    {
+        this.status = 'Init';
+    }
+
+    //**************************************************************************
+
     public handleClick($event: any)
     {
-        if (! this.isReady) {
-
-            this.isReady = true;
-
-            return false;
-        }
-
-        let $content = jQuery(this.selector + ' .popup-content');
-
-        if (! $content.length) {
-            return false;
-        }
-
-        let offset = $content.offset(),
-            x = $event.x,
-            y = $event.y;
-
-        let minX = offset.left,
-            minY = offset.top;
-
-        let maxX = minX + $content.outerWidth(),
-            maxY = minY + $content.outerHeight();
-
-        if (x < minX || x > maxX || y < minY || y > maxY) {
-
-            this.isReady = false;
-
-            this.onClose(); // require this method in child component
-        }
+//        if (this.status == 'Init') {
+//            this.status = 'Opened';
+//        } else if (this.status == 'Opened') {
+//
+//            let $content = jQuery('.popup-content');
+//
+//            if (! $content.length) {
+//                return true;
+//            }
+//
+//            let offset = $content.offset(),
+//                x = $event.x,
+//                y = $event.y;
+//
+//            let minX = offset.left,
+//                minY = offset.top;
+//
+//            let maxX = minX + $content.outerWidth(),
+//                maxY = minY + $content.outerHeight();
+//
+//            if (x < minX || x > maxX || y < minY || y > maxY) {
+//                this.onClose(); // require this method in child component
+//            }
+//        }
     }
 
     //**************************************************************************

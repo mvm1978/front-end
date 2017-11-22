@@ -6,14 +6,15 @@ import {RowInputGroupServices} from '../row-input-group.services';
 declare var jQuery: any;
 
 @Component({
-    selector: 'inline-browse-row-input-group',
-    templateUrl: Constants.LAYOUTS_PATH + 'row-input-group/inline-browse/inline-browse-row-input-group.component.html',
+    selector: 'inline-uploader-row-input-group',
+    templateUrl: Constants.ROW_INPUT_GROUP_PATH + 'inline-uploader/inline-uploader-row-input-group.component.html',
     styleUrls: [
-        Constants.LAYOUTS_PATH + 'row-input-group/inline-browse/inline-browse-row-input-group.component.css'
+        Constants.ROW_INPUT_GROUP_PATH + 'row-input-group.css',
+        Constants.ROW_INPUT_GROUP_PATH + 'inline-uploader/inline-uploader-row-input-group.component.css'
     ],
 })
 
-export class InlineBrowseRowInputGroupComponent
+export class InlineUploaderRowInputGroupComponent
 {
     @Input() data: any;
 
@@ -36,7 +37,7 @@ export class InlineBrowseRowInputGroupComponent
 
         $input.trigger('fileselect', [1, label]);
 
-        jQuery('#' + this.data.inputID).val(label);
+        jQuery('#' + this.data.id + '-selected').val(label);
     }
 
     //**************************************************************************

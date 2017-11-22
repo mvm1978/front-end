@@ -7,9 +7,10 @@ declare var jQuery: any;
 
 @Component({
     selector: 'inline-input-row-input-group',
-    templateUrl: Constants.LAYOUTS_PATH + 'row-input-group/inline-input/inline-input-row-input-group.component.html',
+    templateUrl: Constants.ROW_INPUT_GROUP_PATH + 'inline-input/inline-input-row-input-group.component.html',
     styleUrls: [
-        Constants.LAYOUTS_PATH + 'row-input-group/inline-input/inline-input-row-input-group.component.css'
+        Constants.ROW_INPUT_GROUP_PATH + 'row-input-group.css',
+        Constants.ROW_INPUT_GROUP_PATH + 'inline-input/inline-input-row-input-group.component.css'
     ],
 })
 

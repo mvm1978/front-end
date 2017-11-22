@@ -1,0 +1,24 @@
+<div class="popup-wrapper">
+    <div class="popup-content container">
+
+        <a href="#" class="close-popup" (click)="onClose()">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <h3>Upload "{{_agGridServices.get('uploaderColumn')}}"</h3>
+        <hr class="popup-section-delimiter">
+
+        <div class="row-wrapper">
+            <inline-uploader-row-input-group
+                [data]="data">
+            </inline-uploader-row-input-group>
+        </div>
+
+        <div class="row-wrapper">
+            <button type="button" id="uploader-submit" class="btn btn-info btn-block"
+                    (click)="onSubmit()">
+                Submit
+            </button>
+            <small id="uploade-footer" class="row-footer text-danger"></small>
+        </div>
+    </div>
+</div>

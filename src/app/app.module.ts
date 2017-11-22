@@ -1,17 +1,15 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {HttpModule} from '@angular/http';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
-import {AgGridModule} from 'ag-grid-angular/main';
-
-import {SharedModule} from './common/modules/shared.module';
-
 import {AppRouting} from './app.routes';
+
 import {AuthModule} from './auth/auth.module';
 import {LibraryModule} from './library/library.module';
+
+import {PageNotFoundComponent} from './common/layouts/page-not-found/page-not-found.component';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './common/layouts/header/header.component';
@@ -25,12 +23,9 @@ import {CoreProviders} from './common/core/load';
 
 @NgModule({
     imports: [
-        CommonModule,
         BrowserModule,
         RouterModule,
         HttpModule,
-        AgGridModule,
-        SharedModule,
         AppRouting,
         AuthModule,
         LibraryModule
@@ -41,6 +36,7 @@ import {CoreProviders} from './common/core/load';
         FooterComponent,
         MainBodyComponent,
         MessageBoxComponent,
+        PageNotFoundComponent,
         HomeComponent
     ],
     providers: [

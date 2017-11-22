@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {LibraryConstants} from '../library.constants';
+import {SharedServices} from '../../common/services/shared.services';
 import {ApiRoot} from '../../common/api-root';
 import {AuthServices} from '../../auth/auth.services';
 import {AuthorsServices} from '../author/author.services';
@@ -20,7 +21,16 @@ import {AuthorsServices} from '../author/author.services';
 
 export class AuthorComponent
 {
-    public showAddAuthor:boolean = false;
+    public showAddPopup: boolean = false;
+
+    public addPopupInfo: any = {
+        id: 'author-popup',
+        title: 'Add an Author',
+        successMessage: 'The author was added to the list of books',
+        errorMessage: 'Error adding author',
+        method: 'upload',
+        rows: []
+    };
 
     public gridInfo: any = {
         title: 'Authors',
@@ -45,6 +55,10 @@ export class AuthorComponent
                 cellEditorParams: {
                     maxLength: '100'
                 },
+                addRow: {
+                    placeHolder: 'Author Name',
+                    mandatory: true
+                },
                 pinned: true
             },
             {
@@ -63,6 +77,10 @@ export class AuthorComponent
                     cols: '50',
                     rows: '4'
                 },
+                addRow: {
+                    placeHolder: 'Short Biography',
+                    mandatory: true
+                },
                 pinned: true
             },
             {
@@ -70,7 +88,11 @@ export class AuthorComponent
                 field: 'picture',
                 width: 60,
                 cellRenderer: this.pictureCellRenderer,
+                cellEditor: 'uploader',
                 rootUrl: this._apiRoot.library,
+                addRow: {
+                    placeHolder: 'Upload image ...'
+                },
                 pinned: true
             }
         ]
@@ -81,6 +103,7 @@ export class AuthorComponent
     constructor (
         private _apiRoot: ApiRoot,
         private _globalEventsManager: GlobalEventsManager,
+        private _sharedServices: SharedServices,
         private _authorsServices: AuthorsServices
     )
     {
@@ -102,7 +125,10 @@ export class AuthorComponent
 
     public onAddAuthor()
     {
-        this.showAddAuthor = true;
+        this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :
+                this._sharedServices.getAddPopupInfo(this.addPopupInfo, this.gridInfo);
+
+        this.showAddPopup = true;
     }
 
     //**************************************************************************

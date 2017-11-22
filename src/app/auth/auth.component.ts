@@ -7,7 +7,7 @@ import {Constants} from '../common/core/constants';
 @Component({
     selector: 'auth',
     host: {
-        '(document:click)': 'handleClick($event)',
+//        '(document:click)': 'handleClick($event)',
     },
     templateUrl: Constants.AUTH_PATH + 'auth.component.html',
     styleUrls: [

@@ -97,7 +97,7 @@ export class GridComponent
 
     private onGridReady()
     {
-        console.log('onGridReady');
+console.log('onGridReady');
     }
 
     //**************************************************************************
@@ -153,7 +153,7 @@ export class GridComponent
     //**************************************************************************
 
     private onCellClicked($event) {
-        console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
+console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
     }
 
     //**************************************************************************
@@ -165,21 +165,24 @@ export class GridComponent
         if (this.data.hasOwnProperty('service')
          && colDef.editable && $event.oldValue != $event.newValue) {
 
-        let payload = {
-            field: $event.colDef.field,
-            value: $event.newValue
-        };
+        let id = this.rowData[$event.rowIndex].id,
+            field = $event.colDef.field,
+            payload = {
+                value: $event.newValue
+            };
 
         if (colDef.hasOwnProperty('cellEditor')
          && colDef.cellEditor == 'select') {
             // the cell being edited has a dropdown
             let editorParams = colDef.cellEditorParams;
             // substituting with data derived from the dropdown
-            payload.field = editorParams.foreignKey;
-            payload.value = editorParams.dbValues[$event.newValue];
+            field = editorParams.foreignKey;
+            payload = {
+                value: editorParams.dbValues[$event.newValue]
+            };
         }
 
-        this.data.service.patch(this.rowData[$event.rowIndex].id, payload)
+        this.data.service.patch(field, id, payload)
             .subscribe(
                 response => {
 
@@ -203,19 +206,30 @@ export class GridComponent
 
     private onCellDoubleClicked($event)
     {
-    console.log('onCellDoubleClicked:');
+console.log('onCellDoubleClicked:');
+console.log($event);
+        if ($event.colDef.hasOwnProperty('cellEditor')
+         && $event.colDef.cellEditor == 'uploader') {
+
+            this._agGridServices.set('uploaderField', $event.colDef.field);
+            this._agGridServices.showUploader({
+                field: $event.colDef.field,
+                caption: $event.colDef.headerName,
+                id: $event.data.id
+            });
+        }
     }
 
     //**************************************************************************
 
     private onCellContextMenu($event) {
-        console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
+console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
     }
 
     //**************************************************************************
 
     private onCellFocused($event) {
-        console.log('onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
+console.log('onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
     }
 
     //**************************************************************************
@@ -228,37 +242,37 @@ export class GridComponent
     //**************************************************************************
 
     private onSelectionChanged() {
-        console.log('selectionChanged');
+console.log('selectionChanged');
     }
 
     //**************************************************************************
 
     private onBeforeFilterChanged() {
-        console.log('beforeFilterChanged');
+console.log('beforeFilterChanged');
     }
 
     //**************************************************************************
 
     private onAfterFilterChanged() {
-        console.log('afterFilterChanged');
+console.log('afterFilterChanged');
     }
 
     //**************************************************************************
 
     private onFilterModified() {
-        console.log('onFilterModified');
+console.log('onFilterModified');
     }
 
     //**************************************************************************
 
     private onBeforeSortChanged() {
-        console.log('onBeforeSortChanged');
+console.log('onBeforeSortChanged');
     }
 
     //**************************************************************************
 
     private onAfterSortChanged() {
-        console.log('onAfterSortChanged');
+console.log('onAfterSortChanged');
     }
 
     //**************************************************************************
@@ -272,7 +286,7 @@ export class GridComponent
     //**************************************************************************
 
     private onRowClicked($event) {
-        console.log('onRowClicked: ' + $event.node.data.name);
+console.log('onRowClicked: ' + $event.node.data.name);
     }
 
     //**************************************************************************
@@ -286,8 +300,8 @@ export class GridComponent
     // here we use one generic event to handle all the column type events.
     // the method just prints the event name
     private onColumnEvent($event) {
-        console.log('onColumnEvent: ');
-        console.log($event);
+console.log('onColumnEvent: ');
+console.log($event);
     }
 
     //**************************************************************************
