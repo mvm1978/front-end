@@ -72,3 +72,8 @@
     padding: 2px 5px;
     display: none;
 }
+
+.cell-div {
+    position: absolute;
+    top: 25%;
+}

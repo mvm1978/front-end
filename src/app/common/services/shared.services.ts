@@ -35,15 +35,22 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
-    public fileDownload(downloadFile: string, downloadName?: string)
+    public fileDownload(downloadFile: string, downloadName?: string, authHeader?: any)
     {
         downloadName = downloadName ? downloadName : downloadFile;
 
         let mimeType = this.getMimeType(downloadFile);
 
-        this._http.get('/downloads/' + downloadFile, {
-                responseType: ResponseContentType.Blob
-            })
+        let header = {
+            responseType: ResponseContentType.Blob
+        };
+
+        if (authHeader) {
+            header = authHeader;
+            header['responseType'] = ResponseContentType.Blob;
+        }
+
+        this._http.get(downloadFile, header)
             .map((res) => {
                 return new Blob([res.blob()], {
                     type: mimeType
@@ -208,6 +215,21 @@ export class SharedServices extends BaseServices
         }
 
         return addPopupInfo;
+    }
+
+    //**************************************************************************
+
+    private getCount(value: number): string
+    {
+        if (value < 1000) {
+            return value;
+        } else if (value < 1000000) {
+            return Math.round((value / 1000) * 10 ) / 10 + ' K';
+        } else if (value < 1000000000) {
+            return Math.round((value / 1000000) * 10 ) / 10 + ' M';
+        } else {
+            return Math.round((value / 1000000000) * 10 ) / 10 + ' B';
+        }
     }
 
     //**************************************************************************

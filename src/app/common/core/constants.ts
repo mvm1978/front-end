@@ -129,6 +129,20 @@ export class Constants
 
     //**************************************************************************
 
+    public static get AG_GRID_DOWNLOAD_BUTTON(): string {
+
+        return 'app/common/layouts/ag-grid/download-button/';
+    }
+
+    //**************************************************************************
+
+    public static get AG_GRID_VOTE_PATH(): string {
+
+        return 'app/common/layouts/ag-grid/vote/';
+    }
+
+    //**************************************************************************
+
     public static get AG_GRID_FILTER(): string {
 
         return 'app/common/layouts/ag-grid/filter/';

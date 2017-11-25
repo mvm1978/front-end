@@ -4,6 +4,9 @@ import {GridOptions} from 'ag-grid/main';
 import {GlobalEventsManager} from '../../../modules/global-events-manager';
 
 import {GridHeaderComponent} from '../header/grid-header.component';
+import {DownloadButtonComponent} from '../download-button/download-button.component';
+import {UpVoteComponent} from '../vote/up/up-vote.component';
+import {DownVoteComponent} from '../vote/down/down-vote.component';
 import {AgGridServices} from '../ag-grid.services';
 
 import {Constants} from '../../../core/constants';
@@ -76,7 +79,7 @@ export class GridComponent
 
         let data: any = this.data;
 
-        for (var key in data) {
+        for (let key in data) {
             if (data.hasOwnProperty(key)) {
                 this[key] = data[key];
             }
@@ -89,6 +92,24 @@ export class GridComponent
 
             this.gridOptions.getRowHeight = function(params: any) {
                 return customRowHeight(params.data);
+            }
+        }
+
+        for (let count=0; count<this.columnDefs.length; count++) {
+            if (this.columnDefs[count].hasOwnProperty('customCellRenderer')) {
+                switch (this.columnDefs[count].customCellRenderer) {
+                    case 'DownloadButtonComponent':
+                        this.columnDefs[count].cellRendererFramework = DownloadButtonComponent;
+                        break;
+                    case 'DownVoteComponent':
+                        this.columnDefs[count].cellRendererFramework = DownVoteComponent;
+                        break;
+                    case 'UpVoteComponent':
+                        this.columnDefs[count].cellRendererFramework = UpVoteComponent;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

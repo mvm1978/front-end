@@ -56,6 +56,16 @@ export class BooksServices
 
     //**************************************************************************
 
+    public vote(id: number, payload: any)
+    {
+        let url = this.api + '/vote/' + id,
+            header = this._apiServices.getAuthHeader();
+
+        return this._http.post(url, payload, header).map(res => res.json());
+    }
+
+    //**************************************************************************
+
     public showError(err: any, defaultMessage: string): string
     {
         return this._sharedServices.handleInputErrors({

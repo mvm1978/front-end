@@ -143,7 +143,7 @@ export class HeaderComponent
 
     public onResumeDownload()
     {
-        this._sharedServices.fileDownload('Resume.doc', 'test.doc');
+        this._sharedServices.fileDownload('/downloads/Resume.doc', 'test.doc');
     }
 
     //**************************************************************************

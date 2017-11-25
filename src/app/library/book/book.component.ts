@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
+import {Constants} from '../../common/core/constants';
 import {LibraryConstants} from '../library.constants';
 import {SharedServices} from '../../common/services/shared.services';
 import {ApiRoot} from '../../common/api-root';
@@ -21,8 +22,9 @@ import {BooksServices} from '../book/book.services';
     ],
     templateUrl: LibraryConstants.BOOK_PATH + 'book.component.html',
     styleUrls: [
-        LibraryConstants.BOOK_PATH + 'book.component.css'
-    ],
+        LibraryConstants.BOOK_PATH + 'book.component.css',
+        Constants.AG_GRID_PATH + 'ag-grid.component.css'
+    ]
 })
 
 export class BookComponent
@@ -53,6 +55,9 @@ export class BookComponent
                 width: 120,
                 enableSorting: true,
                 enableFilterfing: true,
+                cellStyle: {
+                    'white-space': 'normal'
+                },
                 cellEditor: 'select',
                 cellEditorParams: {
                     dbValues: [],
@@ -86,16 +91,16 @@ export class BookComponent
             {
                 headerName: 'Type',
                 field: 'type',
-                width: 120,
+                width: 110,
                 enableSorting: true,
                 enableFilterfing: true,
+                editable: true,
                 cellEditor: 'select',
                 cellEditorParams: {
                     dbValues: [],
                     foreignKey: 'type_id',
                     values: []
                 },
-                editable: true,
                 addRow: {
                     mandatory: true
                 },
@@ -141,7 +146,10 @@ export class BookComponent
             {
                 headerName: 'Length',
                 field: 'length',
-                width: 60,
+                width: 120,
+                enableSorting: true,
+                enableFilterfing: true,
+                editable: true,
                 cellEditor: 'popupText',
                 cellEditorParams: {
                     maxLength: '10'
@@ -155,7 +163,7 @@ export class BookComponent
             {
                 headerName: 'Picture',
                 field: 'picture',
-                width: 60,
+                width: 58,
                 cellRenderer: this.pictureCellRenderer,
                 rootUrl: this._apiRoot.library,
                 cellEditor: 'uploader',
@@ -165,9 +173,11 @@ export class BookComponent
                 pinned: true
             },
             {
-                headerName: 'Content',
+                headerName: '',
                 field: 'source',
                 width: 60,
+                customCellRenderer: 'DownloadButtonComponent',
+                downloadUrl: this._apiRoot.library + '/api/library/v1/book/download/',
                 cellEditor: 'uploader',
                 addRow: {
                     placeHolder: 'Upload content ...'
@@ -180,14 +190,25 @@ export class BookComponent
                 width: 140,
                 enableSorting: true,
                 enableFilterfing: true,
+                cellRenderer: this.uploadedOnCellRenderer,
                 pinned: true
             },
             {
-                headerName: 'Votes',
-                field: 'votes',
-                width: 100,
+                headerName: '',
+                field: 'upvotes',
+                width: 120,
+                service: BooksServices,
                 enableSorting: true,
-                enableFilterfing: true,
+                customCellRenderer: 'UpVoteComponent',
+                pinned: true
+            },
+            {
+                headerName: '',
+                field: 'downvotes',
+                width: 120,
+                service: BooksServices,
+                enableSorting: true,
+                customCellRenderer: 'DownVoteComponent',
                 pinned: true
             }
         ]
@@ -207,6 +228,12 @@ export class BookComponent
     {
         this.gridInfo.url = this._booksServices.api;
         this.gridInfo.service = this._booksServices;
+
+        for (let count=0; count<this.gridInfo.columnDefs.length; count++) {
+            if (~jQuery.isArray(this.gridInfo.columnDefs[count].field, ['upvotes', 'downvotes']) {
+                this.gridInfo.columnDefs[count].service = this._booksServices;
+            }
+        }
     }
 
     //**************************************************************************
@@ -244,13 +271,6 @@ export class BookComponent
                 err => {},
                 () => {}
             );
-//
-//let that = this;
-//
-//setTimeout(function() {
-//    that.onAddBook();
-//}, 3000);
-
     }
 
     //**************************************************************************
@@ -287,6 +307,13 @@ export class BookComponent
 
         return ! data.value ? '' :
             '<img class="table-picture" src="' + url + '/storage/' + data.value + '">';
+    }
+
+    //**************************************************************************
+
+    private uploadedOnCellRenderer(data: any)
+    {
+        return '<div class="cell-div">' + data.value + '</div>';
     }
 
     //**************************************************************************
