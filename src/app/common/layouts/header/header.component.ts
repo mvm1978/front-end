@@ -66,7 +66,7 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this.showHeaderSubscription = this._globalEventsManager.showHeaderEmitter
             .subscribe((isHeader) => {
@@ -89,7 +89,7 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    private ngOnDestroy()
+    private ngOnDestroy(): void
     {
         this.showHeaderSubscription.unsubscribe();
         this.signedInSubscription.unsubscribe();
@@ -98,7 +98,7 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    public mouseEnter(target: any)
+    public mouseEnter(target: any): void
     {
         let id = target.attributes.id.nodeValue;
 
@@ -116,7 +116,7 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    public onClick(caption: string)
+    public onClick(caption: string): void
     {
         if (caption == 'Sign Out') {
 
@@ -130,7 +130,7 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    private updateUserHome()
+    private updateUserHome(): void
     {
         this.isSignedIn = this._authServices.getUserInfoValue('token') != undefined;
 
@@ -141,7 +141,7 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    public onResumeDownload()
+    public onResumeDownload(): void
     {
         this._sharedServices.fileDownload('/downloads/Resume.doc', 'test.doc');
     }

@@ -47,14 +47,14 @@ export class GridUploaderComponent extends ModalPopupComponent
 
     //**************************************************************************
 
-    public ngAfterViewInit()
+    public ngAfterViewInit(): void
     {
         this.status = 'Opened';
     }
 
     //**************************************************************************
 
-    public onClose()
+    public onClose(): boolean
     {
         // hide uploader popups
         this._agGridServices.showUploader({});
@@ -64,7 +64,7 @@ export class GridUploaderComponent extends ModalPopupComponent
 
     //**************************************************************************
 
-    public onSubmit()
+    public onSubmit(): boolean
     {
         jQuery('.row-footer').html('');
         jQuery('.row-wrapper').removeClass('has-error');

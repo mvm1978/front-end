@@ -35,7 +35,7 @@ export class RecoveryQuestionsComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this._authServices.getRecoveryQuestions()
             .subscribe(

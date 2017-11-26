@@ -16,19 +16,19 @@ export class AuthorsServices
         private _apiServices: ApiServices
     )
     {
-        this.api = this._apiServices._api + '/author';
+        this.api = this._apiServices.api + '/author';
     }
 
     //**************************************************************************
 
-    public checkToken()
+    public checkToken(): any
     {
         return this._apiServices.checkToken();
     }
 
     //**************************************************************************
 
-    public getDropdown()
+    public getDropdown(): any
     {
         let header = this._apiServices.getAuthHeader();
 
@@ -37,7 +37,7 @@ export class AuthorsServices
 
     //**************************************************************************
 
-    public patch(field: string, id: number, payload: any)
+    public patch(field: string, id: number, payload: any): any
     {
         let url = this.api + '/' + field + '/' + id,
             header = this._apiServices.getAuthHeader();
@@ -53,7 +53,7 @@ export class AuthorsServices
 
     //**************************************************************************
 
-    public upload(formData: any)
+    public upload(formData: any): any
     {
         let url = this.api,
             header = this._apiServices.getAuthHeader();
@@ -65,7 +65,7 @@ export class AuthorsServices
 
     //**************************************************************************
 
-    public showError(err: any, defaultMessage: string): string
+    public showError(err: any, defaultMessage: string): any
     {
         return this._sharedServices.handleInputErrors({
             err: err,

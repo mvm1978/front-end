@@ -22,7 +22,7 @@ export class AppComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this._globalEventsManager.showLoadingOverlayEmitter
             .subscribe((isLoadingOverlay) => {

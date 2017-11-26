@@ -49,7 +49,7 @@ export class ReportsComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);

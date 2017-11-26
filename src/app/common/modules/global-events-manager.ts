@@ -43,28 +43,28 @@ export class GlobalEventsManager
 
     //**************************************************************************
 
-    showHeader(isHeader: boolean)
+    showHeader(isHeader: boolean): void
     {
         this.isHeader.next(isHeader);
     }
 
     //**************************************************************************
 
-    showFooter(isFooter: boolean)
+    showFooter(isFooter: boolean): void
     {
         this.isFooter.next(isFooter);
     }
 
     //**************************************************************************
 
-    public showLoadingOverload(isLoadingOverlay: boolean)
+    public showLoadingOverload(isLoadingOverlay: boolean): void
     {
         this.isLoadingOverlay.next(isLoadingOverlay);
     };
 
     //**************************************************************************
 
-    public forceSignIn()
+    public forceSignIn(): void
     {
         let app = this._baseServices.get('app');
 
@@ -78,21 +78,21 @@ export class GlobalEventsManager
 
     //**************************************************************************
 
-    public authPopup(title: string)
+    public authPopup(title: string): void
     {
         this.showAuthPopup.next(title);
     };
 
     //**************************************************************************
 
-    public updateUserHome()
+    public updateUserHome(): void
     {
         this.isUpdateUserHome.next(true);
     };
 
     //**************************************************************************
 
-    public signedIn(isSignedIn: boolean)
+    public signedIn(isSignedIn: boolean): void
     {
         this.authPopup('');
         this.isSignedIn.next(isSignedIn);
@@ -100,14 +100,14 @@ export class GlobalEventsManager
 
     //**************************************************************************
 
-    public signOut()
+    public signOut(): void
     {
         localStorage.removeItem('userInfo');
     };
 
     //**************************************************************************
 
-    public messageBox(data: any)
+    public messageBox(data: any): void
     {
         this.isMessageBox.next(data);
     };

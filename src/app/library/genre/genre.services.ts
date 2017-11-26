@@ -16,19 +16,19 @@ export class GenresServices
         private _apiServices: ApiServices
     )
     {
-        this.api = this._apiServices._api + '/genre';
+        this.api = this._apiServices.api + '/genre';
     }
 
     //**************************************************************************
 
-    public checkToken()
+    public checkToken(): any
     {
         return this._apiServices.checkToken();
     }
 
     //**************************************************************************
 
-    public getDropdown()
+    public getDropdown(): any
     {
         let header = this._apiServices.getAuthHeader();
 
@@ -37,7 +37,7 @@ export class GenresServices
 
     //**************************************************************************
 
-    public patch(field: string, id: number, payload: any)
+    public patch(field: string, id: number, payload: any): any
     {
         let url = this.api + '/' + field + '/' + id,
             header = this._apiServices.getAuthHeader();
@@ -47,7 +47,7 @@ export class GenresServices
 
     //**************************************************************************
 
-    public upload(payload: any)
+    public upload(payload: any): any
     {
         let url = this.api,
             header = this._apiServices.getAuthHeader();

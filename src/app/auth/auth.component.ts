@@ -33,7 +33,7 @@ export class AuthComponent extends ModalPopupComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this._globalEventsManager.authPopupEmitter
             .subscribe((authPopup) => {

@@ -66,7 +66,7 @@ export class UserInfoComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this.updateUserInfoRows();
     }

@@ -5,14 +5,14 @@ import {Injectable} from '@angular/core';
 export class BaseServices
 {
 
-    public get(property: string)
+    public get(property: string): any
     {
         return this[property];
     }
 
     //**************************************************************************
 
-    public set(property: string, value: any)
+    public set(property: string, value: any): void
     {
         this[property] = value;
     }

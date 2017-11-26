@@ -36,14 +36,14 @@ export class AddPopupComponent extends ModalPopupComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this.addPopupInfo.service.checkToken();
     }
 
     //**************************************************************************
 
-    public onClose()
+    public onClose(): boolean
     {
         this.addPopupStatusChange.emit(false);
 
@@ -52,7 +52,7 @@ export class AddPopupComponent extends ModalPopupComponent
 
     //**************************************************************************
 
-    public onSubmit()
+    public onSubmit(): boolean
     {
         let $parent = jQuery('#' + this.addPopupInfo.id);
 

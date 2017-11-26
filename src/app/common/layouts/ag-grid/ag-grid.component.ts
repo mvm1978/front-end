@@ -33,7 +33,7 @@ export class AgGridComponent
 
     //**************************************************************************
 
-    private ngOnInit()
+    private ngOnInit(): void
     {
         this._agGridServices.set('gridID', this.data.gridID);
 
@@ -54,7 +54,7 @@ export class AgGridComponent
 
     //**************************************************************************
 
-    private ngOnDestroy()
+    private ngOnDestroy(): void
     {
         this.showFilterSubscription.unsubscribe();
         this.showUploaderSubscription.unsubscribe();

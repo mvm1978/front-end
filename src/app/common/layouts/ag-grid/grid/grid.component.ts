@@ -59,7 +59,7 @@ export class GridComponent
 
     //**************************************************************************
 
-    private ngOnInit()
+    private ngOnInit(): void
     {
         this._agGridServices.set('output', {
             page: 1,
@@ -123,14 +123,14 @@ console.log('onGridReady');
 
     //**************************************************************************
 
-    private ngOnDestroy()
+    private ngOnDestroy(): void
     {
         this.initSubscription.unsubscribe();
     }
 
     //**************************************************************************
 
-    private reload()
+    private reload(): void
     {
         this.gridLoadingOverlay = true;
 
@@ -162,7 +162,7 @@ console.log('onGridReady');
 
     //**************************************************************************
 
-    private onModelUpdated()
+    private onModelUpdated(): void
     {
         let $gridContainer = jQuery('#' + this.gridID);
 
@@ -179,7 +179,7 @@ console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
 
     //**************************************************************************
 
-    private onCellValueChanged($event: any)
+    private onCellValueChanged($event: any): void
     {
         let colDef = $event.colDef;
 
@@ -225,10 +225,8 @@ console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
 
     //**************************************************************************
 
-    private onCellDoubleClicked($event)
+    private onCellDoubleClicked($event): void
     {
-console.log('onCellDoubleClicked:');
-console.log($event);
         if ($event.colDef.hasOwnProperty('cellEditor')
          && $event.colDef.cellEditor == 'uploader') {
 

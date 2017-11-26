@@ -29,7 +29,7 @@ export class InlineUploaderRowInputGroupComponent
 
     //**************************************************************************
 
-    public onFileSelect()
+    public onFileSelect(): void
     {
         let $input = jQuery('#' + this.data.id);
 

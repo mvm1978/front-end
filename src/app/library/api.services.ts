@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
 
 import {ApiRoot} from '../common/api-root';
 import {AuthServices} from '../auth/auth.services';
@@ -20,18 +19,19 @@ export class ApiServices
 
     //**************************************************************************
 
-    public _api = this._apiRoot.api + '/library/v1';
+    public root = this._apiRoot.root;
+    public api = this._apiRoot.api + '/library/v1';
 
     //**************************************************************************
 
-    public getAuthHeader()
+    public getAuthHeader(): any
     {
         return this._authServices.getAuthHeader();
     }
 
     //**************************************************************************
 
-    public checkToken()
+    public checkToken(): any
     {
         return this._authServices.checkToken();
     }

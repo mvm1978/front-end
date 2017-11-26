@@ -41,7 +41,7 @@ export class GridNavigationComponent
 
     //**************************************************************************
 
-    private ngOnDestroy()
+    private ngOnDestroy(): void
     {
         this.setNavigationSubscription.unsubscribe();
     }

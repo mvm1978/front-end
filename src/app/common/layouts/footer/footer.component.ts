@@ -169,19 +169,13 @@ export class FooterComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this._globalEventsManager.showFooterEmitter
             .subscribe((isFooter) => {
                 this.isFooter = isFooter;
             }
         );
-    }
-
-    //**************************************************************************
-
-    public onClick(skill: string)
-    {
     }
 
     //**************************************************************************

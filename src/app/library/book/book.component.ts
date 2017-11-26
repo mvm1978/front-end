@@ -4,7 +4,7 @@ import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {Constants} from '../../common/core/constants';
 import {LibraryConstants} from '../library.constants';
 import {SharedServices} from '../../common/services/shared.services';
-import {ApiRoot} from '../../common/api-root';
+import {ApiServices} from '../api.services';
 import {AuthServices} from '../../auth/auth.services';
 import {GenresServices} from '../genre/genre.services';
 import {AuthorsServices} from '../author/author.services';
@@ -165,7 +165,7 @@ export class BookComponent
                 field: 'picture',
                 width: 58,
                 cellRenderer: this.pictureCellRenderer,
-                rootUrl: this._apiRoot.library,
+                rootUrl: this._apiServices.root,
                 cellEditor: 'uploader',
                 addRow: {
                     placeHolder: 'Upload image ...'
@@ -177,7 +177,7 @@ export class BookComponent
                 field: 'source',
                 width: 60,
                 customCellRenderer: 'DownloadButtonComponent',
-                downloadUrl: this._apiRoot.library + '/api/library/v1/book/download/',
+                downloadUrl: this._apiServices.api + '/book/download/',
                 cellEditor: 'uploader',
                 addRow: {
                     placeHolder: 'Upload content ...'
@@ -197,7 +197,7 @@ export class BookComponent
                 headerName: '',
                 field: 'upvotes',
                 width: 120,
-                service: BooksServices,
+                service: this._booksServices,
                 enableSorting: true,
                 customCellRenderer: 'UpVoteComponent',
                 pinned: true
@@ -206,7 +206,7 @@ export class BookComponent
                 headerName: '',
                 field: 'downvotes',
                 width: 120,
-                service: BooksServices,
+                service: this._booksServices,
                 enableSorting: true,
                 customCellRenderer: 'DownVoteComponent',
                 pinned: true
@@ -217,7 +217,7 @@ export class BookComponent
     //**************************************************************************
 
     constructor (
-        private _apiRoot: ApiRoot,
+        private _apiServices: ApiServices,
         private _globalEventsManager: GlobalEventsManager,
         private _genresServices: GenresServices,
         private _authorsServices: AuthorsServices,
@@ -228,17 +228,11 @@ export class BookComponent
     {
         this.gridInfo.url = this._booksServices.api;
         this.gridInfo.service = this._booksServices;
-
-        for (let count=0; count<this.gridInfo.columnDefs.length; count++) {
-            if (~jQuery.isArray(this.gridInfo.columnDefs[count].field, ['upvotes', 'downvotes']) {
-                this.gridInfo.columnDefs[count].service = this._booksServices;
-            }
-        }
     }
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);
@@ -248,7 +242,7 @@ export class BookComponent
         this._genresServices.getDropdown()
             .subscribe(
                 response => {
-                    this.setCellEditor(response, 'genre')
+                    this.setCellEditor(response, 'genre');
                 },
                 err => {},
                 () => {}
@@ -257,7 +251,7 @@ export class BookComponent
         this._authorsServices.getDropdown()
             .subscribe(
                 response => {
-                    this.setCellEditor(response, 'author')
+                    this.setCellEditor(response, 'author');
                 },
                 err => {},
                 () => {}
@@ -266,7 +260,7 @@ export class BookComponent
         this._typesServices.getDropdown()
             .subscribe(
                 response => {
-                    this.setCellEditor(response, 'type')
+                    this.setCellEditor(response, 'type');
                 },
                 err => {},
                 () => {}
@@ -275,7 +269,7 @@ export class BookComponent
 
     //**************************************************************************
 
-    public setCellEditor(response: any, field: string)
+    public setCellEditor(response: any, field: string): void
     {
         for (var key in this.gridInfo.columnDefs) {
             if (this.gridInfo.columnDefs.hasOwnProperty(key)
@@ -283,15 +277,13 @@ export class BookComponent
 
                 this.gridInfo.columnDefs[key].cellEditorParams.dbValues = response;
                 this.gridInfo.columnDefs[key].cellEditorParams.values = Object.keys(response);
-
-                return true;
             }
         }
     }
 
     //**************************************************************************
 
-    public onAddBook()
+    public onAddBook(): void
     {
         this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :
                 this._sharedServices.getAddPopupInfo(this.addPopupInfo, this.gridInfo);
@@ -301,7 +293,7 @@ export class BookComponent
 
     //**************************************************************************
 
-    private pictureCellRenderer(data: any)
+    private pictureCellRenderer(data: any): string
     {
         let url = data.colDef.rootUrl;
 
@@ -311,7 +303,7 @@ export class BookComponent
 
     //**************************************************************************
 
-    private uploadedOnCellRenderer(data: any)
+    private uploadedOnCellRenderer(data: any): string
     {
         return '<div class="cell-div">' + data.value + '</div>';
     }
@@ -322,7 +314,7 @@ export class BookComponent
 
 //******************************************************************************
 
-function customRowHeight(data: any)
+function customRowHeight(data: any): number
 {
     return data.picture !== null && data.picture ? 80 : 60;
 }

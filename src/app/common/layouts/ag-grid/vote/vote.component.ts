@@ -2,10 +2,9 @@ import {Component} from '@angular/core';
 
 import {ICellRendererAngularComp} from 'ag-grid-angular';
 
-import {AuthServices} from '../../../../auth/auth.services';
 import {SharedServices} from '../../../services/shared.services';
 
-import {Constants} from '../../../core/constants';
+declare var jQuery: any;
 
 @Component({
     selector: 'vote',
@@ -18,7 +17,6 @@ export class VoteComponent implements ICellRendererAngularComp
     public count: any;
 
     constructor(
-        private _authServices: AuthServices,
         private _sharedServices: SharedServices
     ) {
 
@@ -35,7 +33,7 @@ export class VoteComponent implements ICellRendererAngularComp
 
     //**************************************************************************
 
-    public onClick($event, vote: string): void
+    public onClick(vote: string): boolean
     {
         let payload = {
             vote: vote

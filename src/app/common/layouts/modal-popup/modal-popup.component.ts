@@ -24,7 +24,7 @@ export class ModalPopupComponent
 
     //**************************************************************************
 
-    public handleClick($event: any)
+    public handleClick($event: any): void
     {
 //        if (this.status == 'Init') {
 //            this.status = 'Opened';
@@ -54,7 +54,7 @@ export class ModalPopupComponent
 
     //**************************************************************************
 
-    public onClose()
+    public onClose(): void
     {
         // abstract method: need to be implemented in child component
     }

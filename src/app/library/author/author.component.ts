@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {LibraryConstants} from '../library.constants';
 import {SharedServices} from '../../common/services/shared.services';
-import {ApiRoot} from '../../common/api-root';
+import {ApiServices} from '../api.services';
 import {AuthServices} from '../../auth/auth.services';
 import {AuthorsServices} from '../author/author.services';
 
@@ -89,7 +89,7 @@ export class AuthorComponent
                 width: 60,
                 cellRenderer: this.pictureCellRenderer,
                 cellEditor: 'uploader',
-                rootUrl: this._apiRoot.library,
+                rootUrl: this._apiServices.root,
                 addRow: {
                     placeHolder: 'Upload image ...'
                 },
@@ -101,7 +101,7 @@ export class AuthorComponent
     //**************************************************************************
 
     constructor (
-        private _apiRoot: ApiRoot,
+        private _apiServices: ApiServices,
         private _globalEventsManager: GlobalEventsManager,
         private _sharedServices: SharedServices,
         private _authorsServices: AuthorsServices
@@ -113,7 +113,7 @@ export class AuthorComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);
@@ -133,7 +133,7 @@ export class AuthorComponent
 
     //**************************************************************************
 
-    private pictureCellRenderer(data: any)
+    private pictureCellRenderer(data: any): string
     {
         let url = data.colDef.rootUrl;
 
@@ -144,7 +144,7 @@ export class AuthorComponent
 
 //******************************************************************************
 
-function customRowHeight(data: any)
+function customRowHeight(data: any): number
 {
     return data.picture !== null && data.picture ? 80 : 60;
 }

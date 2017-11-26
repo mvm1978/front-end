@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 
-import {SharedServices} from '../../common/services/shared.services';
 import {ApiServices} from '../api.services';
 
 @Injectable()
@@ -12,23 +11,22 @@ export class TypesServices
 
     constructor(
         private _http: Http,
-        private _sharedServices: SharedServices,
         private _apiServices: ApiServices
     )
     {
-        this.api = this._apiServices._api + '/type';
+        this.api = this._apiServices.api + '/type';
     }
 
     //**************************************************************************
 
-    public checkToken()
+    public checkToken(): void
     {
         return this._apiServices.checkToken();
     }
 
     //**************************************************************************
 
-    public getDropdown()
+    public getDropdown(): any
     {
         let header = this._apiServices.getAuthHeader();
 

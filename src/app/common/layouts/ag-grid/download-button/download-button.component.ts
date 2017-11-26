@@ -35,7 +35,7 @@ export class DownloadButtonComponent implements ICellRendererAngularComp
 
     //**************************************************************************
 
-    onClick($event): void
+    onClick(): boolean
     {
         let header = this._authServices.getAuthHeader(),
             downloadName = this.params.data.title + '.pdf',

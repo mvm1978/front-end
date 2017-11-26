@@ -28,7 +28,7 @@ export class HomeComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         localStorage.removeItem('password-recovery-token');
 

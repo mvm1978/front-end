@@ -14,7 +14,7 @@ declare var jQuery: any;
 
 export class AuthServices
 {
-    private _api = this._apiRoot.authApi + '/auth';
+    private api = this._apiRoot.authApi + '/auth';
 
     constructor(
         private _platformLocation: PlatformLocation,
@@ -61,7 +61,7 @@ export class AuthServices
 
     public signUp(body: any)
     {
-        let url = this._api + '/users';
+        let url = this.api + '/users';
 
         return this._http.post(url, body).map(res => res.json());
     }
@@ -70,7 +70,7 @@ export class AuthServices
 
     public updateUserInfo(body: any)
     {
-        let url = this._api + '/users',
+        let url = this.api + '/users',
             header = this.getAuthHeader();
 
         return this._http.put(url, body, header).map(res => res.json());
@@ -80,7 +80,7 @@ export class AuthServices
 
     public updateRecoveryQuestions(body: any)
     {
-        let url = this._api + '/user-questions',
+        let url = this.api + '/user-questions',
             header = this.getAuthHeader();
 
         return this._http.put(url, body, header).map(res => res.json());
@@ -90,7 +90,7 @@ export class AuthServices
 
     public signIn(username: string, password: string)
     {
-        let url = this._api + '/users/login',
+        let url = this.api + '/users/login',
             header = this.getHeader(),
             body = {
                 username: username,
@@ -104,7 +104,7 @@ export class AuthServices
 
     public passwordReset(body: any)
     {
-        let url = this._api + '/users/password';
+        let url = this.api + '/users/password';
 
         if (localStorage.hasOwnProperty('password-recovery-token')) {
             body['recoveryToken'] = localStorage.getItem('password-recovery-token');
@@ -121,7 +121,7 @@ export class AuthServices
     {
         let platform: any = this._platformLocation;
 
-        let url = this._api + '/users/password',
+        let url = this.api + '/users/password',
             body = {
                 email: email,
                 url: platform['location']['href']
@@ -134,7 +134,7 @@ export class AuthServices
 
     public getRecoveryQuestions()
     {
-        let url = this._api + '/questions';
+        let url = this.api + '/questions';
 
         return this._http.get(url).map(res => res.json());
     }
@@ -143,7 +143,7 @@ export class AuthServices
 
     public getRecoveryQuestion(username: string)
     {
-        let url = this._api + '/user-questions/' + username;
+        let url = this.api + '/user-questions/' + username;
 
         return this._http.get(url).map(res => res.json());
     }
@@ -152,7 +152,7 @@ export class AuthServices
 
     public verifyRecoveryQuestion(username: string, body: any)
     {
-        let url = this._api + '/user-questions/' + username;
+        let url = this.api + '/user-questions/' + username;
 
         return this._http.patch(url, body).map(res => res.json());
     }
@@ -236,7 +236,7 @@ export class AuthServices
 
     public checkToken(): void
     {
-        let url = this._api + '/users/token',
+        let url = this.api + '/users/token',
             header = this.getAuthHeader();
 
         this._http.get(url, header)

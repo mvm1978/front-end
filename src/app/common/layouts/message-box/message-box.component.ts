@@ -33,7 +33,7 @@ export class MessageBoxComponent
 
     //**************************************************************************
 
-    public onClose()
+    public onClose(): boolean
     {
         this._globalEventsManager.messageBox(null);
 

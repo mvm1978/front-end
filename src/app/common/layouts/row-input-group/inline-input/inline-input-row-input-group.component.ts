@@ -3,8 +3,6 @@ import {Component, Input} from '@angular/core';
 import {Constants} from '../../../core/constants';
 import {SharedServices} from '../../../services/shared.services';
 
-declare var jQuery: any;
-
 @Component({
     selector: 'inline-input-row-input-group',
     templateUrl: Constants.ROW_INPUT_GROUP_PATH + 'inline-input/inline-input-row-input-group.component.html',
@@ -29,7 +27,7 @@ export class InlineInputRowInputGroupComponent
 
     //**************************************************************************
 
-    public onKeyPress()
+    public onKeyPress(): void
     {
         this._sharedServices.clearRowErrors(this.data.id);
     }

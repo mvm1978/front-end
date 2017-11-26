@@ -16,7 +16,7 @@ export class BooksServices
         private _apiServices: ApiServices
     )
     {
-        this.api = this._apiServices._api + '/book';
+        this.api = this._apiServices.api + '/book';
     }
 
     //**************************************************************************

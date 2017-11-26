@@ -53,7 +53,7 @@ export class GridFilterComponent
 
     //**************************************************************************
 
-    public onClose()
+    public onClose(): boolean
     {
         // hide filter popups
         this._agGridServices.showFilter('');

@@ -3,11 +3,8 @@ import {Component} from '@angular/core';
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {LibraryConstants} from '../library.constants';
 import {SharedServices} from '../../common/services/shared.services';
-import {ApiRoot} from '../../common/api-root';
 import {AuthServices} from '../../auth/auth.services';
 import {GenresServices} from '../genre/genre.services';
-
-declare var jQuery: any;
 
 @Component({
     selector: 'genre',
@@ -28,7 +25,7 @@ export class GenreComponent
     public addPopupInfo: any = {
         id: 'genre-popup',
         title: 'Add a Genre',
-        successMessage: 'The genre was added to the list of books',
+        successMessage: 'The genre was added to the list of genres',
         errorMessage: 'Error adding genre',
         method: 'upload',
         rows: []
@@ -65,7 +62,6 @@ export class GenreComponent
     //**************************************************************************
 
     constructor (
-        private _apiRoot: ApiRoot,
         private _globalEventsManager: GlobalEventsManager,
         private _sharedServices: SharedServices,
         private _genresServices: GenresServices
@@ -77,7 +73,7 @@ export class GenreComponent
 
     //**************************************************************************
 
-    public ngOnInit()
+    private ngOnInit(): void
     {
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);
@@ -87,7 +83,7 @@ export class GenreComponent
 
     //**************************************************************************
 
-    public onAddGenre()
+    public onAddGenre(): void
     {
         this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :
                 this._sharedServices.getAddPopupInfo(this.addPopupInfo, this.gridInfo);

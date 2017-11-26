@@ -25,7 +25,7 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
-    private getMimeType(fileName: string)
+    private getMimeType(fileName: string): string
     {
         let extension = '.' + fileName.split('.').pop();
 
@@ -63,7 +63,7 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
-    public handleInputErrors(data: any)
+    public handleInputErrors(data: any): string
     {
         let forseSignIn = false,
             message = '',
@@ -106,7 +106,7 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
-    public showRowError(id: string, message: string)
+    public showRowError(id: string, message: string): void
     {
         jQuery('#' + id + '-group').addClass('has-error');
         jQuery('#' + id + '-footer').html(message);
@@ -114,7 +114,7 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
-    public clearRowErrors(id?: string)
+    public clearRowErrors(id?: string): void
     {
         if (id) {
             jQuery('#' + id + '-group').removeClass('has-error');
@@ -219,16 +219,16 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
-    private getCount(value: number): string
+    public getCount(value: number): string
     {
-        if (value < 1000) {
-            return value;
-        } else if (value < 1000000) {
-            return Math.round((value / 1000) * 10 ) / 10 + ' K';
-        } else if (value < 1000000000) {
-            return Math.round((value / 1000000) * 10 ) / 10 + ' M';
+        if (value < Math.pow(10, 3)) {
+            return value.toString();;
+        } else if (value < Math.pow(10, 6)) {
+            return Math.round((value / Math.pow(10, 3)) * 10 ) / 10 + ' K';
+        } else if (value < Math.pow(10, 9)) {
+            return Math.round((value / Math.pow(10, 6)) * 10 ) / 10 + ' M';
         } else {
-            return Math.round((value / 1000000000) * 10 ) / 10 + ' B';
+            return Math.round((value / Math.pow(10, 9)) * 10 ) / 10 + ' B';
         }
     }
 
