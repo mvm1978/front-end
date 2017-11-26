@@ -26,10 +26,4 @@ export class LibraryConstants
 
     //**************************************************************************
 
-    public static get REPORTS_PATH(): string {
-        return Constants.LIBRARY_PATH + 'reports/';
-    }
-
-    //**************************************************************************
-
 }

@@ -21,14 +21,14 @@ export class BooksServices
 
     //**************************************************************************
 
-    public checkToken()
+    public checkToken(): any
     {
         return this._apiServices.checkToken();
     }
 
     //**************************************************************************
 
-    public patch(field: string, id: number, payload: any)
+    public patch(field: string, id: number, payload: any): any
     {
         let url = this.api + '/' + field + '/' + id,
             header = this._apiServices.getAuthHeader();
@@ -44,7 +44,7 @@ export class BooksServices
 
     //**************************************************************************
 
-    public upload(formData: any)
+    public upload(formData: any): any
     {
         let url = this.api,
             header = this._apiServices.getAuthHeader();
@@ -56,12 +56,22 @@ export class BooksServices
 
     //**************************************************************************
 
-    public vote(id: number, payload: any)
+    public vote(id: number, payload: any): any
     {
         let url = this.api + '/vote/' + id,
             header = this._apiServices.getAuthHeader();
 
         return this._http.post(url, payload, header).map(res => res.json());
+    }
+
+    //**************************************************************************
+
+    public getCharts(): any
+    {
+        let url = this.api + '/chart',
+            header = this._apiServices.getAuthHeader();
+
+        return this._http.get(url, header).map(res => res.json());
     }
 
     //**************************************************************************

@@ -3,169 +3,176 @@ export class Constants
 
     //**************************************************************************
 
-    public static get HOME_PATH(): string {
-
+    public static get HOME_PATH(): string
+    {
         return 'app/home/';
     }
 
     //**************************************************************************
 
-    public static get LIBRARY_PATH(): string {
-
+    public static get LIBRARY_PATH(): string
+    {
         return 'app/library/';
     }
 
     //**************************************************************************
 
-    public static get LAYOUTS_PATH(): string {
-
+    public static get LAYOUTS_PATH(): string
+    {
         return 'app/common/layouts/';
     }
 
     //**************************************************************************
 
-    public static get MESSAGE_BOX_PATH(): string {
-
+    public static get MESSAGE_BOX_PATH(): string
+    {
         return this.LAYOUTS_PATH + 'message-box/';
     }
 
     //**************************************************************************
 
-    public static get MODAL_POPUP_PATH(): string {
-
+    public static get MODAL_POPUP_PATH(): string
+    {
         return this.LAYOUTS_PATH + 'modal-popup/';
     }
 
     //**************************************************************************
 
-    public static get ADD_POPUP_PATH(): string {
-
+    public static get ADD_POPUP_PATH(): string
+    {
         return this.LAYOUTS_PATH + 'add-popup/';
     }
 
     //**************************************************************************
 
-    public static get ROW_INPUT_GROUP_PATH(): string {
-
+    public static get ROW_INPUT_GROUP_PATH(): string
+    {
         return this.LAYOUTS_PATH + 'row-input-group/';
     }
 
     //**************************************************************************
 
-    public static get AUTH_LAYOUTS_PATH(): string {
-
+    public static get AUTH_LAYOUTS_PATH(): string
+    {
         return 'app/auth/layouts/';
     }
 
     //**************************************************************************
 
-    public static get MVM_PATH(): string {
-
+    public static get MVM_PATH(): string
+    {
         return 'app/library/';
     }
 
     //**************************************************************************
 
-    public static get AUTH_PATH(): string {
-
+    public static get AUTH_PATH(): string
+    {
         return 'app/auth/';
     }
 
     //**************************************************************************
 
-    public static get SIGN_UP_PATH(): string {
-
+    public static get SIGN_UP_PATH(): string
+    {
         return 'app/auth/sign-up/';
     }
 
     //**************************************************************************
 
-    public static get RECOVERY_QUESTIONS_PATH(): string {
-
+    public static get RECOVERY_QUESTIONS_PATH(): string
+    {
         return 'app/auth/layouts/recovery-questions/';
     }
 
     //**************************************************************************
 
-    public static get SIGN_IN_PATH(): string {
-
+    public static get SIGN_IN_PATH(): string
+    {
         return 'app/auth/sign-in/';
     }
 
     //**************************************************************************
 
-    public static get PASSWORD_RESET_PATH(): string {
-
+    public static get PASSWORD_RESET_PATH(): string
+    {
         return 'app/auth/password-reset/';
     }
 
     //**************************************************************************
 
-    public static get PASSWORD_RECOVERY_PATH(): string {
-
+    public static get PASSWORD_RECOVERY_PATH(): string
+    {
         return 'app/auth/password-recovery/';
     }
 
     //**************************************************************************
 
-    public static get USER_INFO_PATH(): string {
-
+    public static get USER_INFO_PATH(): string
+    {
         return 'app/auth/user-info/';
     }
 
     //**************************************************************************
 
-    public static get AG_GRID_PATH(): string {
-
+    public static get AG_GRID_PATH(): string
+    {
         return 'app/common/layouts/ag-grid/';
     }
 
     //**************************************************************************
 
-    public static get AG_GRID_HEADER(): string {
-
+    public static get AG_GRID_HEADER(): string
+    {
         return 'app/common/layouts/ag-grid/header/';
     }
 
     //**************************************************************************
 
-    public static get AG_GRID_DOWNLOAD_BUTTON(): string {
-
+    public static get AG_GRID_DOWNLOAD_BUTTON(): string
+    {
         return 'app/common/layouts/ag-grid/download-button/';
     }
 
     //**************************************************************************
 
-    public static get AG_GRID_VOTE_PATH(): string {
-
+    public static get AG_GRID_VOTE_PATH(): string
+    {
         return 'app/common/layouts/ag-grid/vote/';
     }
 
     //**************************************************************************
 
-    public static get AG_GRID_FILTER(): string {
-
+    public static get AG_GRID_FILTER(): string
+    {
         return 'app/common/layouts/ag-grid/filter/';
     }
 
     //**************************************************************************
 
-    public static get AG_GRID_UPLOADER(): string {
-
+    public static get AG_GRID_UPLOADER(): string
+    {
         return 'app/common/layouts/ag-grid/uploader/';
     }
 
     //**************************************************************************
 
-    public static get AG_GRID_NAVIGATION(): string {
-
+    public static get AG_GRID_NAVIGATION(): string
+    {
         return 'app/common/layouts/ag-grid/navigation/';
     }
 
     //**************************************************************************
 
-    public static get MIME_TYPES(): any {
+    public static get CHART_PATH(): string
+    {
+        return 'app/common/layouts/charts/';
+    }
 
+    //**************************************************************************
+
+    public static get MIME_TYPES(): any
+    {
         return {
             '.3dm': 'x-world/x-3dmf',
             '.3dmf': 'x-world/x-3dmf',

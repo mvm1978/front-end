@@ -31,6 +31,8 @@ export class BookComponent
 {
     public showAddPopup: boolean = false;
 
+    public pieCharts: Array<any> = [];
+
     public addPopupInfo: any = {
         id: 'book-popup',
         title: 'Add a Book',
@@ -261,6 +263,35 @@ export class BookComponent
             .subscribe(
                 response => {
                     this.setCellEditor(response, 'type');
+                },
+                err => {},
+                () => {}
+            );
+
+        this.setChartData();
+    }
+
+    //**************************************************************************
+
+    public setChartData(): void
+    {
+        this._booksServices.getCharts()
+            .subscribe(
+                response => {
+                    for (var key in response) {
+                        if (response.hasOwnProperty(key)) {
+                            if (! ~jQuery.inArray(key, ['genres', 'authors']) {
+                                continue;
+                            }
+
+                            this.pieCharts.push({
+                                id: key + '-chart',
+                                title: 'Top 5 ' + key.charAt(0).toUpperCase() + key.slice(1),
+                                data: response[key].data,
+                                labels: response[key].labels
+                            });
+                        }
+                    }
                 },
                 err => {},
                 () => {}

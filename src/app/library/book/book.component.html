@@ -6,6 +6,18 @@
 
         <button class="btn btn-success" (click)="onAddBook()">Add Book</button>
     </div>
+
+    <div *ngFor="let chart of pieCharts" class="charts">
+        <h3 class="chart-caption">{{chart.title}}</h3>
+        <pie-chart id="{{chart.id}}"
+            [pieChartData]="chart.data"
+            [pieChartLabels]="chart.labels">
+
+        </pie-chart>
+    </div>
+    <div class="clear-float-left">
+    </div>
+
     <add-popup *ngIf="showAddPopup"
         [addPopupInfo]="addPopupInfo"
         [(addPopupStatus)]="showAddPopup">
