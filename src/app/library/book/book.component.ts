@@ -11,6 +11,8 @@ import {AuthorsServices} from '../author/author.services';
 import {TypesServices} from '../type/type.services';
 import {BooksServices} from '../book/book.services';
 
+declare let jQuery: any;
+
 @Component({
     selector: 'book',
     providers: [
@@ -278,9 +280,9 @@ export class BookComponent
         this._booksServices.getCharts()
             .subscribe(
                 response => {
-                    for (var key in response) {
+                    for (let key in response) {
                         if (response.hasOwnProperty(key)) {
-                            if (! ~jQuery.inArray(key, ['genres', 'authors']) {
+                            if (! ~jQuery.inArray(key, ['genres', 'authors'])) {
                                 continue;
                             }
 
@@ -302,7 +304,7 @@ export class BookComponent
 
     public setCellEditor(response: any, field: string): void
     {
-        for (var key in this.gridInfo.columnDefs) {
+        for (let key in this.gridInfo.columnDefs) {
             if (this.gridInfo.columnDefs.hasOwnProperty(key)
              && this.gridInfo.columnDefs[key].field == field) {
 

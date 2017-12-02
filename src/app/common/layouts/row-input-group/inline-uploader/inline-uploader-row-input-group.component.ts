@@ -3,7 +3,7 @@ import {Component, Input} from '@angular/core';
 import {Constants} from '../../../core/constants';
 import {RowInputGroupServices} from '../row-input-group.services';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Component({
     selector: 'inline-uploader-row-input-group',

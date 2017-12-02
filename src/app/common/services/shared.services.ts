@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http, ResponseContentType} from '@angular/http';
 
-declare var saveAs: any;
-declare var jQuery: any;
+declare let saveAs: any;
+declare let jQuery: any;
 
 import {BaseServices} from '../core/base.services';
 import {Constants} from '../core/constants';
@@ -175,7 +175,7 @@ export class SharedServices extends BaseServices
     {
         let rows = [];
 
-        for (var key in gridInfo.columnDefs) {
+        for (let key in gridInfo.columnDefs) {
             if (gridInfo.columnDefs.hasOwnProperty(key)) {
 
                 let colInfo = gridInfo.columnDefs[key];

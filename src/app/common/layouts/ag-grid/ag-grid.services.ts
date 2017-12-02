@@ -7,8 +7,6 @@ import {BaseServices} from '../../core/base.services';
 import {SharedServices} from '../../services/shared.services';
 import {AuthServices} from '../../../auth/auth.services';
 
-declare var jQuery: any;
-
 @Injectable()
 
 export class AgGridServices extends BaseServices

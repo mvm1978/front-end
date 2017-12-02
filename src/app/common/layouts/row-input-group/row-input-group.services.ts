@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Injectable()
 

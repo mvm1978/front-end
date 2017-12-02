@@ -8,7 +8,7 @@ import {AuthServices} from '../../../auth/auth.services';
 
 import {CredentialsRowServices} from './credentials-row.services';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Component({
     selector: 'credentials-row',

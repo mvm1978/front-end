@@ -5,7 +5,7 @@ import {GlobalEventsManager} from '../../../common/modules/global-events-manager
 import {SharedServices} from '../../../common/services/shared.services';
 import {AuthServices} from '../../../auth/auth.services';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Component({
     selector: 'header',

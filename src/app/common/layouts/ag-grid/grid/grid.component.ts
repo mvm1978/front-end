@@ -1,8 +1,6 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {GridOptions} from 'ag-grid/main';
 
-import {GlobalEventsManager} from '../../../modules/global-events-manager';
-
 import {GridHeaderComponent} from '../header/grid-header.component';
 import {DownloadButtonComponent} from '../download-button/download-button.component';
 import {UpVoteComponent} from '../vote/up/up-vote.component';
@@ -11,7 +9,7 @@ import {AgGridServices} from '../ag-grid.services';
 
 import {Constants} from '../../../core/constants';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Component({
     selector: 'grid',
@@ -40,12 +38,10 @@ export class GridComponent
         last_page: 1
     };
 
-
     private initSubscription: any = null;
     private gridOptions: GridOptions;
 
     constructor(
-        private _globalEventsManager: GlobalEventsManager,
         private _agGridServices: AgGridServices
     )
     {
@@ -63,6 +59,7 @@ export class GridComponent
     {
         this._agGridServices.set('output', {
             page: 1,
+//            limit: this.data.hasOwnProperty('limit') ? this.data.limit : undefined,
             sort: {},
             filter: {}
         });

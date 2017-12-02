@@ -4,7 +4,7 @@ import {ModalPopupComponent} from '../../layouts/modal-popup/modal-popup.compone
 import {GlobalEventsManager} from '../../modules/global-events-manager';
 import {Constants} from '../../core/constants';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Component({
     selector: 'add-popup',
@@ -62,7 +62,7 @@ export class AddPopupComponent extends ModalPopupComponent
         let isError = false,
             formData = new FormData();
 
-        for (var key in this.addPopupInfo.rows) {
+        for (let key in this.addPopupInfo.rows) {
             if (this.addPopupInfo.rows.hasOwnProperty(key)) {
 
                 let row = this.addPopupInfo.rows[key],

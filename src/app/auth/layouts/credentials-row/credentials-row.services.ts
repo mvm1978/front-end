@@ -5,7 +5,7 @@ import {ValidateInputServices} from '../../../common/services/validate-input.ser
 import {SharedServices} from '../../../common/services/shared.services';
 import {AuthServices} from '../../auth.services';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Injectable()
 

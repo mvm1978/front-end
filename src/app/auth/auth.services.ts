@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 import {ApiRoot} from '../common/api-root';
 import {SharedServices} from '../common/services/shared.services';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Injectable()
 
@@ -45,7 +45,7 @@ export class AuthServices
     {
         let authHeader = new Headers();
 
-        var token = this.getUserInfoValue('token'),
+        let token = this.getUserInfoValue('token'),
             userID = this.getUserInfoValue('id');
 
         authHeader.append('Content-Type', 'application/json');

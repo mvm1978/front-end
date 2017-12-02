@@ -4,7 +4,7 @@ import {ICellRendererAngularComp} from 'ag-grid-angular';
 
 import {SharedServices} from '../../../services/shared.services';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Component({
     selector: 'vote',

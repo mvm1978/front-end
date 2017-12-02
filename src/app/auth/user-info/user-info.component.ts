@@ -7,7 +7,7 @@ import {AuthServices} from '../../auth/auth.services';
 import {CredentialsRowComponent} from '../layouts/credentials-row/credentials-row.component';
 import {RecoveryQuestionsComponent} from '../layouts/recovery-questions/recovery-questions.component';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Component({
     selector: 'user-info',

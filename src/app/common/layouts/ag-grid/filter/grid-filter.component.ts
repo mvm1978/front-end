@@ -6,7 +6,7 @@ import {AgGridServices} from '../ag-grid.services';
 
 import {Constants} from '../../../core/constants';
 
-declare var jQuery: any;
+declare let jQuery: any;
 
 @Component({
     selector: 'grid-filter',
