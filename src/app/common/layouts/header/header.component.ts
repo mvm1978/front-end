@@ -116,6 +116,13 @@ export class HeaderComponent
 
     //**************************************************************************
 
+    public onLibraryMenuClick(): boolean
+    {
+        return false;
+    }
+
+    //**************************************************************************
+
     public onClick(caption: string): void
     {
         if (caption == 'Sign Out') {

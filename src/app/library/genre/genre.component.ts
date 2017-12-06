@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 
-import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {LibraryConstants} from '../library.constants';
 import {SharedServices} from '../../common/services/shared.services';
 import {AuthServices} from '../../auth/auth.services';
@@ -62,23 +61,12 @@ export class GenreComponent
     //**************************************************************************
 
     constructor (
-        private _globalEventsManager: GlobalEventsManager,
         private _sharedServices: SharedServices,
         private _genresServices: GenresServices
     )
     {
         this.gridInfo.url = this._genresServices.api;
         this.gridInfo.service = this._genresServices;
-    }
-
-    //**************************************************************************
-
-    private ngOnInit(): void
-    {
-        this._globalEventsManager.showHeader(true);
-        this._globalEventsManager.showFooter(true);
-
-        this._genresServices.checkToken();
     }
 
     //**************************************************************************

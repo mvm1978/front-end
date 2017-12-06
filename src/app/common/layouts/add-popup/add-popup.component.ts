@@ -36,13 +36,6 @@ export class AddPopupComponent extends ModalPopupComponent
 
     //**************************************************************************
 
-    private ngOnInit(): void
-    {
-        this.addPopupInfo.service.checkToken();
-    }
-
-    //**************************************************************************
-
     public onClose(): boolean
     {
         this.addPopupStatusChange.emit(false);
@@ -101,7 +94,8 @@ export class AddPopupComponent extends ModalPopupComponent
 
         this._globalEventsManager.showLoadingOverload(true);
 
-        let service = this.addPopupInfo.service;
+        let service = this.addPopupInfo.service,
+            component = this.addPopupInfo.component;
 
         service[this.addPopupInfo.method](formData)
             .subscribe(
@@ -114,6 +108,10 @@ export class AddPopupComponent extends ModalPopupComponent
                     this._globalEventsManager.messageBox({
                         text: this.addPopupInfo.successMessage
                     });
+
+                    if (component.onAddPopupSuccess != null) {
+                        component.onAddPopupSuccess();
+                    }
                 },
                 err => {
 

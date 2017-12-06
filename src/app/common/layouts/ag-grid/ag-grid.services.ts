@@ -116,4 +116,56 @@ export class AgGridServices extends BaseServices
 
     //**************************************************************************
 
+    public showUploaderError(err: any, defaultMessage: string): any
+    {
+        return this._sharedServices.handleInputErrors({
+            err: err,
+            defaultMessage: defaultMessage,
+            service: this,
+            footer: 'uploader'
+        })
+    }
+
+    //**************************************************************************
+
+    public getErrorInfo(
+        response: any,
+        defaultMessage: string
+    ): {message: string, output: string, forceSignIn: boolean}
+    {
+        let service = this._sharedServices,
+            output = '';
+
+        let message: string = service.getCommonErrorMessage(response.message);
+
+        if (message) {
+            output = 'uploader-footer';
+        } else {
+            switch (response.message) {
+                case 'invalid_upload_mime_type':
+                    service.showRowError('upload', 'Invalid file type. ' +
+                            'PNG and JPEG types acceped only');
+                    break;
+                case 'empty_upload_file':
+                    service.showRowError('upload', 'Uploaded file must not be empty');
+                    break;
+                case 'invalid_upload_size':
+                    service.showRowError('upload', 'Invalid file size' +
+                            'Uploaded file must be less than 5 Mb');
+                    break;
+                default:
+                    message = defaultMessage;
+                    break;
+            }
+        }
+
+        return {
+            message: message,
+            output: output,
+            forceSignIn: false
+        }
+    }
+
+    //**************************************************************************
+
 }

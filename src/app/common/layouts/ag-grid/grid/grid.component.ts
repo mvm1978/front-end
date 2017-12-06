@@ -127,7 +127,7 @@ console.log('onGridReady');
 
     //**************************************************************************
 
-    private reload(): void
+    public reload(): void
     {
         this.gridLoadingOverlay = true;
 

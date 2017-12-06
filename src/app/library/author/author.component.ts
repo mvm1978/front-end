@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 
-import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {LibraryConstants} from '../library.constants';
 import {SharedServices} from '../../common/services/shared.services';
 import {ApiServices} from '../api.services';
@@ -102,23 +101,12 @@ export class AuthorComponent
 
     constructor (
         private _apiServices: ApiServices,
-        private _globalEventsManager: GlobalEventsManager,
         private _sharedServices: SharedServices,
         private _authorsServices: AuthorsServices
     )
     {
         this.gridInfo.url = this._authorsServices.api;
         this.gridInfo.service = this._authorsServices;
-    }
-
-    //**************************************************************************
-
-    private ngOnInit(): void
-    {
-        this._globalEventsManager.showHeader(true);
-        this._globalEventsManager.showFooter(true);
-
-        this._authorsServices.checkToken();
     }
 
     //**************************************************************************

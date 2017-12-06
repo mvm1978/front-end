@@ -264,10 +264,10 @@ export class AuthServices
 
     //**************************************************************************
 
-    public getErrorInfo(response, defaultMessage): {message: string, forseSignIn: boolean}
+    public getErrorInfo(response, defaultMessage): {message: string, forceSignIn: boolean}
     {
         let message: string = '',
-            forseSignIn: boolean = false;
+            forceSignIn: boolean = false;
 
         switch (response['message']) {
             case 'password_expired':
@@ -277,11 +277,11 @@ export class AuthServices
                 message = 'Invalid User ID or Password';
                 break;
             case 'invalid_token':
-                forseSignIn = true;
+                forceSignIn = true;
                 message = 'Invalid token. You was signed out';
                 break;
             case 'invalid_or_expired_token':
-                forseSignIn = true;
+                forceSignIn = true;
                 message = 'Invalid or expired token. You was signed out';
                 break;
             case 'failed_to_create_token':
@@ -291,7 +291,7 @@ export class AuthServices
                 message = 'Missing password recovery token';
                 break;
             case 'password_recovery_token_expired':
-                forseSignIn = true;
+                forceSignIn = true;
                 message = 'Password recovery token expired';
                 break;
             case 'error_updating_user_info':
@@ -331,7 +331,7 @@ export class AuthServices
 
         return {
             message: message,
-            forseSignIn: forseSignIn
+            forceSignIn: forceSignIn
         }
     }
 

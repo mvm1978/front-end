@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+
+import {AgGridComponent} from '../../common/layouts/ag-grid/ag-grid.component';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {Constants} from '../../common/core/constants';
@@ -31,6 +33,8 @@ declare let jQuery: any;
 
 export class BookComponent
 {
+    @ViewChild(AgGridComponent) agGridComponent: AgGridComponent;
+
     public showAddPopup: boolean = false;
 
     public pieCharts: Array<any> = [];
@@ -41,6 +45,9 @@ export class BookComponent
         successMessage: 'The book was added to the list of books',
         errorMessage: 'Error book uploading',
         method: 'upload',
+        url: null,
+        service: null,
+        component: null,
         rows: []
     };
 
@@ -232,6 +239,7 @@ export class BookComponent
     {
         this.gridInfo.url = this._booksServices.api;
         this.gridInfo.service = this._booksServices;
+        this.addPopupInfo.component = this;
     }
 
     //**************************************************************************
@@ -240,8 +248,6 @@ export class BookComponent
     {
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);
-
-        this._booksServices.checkToken();
 
         this._genresServices.getDropdown()
             .subscribe(
@@ -277,6 +283,8 @@ export class BookComponent
 
     public setChartData(): void
     {
+        this.pieCharts = [];
+
         this._booksServices.getCharts()
             .subscribe(
                 response => {
@@ -322,6 +330,14 @@ export class BookComponent
                 this._sharedServices.getAddPopupInfo(this.addPopupInfo, this.gridInfo);
 
         this.showAddPopup = true;
+    }
+
+    //**************************************************************************
+
+    public onAddPopupSuccess(): void
+    {
+        this.agGridComponent.reload();
+        this.setChartData();
     }
 
     //**************************************************************************

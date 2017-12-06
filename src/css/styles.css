@@ -81,6 +81,7 @@ a:hover, a:visited {
 }
 
 .table-picture {
+    margin-top: 3px;
     border: 0;
     width: 50px;
     height: 70px;
@@ -96,8 +97,31 @@ a:hover, a:visited {
     overflow: auto;
 }
 
+@media only screen and (max-width: 359px) {
+    .popup-wrapper .popup-content {
+        width: 340px;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 399px) {
+    .popup-wrapper .popup-content {
+        width: 350px;
+    }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 639px) {
+    .popup-wrapper .popup-content {
+        width: 390px;
+    }
+}
+
+@media only screen and (min-width: 640px) {
+    .popup-wrapper .popup-content {
+        width: 620px;
+    }
+}
+
 .popup-content {
-    width: 360px;
     padding: 15px;
     border-radius: 5px;
     border: 1px solid #888;
@@ -141,4 +165,12 @@ header {
 
 .loading-overlay-gif {
     content: url('../images/loading-overlay.gif');
+}
+
+.popup-section-delimiter {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #cd0a0a;
+    padding: 0;
 }

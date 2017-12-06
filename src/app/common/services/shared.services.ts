@@ -65,10 +65,11 @@ export class SharedServices extends BaseServices
 
     public handleInputErrors(data: any): string
     {
-        let forseSignIn = false,
+        let forceSignIn = false,
             message = '',
+            output = '',
             response: any = {};
-
+console.log(data);
         try {
             response = JSON.parse(data.err._body);
         } catch (err) {
@@ -76,29 +77,28 @@ export class SharedServices extends BaseServices
         } finally {
             if (response.hasOwnProperty('message')) {
 
-                if (response.message == 'unauthorized') {
-                    forseSignIn = true;
-                } else {
-
-                    let info = data.service.getErrorInfo(response, data.defaultMessage);
-
-                    message = info.message;
-                    forseSignIn = info.forseSignIn;
-                }
+                let info = data.service.getErrorInfo(response, data.defaultMessage);
+console.log(info);
+                message = info.message;
+                forceSignIn = info.forceSignIn;
+                output = info.output;
+            } else {
+                output = data.hasOwnProperty('footer') && data.footer ?
+                    data.footer + '-footer' : '';
             }
         }
 
-        if (forseSignIn) {
+        if (forceSignIn) {
 
             this._globalEventsManager.messageBox({
                 text: message + '. Please sign in.'
             });
 
             this._globalEventsManager.forceSignIn();
-        } else if (data.hasOwnProperty('footer') && data.footer) {
-            if (jQuery('#' + data.footer + '-footer').length) {
-                jQuery('#' + data.footer + '-footer').html(message);
-            }
+        }
+
+        if (output && jQuery('#' + output).length) {
+            jQuery('#' + output).html(message);
         }
 
         return message;
@@ -230,6 +230,20 @@ export class SharedServices extends BaseServices
         } else {
             return Math.round((value / Math.pow(10, 9)) * 10 ) / 10 + ' B';
         }
+    }
+
+    //**************************************************************************
+
+    public getCommonErrorMessage(message: string): string
+    {
+        switch (message) {
+            case 'invalid_token':
+                return 'Unauthorized access. Please sign in.';
+            default:
+                break;
+        }
+
+        return '';
     }
 
     //**************************************************************************

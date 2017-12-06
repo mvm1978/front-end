@@ -8,7 +8,9 @@
             <li id="library-dropdown" class="dropdown"
                 (mouseenter)="mouseEnter($event.target)"
                 (mouseleave)="mouseLeave($event.target)">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                   (click)="onLibraryMenuClick()">
+
                     Library <b class="caret"></b>
                 </a>
                 <ul class="nav dropdown-menu" role="menu">

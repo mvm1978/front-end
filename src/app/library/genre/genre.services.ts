@@ -71,23 +71,33 @@ export class GenresServices
 
     //**************************************************************************
 
-    public getErrorInfo(response: any, defaultMessage: string): {message: string, forseSignIn: boolean}
+    public getErrorInfo(
+        response: any,
+        defaultMessage: string
+    ): {message: string, output: string, forceSignIn: boolean}
     {
-        let message: string = '',
-            forseSignIn: boolean = false;
+        let service = this._sharedServices,
+            output = '';
 
-        switch (response.message) {
-            case 'genre_exists':
-                this._sharedServices.showRowError('genre-name', 'Genre exists');
-                break;
-            default:
-                message = defaultMessage;
-                break;
+        let message: string = service.getCommonErrorMessage(response.message);
+
+        if (message) {
+            output = 'genre-popup-footer';
+        } else {
+            switch (response.message) {
+                case 'genre_exists':
+                    service.showRowError('genre', 'Genre exists');
+                    break;
+                default:
+                    message = defaultMessage;
+                    break;
+            }
         }
 
         return {
             message: message,
-            forseSignIn: forseSignIn
+            output: output,
+            forceSignIn: false
         }
     }
 

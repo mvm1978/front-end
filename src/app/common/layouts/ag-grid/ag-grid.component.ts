@@ -1,4 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
+
+import {GridComponent} from '../ag-grid/grid/grid.component';
 
 import {AgGridServices} from '../ag-grid/ag-grid.services';
 
@@ -14,6 +16,7 @@ import {Constants} from '../../core/constants';
 
 export class AgGridComponent
 {
+    @ViewChild(GridComponent) gridComponent: GridComponent;
     @Input() data: any;
 
     public filterField: string;
@@ -58,6 +61,13 @@ export class AgGridComponent
     {
         this.showFilterSubscription.unsubscribe();
         this.showUploaderSubscription.unsubscribe();
+    }
+
+    //**************************************************************************
+
+    public reload(): void
+    {
+        this.gridComponent.reload();
     }
 
     //**************************************************************************

@@ -88,10 +88,10 @@ export class BooksServices
 
     //**************************************************************************
 
-    public getErrorInfo(response: any, defaultMessage: string): {message: string, forseSignIn: boolean}
+    public getErrorInfo(response: any, defaultMessage: string): {message: string, forceSignIn: boolean}
     {
         let message: string = '',
-            forseSignIn: boolean = false;
+            forceSignIn: boolean = false;
 
         switch (response.message) {
             case 'book_exists':
@@ -113,7 +113,7 @@ export class BooksServices
 
         return {
             message: message,
-            forseSignIn: forseSignIn
+            forceSignIn: forceSignIn
         }
     }
 

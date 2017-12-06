@@ -91,6 +91,9 @@ export class GridUploaderComponent extends ModalPopupComponent
                     this._agGridServices.reloadTable();
                 },
                 err => {
+                    this._agGridServices.showUploaderError(err, 'Error uploading file');
+console.log(err);
+//                    service.showError(err, this.addPopupInfo.errorMessage);
 
 //                    this._authorsServices.showError(err, 'Error uploading');
 

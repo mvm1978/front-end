@@ -77,32 +77,42 @@ export class AuthorsServices
 
     //**************************************************************************
 
-    public getErrorInfo(response: any, defaultMessage: string): {message: string, forseSignIn: boolean}
+    public getErrorInfo(
+        response: any,
+        defaultMessage: string
+    ): {message: string, output: string, forceSignIn: boolean}
     {
-        let message: string = '',
-            forseSignIn: boolean = false;
+        let service = this._sharedServices,
+            output = '';
 
-        switch (response.message) {
-            case 'author_exists':
-                this._sharedServices.showRowError('author-name', 'Author exists');
-                break;
-            case 'invalid_upload_mime_type':
-                this._sharedServices.showRowError('upload', 'Upload file must be a picture');
-                break;
-            case 'empty_upload_file':
-                this._sharedServices.showRowError('upload', 'Upload file must not be empty');
-                break;
-            case 'invalid_upload_size':
-                this._sharedServices.showRowError('upload', 'Upload file size must less than 5 Mb');
-                break;
-            default:
-                message = defaultMessage;
-                break;
+        let message: string = service.getCommonErrorMessage(response.message);
+
+        if (message) {
+            output = 'author-popup-footer';
+        } else {
+            switch (response.message) {
+                case 'author_exists':
+                    service.showRowError('author', 'Author exists');
+                    break;
+                case 'invalid_upload_mime_type':
+                    service.showRowError('upload', 'Upload file must be a picture');
+                    break;
+                case 'empty_upload_file':
+                    service.showRowError('upload', 'Upload file must not be empty');
+                    break;
+                case 'invalid_upload_size':
+                    service.showRowError('upload', 'Upload file size must less than 5 Mb');
+                    break;
+                default:
+                    message = defaultMessage;
+                    break;
+            }
         }
 
         return {
             message: message,
-            forseSignIn: forseSignIn
+            output: output,
+            forceSignIn: false
         }
     }
 
