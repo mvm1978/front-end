@@ -115,7 +115,11 @@ export class AddPopupComponent extends ModalPopupComponent
                 },
                 err => {
 
-                    service.showError(err, this.addPopupInfo.errorMessage);
+                    service.showError({
+                        err: err,
+                        defaultMessage: this.addPopupInfo.errorMessage,
+                        output: this.addPopupInfo.id
+                    });
 
                     this._globalEventsManager.showLoadingOverload(false);
                 },

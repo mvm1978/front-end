@@ -116,9 +116,9 @@ export class AgGridServices extends BaseServices
 
     //**************************************************************************
 
-    public showUploaderError(err: any, defaultMessage: string): any
+    public showUploaderError(err: any, defaultMessage: string): void
     {
-        return this._sharedServices.handleInputErrors({
+        this._sharedServices.handleInputErrors({
             err: err,
             defaultMessage: defaultMessage,
             service: this,
@@ -128,20 +128,23 @@ export class AgGridServices extends BaseServices
 
     //**************************************************************************
 
-    public getErrorInfo(
-        response: any,
-        defaultMessage: string
-    ): {message: string, output: string, forceSignIn: boolean}
+    public (data: any): void
     {
-        let service = this._sharedServices,
-            output = '';
+        let service = this._sharedServices;
 
-        let message: string = service.getCommonErrorMessage(response.message);
+        if (! data.response.hasOwnProperty('message')) {
 
-        if (message) {
-            output = 'uploader-footer';
+            service.showRowError(data.output, data.defaultMessage);
+
+            return;
+        }
+
+        let authorizationError = service.getAuthorizationError(data.response.message);
+
+        if (authorizationError) {
+            service.showRowError(data.output, authorizationError);
         } else {
-            switch (response.message) {
+            switch (data.response.message) {
                 case 'invalid_upload_mime_type':
                     service.showRowError('upload', 'Invalid file type. ' +
                             'PNG and JPEG types acceped only');
@@ -154,15 +157,9 @@ export class AgGridServices extends BaseServices
                             'Uploaded file must be less than 5 Mb');
                     break;
                 default:
-                    message = defaultMessage;
+                    service.showRowError(data.output, data.defaultMessage);
                     break;
             }
-        }
-
-        return {
-            message: message,
-            output: output,
-            forceSignIn: false
         }
     }
 

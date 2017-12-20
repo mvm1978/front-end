@@ -18,6 +18,8 @@
     <div class="clear-float-left">
     </div>
 
+    <a href="#" (click)="downloadCanvas($event)"> DOWNLOAD THIS</a>
+
     <add-popup *ngIf="showAddPopup"
         [addPopupInfo]="addPopupInfo"
         [(addPopupStatus)]="showAddPopup">

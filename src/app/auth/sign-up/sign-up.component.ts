@@ -135,14 +135,26 @@ export class SignUpComponent
                     this._globalEventsManager.authPopup('Sign In');
                 },
                 err => {
-                    let message = this._authServices.showError(err,
-                            'Error signing up');
+
+                    this._authServices.showError({
+                        err: err,
+                        defaultMessage: 'Error signing up',
+                        output: 'sign-footer'
+                    });
 
                     let firstPageErrors = [
                         'username_exists',
                         'email_exists',
                         'Error signing up'
                     ];
+
+                    let message = '';
+
+                    try {
+                        message = JSON.parse(err._body);
+                    } catch (err) {
+
+                    }
 
                     if (! ~jQuery.inArray(message, firstPageErrors)) {
                         this.isRecoveryQuestions = false;

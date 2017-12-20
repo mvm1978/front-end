@@ -65,32 +65,32 @@ export class AuthorsServices
 
     //**************************************************************************
 
-    public showError(err: any, defaultMessage: string): any
+    public showError(data: any): void
     {
-        return this._sharedServices.handleInputErrors({
-            err: err,
-            defaultMessage: defaultMessage,
-            service: this,
-            footer: 'author'
-        })
+        data['service'] = this;
+
+        this._sharedServices.handleInputErrors(data);
     }
 
     //**************************************************************************
 
-    public getErrorInfo(
-        response: any,
-        defaultMessage: string
-    ): {message: string, output: string, forceSignIn: boolean}
+    public outputErrorInfo(data: any): void
     {
-        let service = this._sharedServices,
-            output = '';
+        let service = this._sharedServices;
 
-        let message: string = service.getCommonErrorMessage(response.message);
+        if (! data.response.hasOwnProperty('message')) {
 
-        if (message) {
-            output = 'author-popup-footer';
+            service.showRowError(data.output, data.defaultMessage);
+
+            return;
+        }
+
+        let authorizationError = service.getAuthorizationError(data.response.message);
+
+        if (authorizationError) {
+            service.showRowError(data.output, authorizationError);
         } else {
-            switch (response.message) {
+            switch (data.response.message) {
                 case 'author_exists':
                     service.showRowError('author', 'Author exists');
                     break;
@@ -104,15 +104,9 @@ export class AuthorsServices
                     service.showRowError('upload', 'Upload file size must less than 5 Mb');
                     break;
                 default:
-                    message = defaultMessage;
+                    service.showRowError(data.output, data.defaultMessage);
                     break;
             }
-        }
-
-        return {
-            message: message,
-            output: output,
-            forceSignIn: false
         }
     }
 

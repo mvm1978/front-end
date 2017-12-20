@@ -234,7 +234,7 @@ export class AuthServices
 
     //**************************************************************************
 
-    public checkToken(): void
+    public checkToken(forceSingIn?: boolean): void
     {
         let url = this.api + '/users/token',
             header = this.getAuthHeader();
@@ -244,7 +244,11 @@ export class AuthServices
             .subscribe(
                 response => {},
                 err => {
-                    this.showError(err, 'Unknown Error');
+                    this.showError({
+                        err: err,
+                        defaultMessage: 'Unknown Error',
+                        forceSingIn: typeof forceSingIn === 'boolean' ? forceSingIn : false
+                    });
                 },
                 () => {}
             );
@@ -252,86 +256,89 @@ export class AuthServices
 
     //**************************************************************************
 
-    public showError(err: any, defaultMessage: string): string
+    public showError(data: any): void
     {
-        return this._sharedServices.handleInputErrors({
-            err: err,
-            defaultMessage: defaultMessage,
-            service: this,
-            footer: 'sign'
-        });
+        data['service'] = this;
+        data['output'] = 'sign';
+
+        this._sharedServices.handleInputErrors(data);
     }
 
     //**************************************************************************
 
-    public getErrorInfo(response, defaultMessage): {message: string, forceSignIn: boolean}
+    public outputErrorInfo(data: any): void
     {
-        let message: string = '',
-            forceSignIn: boolean = false;
+        let service = this._sharedServices;
 
-        switch (response['message']) {
-            case 'password_expired':
-                message = 'Password expired';
-                break;
-            case 'invalid_login_or_password':
-                message = 'Invalid User ID or Password';
-                break;
-            case 'invalid_token':
-                forceSignIn = true;
-                message = 'Invalid token. You was signed out';
-                break;
-            case 'invalid_or_expired_token':
-                forceSignIn = true;
-                message = 'Invalid or expired token. You was signed out';
-                break;
-            case 'failed_to_create_token':
-                message = 'Failed to create a token';
-                break;
-            case 'missing_password_recovery_token':
-                message = 'Missing password recovery token';
-                break;
-            case 'password_recovery_token_expired':
-                forceSignIn = true;
-                message = 'Password recovery token expired';
-                break;
-            case 'error_updating_user_info':
-                message = 'Error updating user info';
-                break;
-            case 'error_updating_recovery_questions':
-                message = 'Error updating recovery questions';
-                break;
-            case 'error_recovering_password':
-                message = 'Error recovering password';
-                break;
-            case 'failed_to_get_user':
-                message = 'Failed to get user';
-                break;
-            case 'missing_username':
-                this.showRowError('username', 'User Name is mandatory');
-                break;
-            case 'username_exists':
-                this.showRowError('username', 'Username exists');
-                break;
-            case 'email_exists':
-                this.showRowError('email', 'Email exists');
-                break;
-            case 'email_does_not_exist':
-                this.showRowError('email', 'Email does not exist');
-                break;
-            case 'missing_password':
-                this.showRowError('password', 'Password is mandatory');
-                break;
-            case 'invalid_old_password':
-                this.showRowError('old-password', 'Old password is invalid');
-                break;
-            default:
-                message = defaultMessage;
-                break;
+        if (! data.hasOwnProperty('response')
+         || ! data.response.hasOwnProperty('message')) {
+
+            service.showRowError(data.output, data.defaultMessage);
+
+            return;
         }
 
-        return {
-            message: message,
-            forceSignIn: forceSignIn
+        let authorizationError = service.getAuthorizationError(data.response.message);
+
+        if (authorizationError) {
+            service.showRowError(data.output, authorizationError);
+        } else {
+            switch (data.response.message) {
+                case 'password_expired':
+                    this.showRowError(data.output, 'Password expired');
+                    break;
+                case 'invalid_login_or_password':
+                    this.showRowError(data.output, 'Invalid User ID or Password');
+                    break;
+                case 'invalid_token':
+                    this.showRowError(data.output, 'Invalid token. You was signed out');
+                    break;
+                case 'invalid_or_expired_token':
+                    this.showRowError(data.output, 'Invalid or expired token. You was signed out');
+                    break;
+                case 'failed_to_create_token':
+                    this.showRowError(data.output, 'Failed to create a token');
+                    break;
+                case 'missing_password_recovery_token':
+                    this.showRowError(data.output, 'Missing password recovery token');
+                    break;
+                case 'password_recovery_token_expired':
+                    this.showRowError(data.output, 'Password recovery token expired');
+                    break;
+                case 'error_updating_user_info':
+                    this.showRowError(data.output, 'Error updating user info');
+                    break;
+                case 'error_updating_recovery_questions':
+                    this.showRowError(data.output, 'Error updating recovery questions');
+                    break;
+                case 'error_recovering_password':
+                    this.showRowError(data.output, 'Error recovering password');
+                    break;
+                case 'failed_to_get_user':
+                    this.showRowError(data.output, 'Failed to get user');
+                    break;
+                case 'missing_username':
+                    this.showRowError('username', 'User Name is mandatory');
+                    break;
+                case 'username_exists':
+                    this.showRowError('username', 'Username exists');
+                    break;
+                case 'email_exists':
+                    this.showRowError('email', 'Email exists');
+                    break;
+                case 'email_does_not_exist':
+                    this.showRowError('email', 'Email does not exist');
+                    break;
+                case 'missing_password':
+                    this.showRowError('password', 'Password is mandatory');
+                    break;
+                case 'invalid_old_password':
+                    this.showRowError('old-password', 'Old password is invalid');
+                    break;
+                default:
+                    this.showRowError(data.output, data.defaultMessage);
+                    break;
+            }
         }
     }
 

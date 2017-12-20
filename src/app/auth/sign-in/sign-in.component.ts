@@ -84,7 +84,13 @@ export class SignInComponent
                     window.open('/#/' + app, '_self');
                 },
                 err => {
-                    this._authServices.showError(err, 'Error signing to the account');
+
+                    this._authServices.showError({
+                        err: err,
+                        defaultMessage: 'Error signing to the account',
+                        output: 'sign-footer'
+                    });
+
                     this._globalEventsManager.showLoadingOverload(false);
                 },
                 () => {

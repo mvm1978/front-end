@@ -91,14 +91,20 @@ export class PasswordResetComponent
                 response => {
 
                     this._globalEventsManager.messageBox({
-                        text: response.message + '. Please sign in.'
+                        text: response.message
                     });
 
                     this._globalEventsManager.authPopup('Sign In');
                     this._globalEventsManager.showLoadingOverload(false);
                 },
                 err => {
-                    this._authServices.showError(err, 'Error resetting password');
+
+                    this._authServices.showError({
+                        err: err,
+                        defaultMessage: 'Error resetting password',
+                        output: 'sign'
+                    });
+
                     this._globalEventsManager.showLoadingOverload(false);
                 },
                 () => {}

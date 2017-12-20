@@ -59,45 +59,40 @@ export class GenresServices
 
     //**************************************************************************
 
-    public showError(err: any, defaultMessage: string): string
+    public showError(data: any): void
     {
-        return this._sharedServices.handleInputErrors({
-            err: err,
-            defaultMessage: defaultMessage,
-            service: this,
-            footer: 'genre'
-        })
+        data['service'] = this;
+        data['forceSignIn'] = true;
+
+        this._sharedServices.handleInputErrors(data);
     }
 
     //**************************************************************************
 
-    public getErrorInfo(
-        response: any,
-        defaultMessage: string
-    ): {message: string, output: string, forceSignIn: boolean}
+    public outputErrorInfo(data: any): void
     {
-        let service = this._sharedServices,
-            output = '';
+        let service = this._sharedServices;
 
-        let message: string = service.getCommonErrorMessage(response.message);
+        if (! data.response.hasOwnProperty('message')) {
 
-        if (message) {
-            output = 'genre-popup-footer';
-        } else {
-            switch (response.message) {
-                case 'genre_exists':
-                    service.showRowError('genre', 'Genre exists');
-                    break;
-                default:
-                    message = defaultMessage;
-                    break;
-            }
+            service.showRowError(data.output, data.defaultMessage);
+
+            return;
         }
 
-        return {
-            message: message,
-            output: output,
-            forceSignIn: false
+        let authorizationError = service.getAuthorizationError(data.response.message);
+
+        if (authorizationError) {
+            service.showRowError(data.output, authorizationError);
+        } else {
+            switch (data.response.message) {
+                case 'genre_exists':
+                    service.showRowError('genre-name', 'Genre exists');
+                    break;
+                default:
+                    service.showRowError(data.output, data.defaultMessage);
+                    break;
+            }
         }
     }
 

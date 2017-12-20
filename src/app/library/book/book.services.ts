@@ -76,44 +76,48 @@ export class BooksServices
 
     //**************************************************************************
 
-    public showError(err: any, defaultMessage: string): string
+    public showError(data: any): void
     {
-        return this._sharedServices.handleInputErrors({
-            err: err,
-            defaultMessage: defaultMessage,
-            service: this,
-            footer: 'book'
-        })
+        data['service'] = this;
+
+        this._sharedServices.handleInputErrors(data);
     }
 
     //**************************************************************************
 
-    public getErrorInfo(response: any, defaultMessage: string): {message: string, forceSignIn: boolean}
+    public outputErrorInfo(data: any): void
     {
-        let message: string = '',
-            forceSignIn: boolean = false;
+        let service = this._sharedServices;
 
-        switch (response.message) {
-            case 'book_exists':
-                this._sharedServices.showRowError('book-name', 'Book exists');
-                break;
-            case 'invalid_upload_mime_type':
-                this._sharedServices.showRowError('upload', 'Upload file must be a picture');
-                break;
-            case 'empty_upload_file':
-                this._sharedServices.showRowError('upload', 'Upload file must not be empty');
-                break;
-            case 'invalid_upload_size':
-                this._sharedServices.showRowError('upload', 'Upload file size must less than 5 Mb');
-                break;
-            default:
-                message = defaultMessage;
-                break;
+        if (! data.response.hasOwnProperty('message')) {
+
+            service.showRowError(data.output, data.defaultMessage);
+
+            return;
         }
 
-        return {
-            message: message,
-            forceSignIn: forceSignIn
+        let authorizationError = service.getAuthorizationError(data.response.message);
+
+        if (authorizationError) {
+            service.showRowError(data.output, authorizationError);
+        } else {
+            switch (data.response.message) {
+                case 'book_exists':
+                    service.showRowError('book-name', 'Book exists');
+                    break;
+                case 'invalid_upload_mime_type':
+                    service.showRowError('upload', 'Upload file must be a picture');
+                    break;
+                case 'empty_upload_file':
+                    service.showRowError('upload', 'Upload file must not be empty');
+                    break;
+                case 'invalid_upload_size':
+                    service.showRowError('upload', 'Upload file size must less than 5 Mb');
+                    break;
+                default:
+                    service.showRowError(data.output, data.defaultMessage);
+                    break;
+            }
         }
     }
 

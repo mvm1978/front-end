@@ -125,8 +125,13 @@ export class PasswordRecoveryComponent
                         });
                     },
                     err => {
-                        this._authServices.showError(err,
-                                'Error recoveryting password');
+
+                        this._authServices.showError({
+                            err: err,
+                            defaultMessage: 'Error recovering password',
+                            output: 'sign-footer'
+                        });
+
                         this._globalEventsManager.showLoadingOverload(false);
                     },
                     () => {
@@ -149,8 +154,13 @@ export class PasswordRecoveryComponent
                             this.submitCaption = 'Reset Password';
                         },
                         err => {
-                            this._authServices.showError(err,
-                                    'No recovery questions found for the username');
+
+                            this._authServices.showError({
+                                err: err,
+                                defaultMessage: 'No recovery questions found for the username',
+                                output: 'sign-footer'
+                            });
+
                             this._globalEventsManager.showLoadingOverload(false);
                         },
                         () => {
@@ -182,14 +192,19 @@ export class PasswordRecoveryComponent
                         response => {
 
                             this._globalEventsManager.messageBox({
-                                text: response.message + '. Please sign in.'
+                                text: 'Password recovery completed. Please sign in.'
                             });
 
                             this._globalEventsManager.authPopup('Sign In');
                         },
                         err => {
-                            this._authServices.showError(err,
-                                    'Invalid answer for the recovery question');
+
+                            this._authServices.showError({
+                                err: err,
+                                defaultMessage: 'Invalid answer for the recovery question',
+                                output: 'sign-footer'
+                            });
+
                             this._globalEventsManager.showLoadingOverload(false);
                         },
                         () => {

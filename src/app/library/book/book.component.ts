@@ -359,6 +359,16 @@ export class BookComponent
 
     //**************************************************************************
 
+    downloadCanvas(event) {
+
+        var anchor = event.target;
+
+        anchor.href = jQuery('canvas')[0].toDataURL();
+
+//        anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
+
+        anchor.download = "test.png";
+    }
 }
 
 //******************************************************************************

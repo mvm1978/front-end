@@ -141,8 +141,13 @@ export class UserInfoComponent
                         this._globalEventsManager.authPopup('');
                     },
                     err => {
-                        this._authServices.showError(err,
-                                'Error updating user info');
+
+                        this._authServices.showError({
+                            err: err,
+                            defaultMessage: 'Error updating user info',
+                            output: 'sign-footer'
+                        });
+
                         this._globalEventsManager.showLoadingOverload(false);
                     },
                     () => {
@@ -175,8 +180,13 @@ export class UserInfoComponent
                             this._globalEventsManager.authPopup('');
                         },
                         err => {
-                            this._authServices.showError(err,
-                                    'Error updating password recovery questions');
+
+                            this._authServices.showError({
+                                err: err,
+                                defaultMessage: 'Error updating password recovery questions',
+                                output: 'sign-footer'
+                            });
+
                             this._globalEventsManager.showLoadingOverload(false);
                         },
                         () => {

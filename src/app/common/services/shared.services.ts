@@ -63,45 +63,36 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
-    public handleInputErrors(data: any): string
+    public handleInputErrors(data: any): void
     {
-        let forceSignIn = false,
-            message = '',
-            output = '',
+        let forceSignIn = data.hasOwnProperty('forceSignIn') && data.forceSignIn,
             response: any = {};
-console.log(data);
+
         try {
             response = JSON.parse(data.err._body);
         } catch (err) {
-            message = data.defaultMessage;
+            response['message'] = data.defaultMessage;
         } finally {
-            if (response.hasOwnProperty('message')) {
 
-                let info = data.service.getErrorInfo(response, data.defaultMessage);
-console.log(info);
-                message = info.message;
-                forceSignIn = info.forceSignIn;
-                output = info.output;
-            } else {
-                output = data.hasOwnProperty('footer') && data.footer ?
-                    data.footer + '-footer' : '';
+            data['response'] = response;
+
+            let authorizationError = this.getAuthorizationError(response.message);
+
+            if (authorizationError) {
+
+                this._globalEventsManager.signOut();
+
+                if (forceSignIn) {
+                    this._globalEventsManager.messageBox({
+                        text: authorizationError
+                    });
+
+                    this._globalEventsManager.forceSignIn();
+                }
             }
+
+            data.service.outputErrorInfo(data);
         }
-
-        if (forceSignIn) {
-
-            this._globalEventsManager.messageBox({
-                text: message + '. Please sign in.'
-            });
-
-            this._globalEventsManager.forceSignIn();
-        }
-
-        if (output && jQuery('#' + output).length) {
-            jQuery('#' + output).html(message);
-        }
-
-        return message;
     }
 
     //**************************************************************************
@@ -234,7 +225,7 @@ console.log(info);
 
     //**************************************************************************
 
-    public getCommonErrorMessage(message: string): string
+    public getAuthorizationError(message: string): string
     {
         switch (message) {
             case 'invalid_token':

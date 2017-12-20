@@ -44,8 +44,11 @@ export class RecoveryQuestionsComponent
                     this.isDataAvailable = true;
                 },
                 err => {
-                    this._authServices.showError(err,
-                            'Error getting recovery question');
+                    this._authServices.showError({
+                        err: err,
+                        defaultMessage: 'Error getting recovery question',
+                        output: 'sign-footer'
+                    });
                 },
                 () => {}
             );

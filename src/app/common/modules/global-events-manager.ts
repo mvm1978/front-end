@@ -71,7 +71,7 @@ export class GlobalEventsManager
         this.authPopup('Sign In');
         this.isSignedIn.next(false);
 
-        window.open('/#/' + app + '/home', '_self');
+//        window.open('/#/' + app + '/home', '_self');
 
         this.showLoadingOverload(false);
     };
