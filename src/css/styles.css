@@ -174,3 +174,9 @@ header {
     border-top: 1px solid #cd0a0a;
     padding: 0;
 }
+
+.download-pdf {
+    content: url('../images/download-pdf.jpg');
+    width: 80px;
+    height: 70px;
+}

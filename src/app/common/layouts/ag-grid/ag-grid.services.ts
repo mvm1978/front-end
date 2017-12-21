@@ -122,13 +122,13 @@ export class AgGridServices extends BaseServices
             err: err,
             defaultMessage: defaultMessage,
             service: this,
-            footer: 'uploader'
+            output: 'uploader'
         })
     }
 
     //**************************************************************************
 
-    public (data: any): void
+    public outputErrorInfo(data: any): void
     {
         let service = this._sharedServices;
 

@@ -138,8 +138,7 @@ export class SignUpComponent
 
                     this._authServices.showError({
                         err: err,
-                        defaultMessage: 'Error signing up',
-                        output: 'sign-footer'
+                        defaultMessage: 'Error signing up'
                     });
 
                     let firstPageErrors = [

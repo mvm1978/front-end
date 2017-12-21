@@ -87,8 +87,7 @@ export class SignInComponent
 
                     this._authServices.showError({
                         err: err,
-                        defaultMessage: 'Error signing to the account',
-                        output: 'sign-footer'
+                        defaultMessage: 'Error signing to the account'
                     });
 
                     this._globalEventsManager.showLoadingOverload(false);

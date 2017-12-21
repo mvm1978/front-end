@@ -144,8 +144,7 @@ export class UserInfoComponent
 
                         this._authServices.showError({
                             err: err,
-                            defaultMessage: 'Error updating user info',
-                            output: 'sign-footer'
+                            defaultMessage: 'Error updating user info'
                         });
 
                         this._globalEventsManager.showLoadingOverload(false);
@@ -183,8 +182,7 @@ export class UserInfoComponent
 
                             this._authServices.showError({
                                 err: err,
-                                defaultMessage: 'Error updating password recovery questions',
-                                output: 'sign-footer'
+                                defaultMessage: 'Error updating password recovery questions'
                             });
 
                             this._globalEventsManager.showLoadingOverload(false);

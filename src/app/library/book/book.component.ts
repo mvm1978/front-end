@@ -35,6 +35,7 @@ export class BookComponent
 {
     @ViewChild(AgGridComponent) agGridComponent: AgGridComponent;
 
+    private api = this._apiServices.api + '/book';
     public showAddPopup: boolean = false;
 
     public pieCharts: Array<any> = [];
@@ -188,7 +189,7 @@ export class BookComponent
                 field: 'source',
                 width: 60,
                 customCellRenderer: 'DownloadButtonComponent',
-                downloadUrl: this._apiServices.api + '/book/download/',
+                downloadUrl: this.api + '/download/',
                 cellEditor: 'uploader',
                 addRow: {
                     placeHolder: 'Upload content ...'
@@ -359,15 +360,29 @@ export class BookComponent
 
     //**************************************************************************
 
-    downloadCanvas(event) {
+    downloadCanvas(): boolean {
 
-        var anchor = event.target;
+        let params = {
+            chart: {
+                'top-5-authors': jQuery('canvas')[0].toDataURL(),
+                'top-5-genres': jQuery('canvas')[1].toDataURL()
+            }
+        };
 
-        anchor.href = jQuery('canvas')[0].toDataURL();
+        this._booksServices.createReportPDF(params)
+            .subscribe(
+                response => {
 
-//        anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
+                    let file = this.api + '/download-report-pdf/' + response.report,
+                        fileName = 'report.pdf'
 
-        anchor.download = "test.png";
+                    this._sharedServices.fileDownload(file, fileName);
+                },
+                err => {},
+                () => {}
+            );
+
+        return false;
     }
 }
 
