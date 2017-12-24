@@ -98,4 +98,14 @@ export class GenresServices
 
     //**************************************************************************
 
+    public createReportPDF(data: any): any
+    {
+        let url = this.api + '/create-report-pdf',
+            header = this._apiServices.getAuthHeader();
+
+        return this._http.post(url, data, header).map(res => res.json());
+    }
+
+    //**************************************************************************
+
 }

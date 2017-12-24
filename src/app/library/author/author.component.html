@@ -6,6 +6,11 @@
 
         <button class="btn btn-success" (click)="onAddAuthor()">Add Author</button>
     </div>
+
+    <a href="#" (click)="downloadPDF()">
+        <img class="download-pdf">
+    </a>
+
     <add-popup *ngIf="showAddPopup"
         [addPopupInfo]="addPopupInfo"
         [(addPopupStatus)]="showAddPopup">

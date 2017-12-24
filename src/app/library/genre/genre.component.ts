@@ -1,9 +1,14 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+
+import {AgGridComponent} from '../../common/layouts/ag-grid/ag-grid.component';
 
 import {LibraryConstants} from '../library.constants';
 import {SharedServices} from '../../common/services/shared.services';
+import {ApiServices} from '../api.services';
 import {AuthServices} from '../../auth/auth.services';
 import {GenresServices} from '../genre/genre.services';
+
+declare let jQuery: any;
 
 @Component({
     selector: 'genre',
@@ -19,6 +24,9 @@ import {GenresServices} from '../genre/genre.services';
 
 export class GenreComponent
 {
+    @ViewChild(AgGridComponent) agGridComponent: AgGridComponent;
+
+    private api = this._apiServices.api + '/genre';
     public showAddPopup: boolean = false;
 
     public addPopupInfo: any = {
@@ -61,6 +69,7 @@ export class GenreComponent
     //**************************************************************************
 
     constructor (
+        private _apiServices: ApiServices,
         private _sharedServices: SharedServices,
         private _genresServices: GenresServices
     )
@@ -81,4 +90,34 @@ export class GenreComponent
 
     //**************************************************************************
 
+    public downloadPDF(): boolean {
+
+        let columnInfo: any = [];
+
+        for (let count=0; count<this.gridInfo.columnDefs.length; count++) {
+
+            let info = this.gridInfo.columnDefs[count];
+
+            if (! ~jQuery.inArray(info.field, ['source'])) {
+                columnInfo.push({
+                    caption: info.headerName,
+                    field: info.field,
+                    width: info.width
+                });
+            }
+        }
+
+        let params = {
+            columnInfo: columnInfo,
+            outputSettings: this.agGridComponent.getTableSettings()
+        };
+
+        this._sharedServices.createReportPDF(params, this.api, this._genresServices);
+
+        return false;
+    }
+
+    //**************************************************************************
+
 }
+

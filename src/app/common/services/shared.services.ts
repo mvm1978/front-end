@@ -239,4 +239,22 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
+    public createReportPDF(params: any, api: string, services: any): void
+    {
+        services.createReportPDF(params)
+            .subscribe(
+                response => {
+
+                    let file = api + '/download-report-pdf/' + response.report,
+                        fileName = 'report.pdf'
+
+                    this.fileDownload(file, fileName);
+                },
+                err => {},
+                () => {}
+            );
+    }
+
+    //**************************************************************************
+
 }

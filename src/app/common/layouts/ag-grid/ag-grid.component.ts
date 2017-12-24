@@ -72,4 +72,11 @@ export class AgGridComponent
 
     //**************************************************************************
 
+    public getTableSettings(): any
+    {
+        return this._agGridServices.get('output');
+    }
+
+    //**************************************************************************
+
 }

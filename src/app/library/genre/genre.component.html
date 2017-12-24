@@ -7,6 +7,10 @@
         <button class="btn btn-success" (click)="onAddGenre()">Add Genre</button>
     </div>
 
+    <a href="#" (click)="downloadPDF()">
+        <img class="download-pdf">
+    </a>
+
     <add-popup *ngIf="showAddPopup"
         [addPopupInfo]="addPopupInfo"
         [(addPopupStatus)]="showAddPopup">

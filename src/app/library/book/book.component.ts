@@ -360,30 +360,53 @@ export class BookComponent
 
     //**************************************************************************
 
-    downloadCanvas(): boolean {
+    public downloadPDF(): boolean {
+
+        let columnInfo: any = [];
+
+        for (let count=0; count<this.gridInfo.columnDefs.length; count++) {
+
+            let info = this.gridInfo.columnDefs[count];
+
+            if (! ~jQuery.inArray(info.field, ['source'])) {
+
+                let caption = '';
+
+                switch (info.field) {
+                    case 'upvotes':
+                        caption = 'Upvotes';
+                        break;
+                    case 'downvotes':
+                        caption = 'Downvotes';
+                        break;
+                    default:
+                        caption = info.headerName;
+                }
+
+                columnInfo.push({
+                    caption: caption,
+                    field: info.field,
+                    width: info.width
+                });
+            }
+        }
 
         let params = {
-            chart: {
-                'top-5-authors': jQuery('canvas')[0].toDataURL(),
-                'top-5-genres': jQuery('canvas')[1].toDataURL()
-            }
+            charts: {
+                'Top 5 Authors': jQuery('canvas')[0].toDataURL(),
+                'Top 5 Genres': jQuery('canvas')[1].toDataURL()
+            },
+            columnInfo: columnInfo,
+            outputSettings: this.agGridComponent.getTableSettings()
         };
 
-        this._booksServices.createReportPDF(params)
-            .subscribe(
-                response => {
-
-                    let file = this.api + '/download-report-pdf/' + response.report,
-                        fileName = 'report.pdf'
-
-                    this._sharedServices.fileDownload(file, fileName);
-                },
-                err => {},
-                () => {}
-            );
+        this._sharedServices.createReportPDF(params, this.api, this._booksServices);
 
         return false;
     }
+
+    //**************************************************************************
+
 }
 
 //******************************************************************************
