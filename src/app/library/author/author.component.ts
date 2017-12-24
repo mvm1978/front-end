@@ -52,6 +52,7 @@ export class AuthorComponent
                 headerName: 'Author',
                 field: 'author',
                 width: 120,
+                significance: 1,
                 cellStyle: {
                     'white-space': 'normal'
                 },
@@ -71,7 +72,8 @@ export class AuthorComponent
             {
                 headerName: 'Description',
                 field: 'description',
-                width: 275,
+                width: 260,
+                significance: 1,
                 cellStyle: {
                     'white-space': 'normal'
                 },
@@ -94,6 +96,7 @@ export class AuthorComponent
                 headerName: 'Picture',
                 field: 'picture',
                 width: 60,
+                significance: 2,
                 cellRenderer: this.pictureCellRenderer,
                 cellEditor: 'uploader',
                 rootUrl: this._apiServices.root,

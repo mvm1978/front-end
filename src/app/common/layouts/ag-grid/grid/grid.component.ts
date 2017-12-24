@@ -46,18 +46,21 @@ export class GridComponent
         private _agGridServices: AgGridServices
     )
     {
-        // we pass an empty gridOptions in, so we can grab the api out
-        this.gridOptions = <GridOptions> {};
-
-        this.gridOptions.defaultColDef = {
-            headerComponentFramework : <{new():GridHeaderComponent}>GridHeaderComponent
-        }
     }
 
     //**************************************************************************
 
     private ngOnInit(): void
     {
+        this.gridOptions = <GridOptions> {
+            gridID: this.data.gridID,
+            onGridSizeChanged: this.onGridSizeChanged
+        };
+
+        this.gridOptions.defaultColDef = {
+            headerComponentFramework : <{new():GridHeaderComponent}>GridHeaderComponent
+        }
+
         this._agGridServices.set('output', {
             page: 1,
             limit: this.data.hasOwnProperty('limit') ? this.data.limit : this.defaultRowAmount,
@@ -171,7 +174,61 @@ console.log('onGridReady');
 
     //**************************************************************************
 
-    private onCellClicked($event) {
+    private onGridSizeChanged(params: any): void
+    {
+        let availableWidth = params.clientWidth,
+            columnsToShow: any = [],
+            columnsToHide: any = [],
+            significances: any = {},
+            allColumns = params.columnApi.getAllColumns();
+
+        for (let count=0; count<allColumns.length; count++) {
+
+            let column = allColumns[count];
+
+            if (! column.colDef.hasOwnProperty('significance')) {
+                continue;
+            }
+
+            let colSignificance = column.colDef.significance;
+
+            if (! significances.hasOwnProperty(colSignificance)) {
+                significances[colSignificance] = [];
+            }
+
+            significances[colSignificance].push({
+                colID: column.colId,
+                width: column.colDef.width
+            });
+        }
+
+        Object.keys(significances).forEach(function(key) {
+
+            let columns = significances[key];
+
+            for (let count=0; count<columns.length; count++) {
+
+                let column = columns[count];
+
+                if (availableWidth > column.width) {
+
+                    availableWidth -= column.width;
+
+                    columnsToShow.push(column.colID);
+                } else {
+                    columnsToHide.push(column.colID);
+                }
+            }
+        });
+
+        params.columnApi.setColumnsVisible(columnsToShow, true);
+        params.columnApi.setColumnsVisible(columnsToHide, false);
+    }
+
+    //**************************************************************************
+
+    private onCellClicked($event: any): void
+    {
 console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
     }
 
@@ -226,7 +283,7 @@ console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
 
     //**************************************************************************
 
-    private onCellDoubleClicked($event): void
+    private onCellDoubleClicked($event: any): void
     {
         if ($event.colDef.hasOwnProperty('cellEditor')
          && $event.colDef.cellEditor == 'uploader') {
@@ -242,84 +299,90 @@ console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
 
     //**************************************************************************
 
-    private onCellContextMenu($event) {
+    private onCellContextMenu($event: any): void
+    {
 console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
     }
 
     //**************************************************************************
 
-    private onCellFocused($event) {
+    private onCellFocused($event: any): void
+    {
 console.log('onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
     }
 
     //**************************************************************************
 
-    private onRowSelected($event) {
-        // taking out, as when we 'select all', it prints to much to the console!!
-        // console.log('onRowSelected: ' + $event.node.data.name);
+    private onRowSelected($event: any): void
+    {
     }
 
     //**************************************************************************
 
-    private onSelectionChanged() {
+    private onSelectionChanged(): void
+    {
 console.log('selectionChanged');
     }
 
     //**************************************************************************
 
-    private onBeforeFilterChanged() {
+    private onBeforeFilterChanged(): void
+    {
 console.log('beforeFilterChanged');
     }
 
     //**************************************************************************
 
-    private onAfterFilterChanged() {
+    private onAfterFilterChanged(): void
+    {
 console.log('afterFilterChanged');
     }
 
     //**************************************************************************
 
-    private onFilterModified() {
+    private onFilterModified(): void
+    {
 console.log('onFilterModified');
     }
 
     //**************************************************************************
 
-    private onBeforeSortChanged() {
+    private onBeforeSortChanged(): void
+    {
 console.log('onBeforeSortChanged');
     }
 
     //**************************************************************************
 
-    private onAfterSortChanged() {
+    private onAfterSortChanged(): void
+    {
 console.log('onAfterSortChanged');
     }
 
     //**************************************************************************
 
-    private onVirtualRowRemoved($event) {
-        // because this event gets fired LOTS of times, we don't print it to the
-        // console. if you want to see it, just uncomment out this line
-        // console.log('onVirtualRowRemoved: ' + $event.rowIndex);
+    private onVirtualRowRemoved($event: any): void
+    {
     }
 
     //**************************************************************************
 
-    private onRowClicked($event) {
+    private onRowClicked($event: any): void
+    {
 console.log('onRowClicked: ' + $event.node.data.name);
     }
 
     //**************************************************************************
 
-    public onQuickFilterChanged($event) {
+    public onQuickFilterChanged($event: any): void
+    {
         this.gridOptions.api.setQuickFilter($event.target.value);
     }
 
     //**************************************************************************
 
-    // here we use one generic event to handle all the column type events.
-    // the method just prints the event name
-    private onColumnEvent($event) {
+    private onColumnEvent($event: any): void
+    {
 console.log('onColumnEvent: ');
 console.log($event);
     }
