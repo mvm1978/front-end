@@ -43,6 +43,7 @@ export class AuthorComponent
         gridID: 'authors-table',
         url: '',
         service: null,
+        limit: 10,
         customFunctions: {
             rowHeight: customRowHeight
         },

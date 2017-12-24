@@ -57,6 +57,7 @@ export class BookComponent
         gridID: 'books-table',
         url: '',
         service: null,
+        limit: 10,
         customFunctions: {
             rowHeight: customRowHeight
         },
