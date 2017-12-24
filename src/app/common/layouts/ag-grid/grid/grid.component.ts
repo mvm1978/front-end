@@ -40,6 +40,7 @@ export class GridComponent
 
     private initSubscription: any = null;
     private gridOptions: GridOptions;
+    private defaultRowAmount: number = 5;
 
     constructor(
         private _agGridServices: AgGridServices
@@ -59,7 +60,7 @@ export class GridComponent
     {
         this._agGridServices.set('output', {
             page: 1,
-//            limit: this.data.hasOwnProperty('limit') ? this.data.limit : undefined,
+            limit: this.data.hasOwnProperty('limit') ? this.data.limit : this.defaultRowAmount,
             sort: {},
             filter: {}
         });

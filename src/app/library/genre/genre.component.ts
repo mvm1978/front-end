@@ -43,6 +43,7 @@ export class GenreComponent
         gridID: 'genres-table',
         url: '',
         service: null,
+        limit: 10,
         columnDefs: [
             {
                 headerName: 'Genre',
