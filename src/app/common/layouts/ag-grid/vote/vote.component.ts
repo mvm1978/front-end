@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 
 import {ICellRendererAngularComp} from 'ag-grid-angular';
 
+import {GlobalEventsManager} from '../../../modules/global-events-manager';
 import {SharedServices} from '../../../services/shared.services';
 
 declare let jQuery: any;
@@ -17,6 +18,7 @@ export class VoteComponent implements ICellRendererAngularComp
     public count: any;
 
     constructor(
+        private _globalEventsManager: GlobalEventsManager,
         private _sharedServices: SharedServices
     ) {
 
@@ -66,7 +68,13 @@ export class VoteComponent implements ICellRendererAngularComp
                             .html(displayValue);
                     });
                 },
-                err => {},
+                err => {
+                    if (err.status == 401) {
+                        this._globalEventsManager.messageBox({
+                            text: 'Unauthorized access. Please sign up'
+                        });
+                    }
+                },
                 () => {}
             );
 

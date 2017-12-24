@@ -209,7 +209,10 @@ console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
                     this.footerMessage(message, 'success');
                 },
                 err => {
-                    let message = 'Error updaing "' + colDef.headerName + '"';
+
+                    let message = err.status == 401 ?
+                            'Unauthorized access. Please sign up' :
+                            'Error updaing "' + colDef.headerName + '"';
 
                     this.footerMessage(message, 'danger');
                 },
