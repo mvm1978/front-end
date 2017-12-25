@@ -259,6 +259,8 @@ export class BookComponent
 
     private ngOnInit(): void
     {
+        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/books.jpg\')');
+
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);
 
@@ -290,6 +292,13 @@ export class BookComponent
             );
 
         this.setChartData();
+    }
+
+    //**************************************************************************
+
+    public ngOnDestroy()
+    {
+        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/library.jpg\')');
     }
 
     //**************************************************************************

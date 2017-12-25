@@ -123,6 +123,20 @@ export class AuthorComponent
 
     //**************************************************************************
 
+    public ngOnInit()
+    {
+        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/authors.jpg\')');
+    }
+
+    //**************************************************************************
+
+    public ngOnDestroy()
+    {
+        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/library.jpg\')');
+    }
+
+    //**************************************************************************
+
     public onAddAuthor()
     {
         this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :

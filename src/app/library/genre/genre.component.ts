@@ -82,6 +82,20 @@ export class GenreComponent
 
     //**************************************************************************
 
+    public ngOnInit()
+    {
+        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/genres.jpg\')');
+    }
+
+    //**************************************************************************
+
+    public ngOnDestroy()
+    {
+        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/library.jpg\')');
+    }
+
+    //**************************************************************************
+
     public onAddGenre(): void
     {
         this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :
