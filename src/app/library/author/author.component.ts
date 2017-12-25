@@ -118,6 +118,7 @@ export class AuthorComponent
     {
         this.gridInfo.url = this._authorsServices.api;
         this.gridInfo.service = this._authorsServices;
+        this.addPopupInfo.component = this;
     }
 
     //**************************************************************************

@@ -77,6 +77,7 @@ export class GenreComponent
     {
         this.gridInfo.url = this._genresServices.api;
         this.gridInfo.service = this._genresServices;
+        this.addPopupInfo.component = this;
     }
 
     //**************************************************************************
