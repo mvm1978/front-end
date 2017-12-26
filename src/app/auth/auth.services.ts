@@ -125,7 +125,7 @@ export class AuthServices
         let url = this.api + '/users/password',
             body = {
                 email: email,
-                url: platform['location']['href']
+                url: platform['location']['origin'] + '/home'
             };
 
         return this._http.patch(url, body).map(res => res.json());

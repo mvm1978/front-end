@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
-import {SharedServices} from '../../common/services/shared.services';
 import {Constants} from '../../common/core/constants';
 import {AuthServices} from '../../auth/auth.services';
 
@@ -45,7 +44,6 @@ export class SignInComponent
 
     constructor (
         private _globalEventsManager: GlobalEventsManager,
-        private _sharedServices: SharedServices,
         private _authServices: AuthServices
     )
     {
@@ -76,12 +74,7 @@ export class SignInComponent
                     localStorage.setItem('userInfo', JSON.stringify(response));
 
                     this._globalEventsManager.signedIn(true);
-
                     this._globalEventsManager.updateUserHome();
-
-                    let app = this._sharedServices.get('app');
-
-                    window.open('/' + app, '_self');
                 },
                 err => {
 
