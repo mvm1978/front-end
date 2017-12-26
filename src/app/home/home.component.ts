@@ -74,6 +74,8 @@ export class HomeComponent
 
         setInterval(function() {
 
+            jQuery('.greeting').eq(index).fadeIn(that.greetingFadeOut);
+
             jQuery('.greeting').eq(index).fadeOut(that.greetingFadeOut);
 
             index = index == that.greetings.length - 1 ? 0 : index + 1;

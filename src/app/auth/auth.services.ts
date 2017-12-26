@@ -104,7 +104,8 @@ export class AuthServices
 
     public passwordReset(body: any)
     {
-        let url = this.api + '/users/password';
+        let url = this.api + '/users/password',
+            header = this.getAuthHeader();
 
         if (localStorage.hasOwnProperty('password-recovery-token')) {
             body['recoveryToken'] = localStorage.getItem('password-recovery-token');
@@ -112,7 +113,7 @@ export class AuthServices
             body['userID'] = this.getUserInfoValue('id');
         }
 
-        return this._http.put(url, body).map(res => res.json());
+        return this._http.put(url, body, header).map(res => res.json());
     }
 
     //**************************************************************************
