@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {HttpModule} from '@angular/http';
-import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {PathLocationStrategy, LocationStrategy} from '@angular/common';
 
 import {AppRouting} from './app.routes';
 
@@ -43,7 +43,7 @@ import {CoreProviders} from './common/core/load';
         CoreProviders,
         {
             provide: LocationStrategy,
-            useClass: HashLocationStrategy
+            useClass: PathLocationStrategy
         }
     ],
     bootstrap: [AppComponent]

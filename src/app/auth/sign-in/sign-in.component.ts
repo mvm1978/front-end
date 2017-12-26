@@ -81,7 +81,7 @@ export class SignInComponent
 
                     let app = this._sharedServices.get('app');
 
-                    window.open('/#/' + app, '_self');
+                    window.open('/' + app, '_self');
                 },
                 err => {
 

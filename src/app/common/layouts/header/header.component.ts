@@ -123,7 +123,7 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    public onClick(caption: string): void
+    public onClick(caption: string): boolean
     {
         if (caption == 'Sign Out') {
 
@@ -133,6 +133,8 @@ export class HeaderComponent
         } else {
             this._globalEventsManager.authPopup(caption);
         }
+
+        return false;
     }
 
     //**************************************************************************
