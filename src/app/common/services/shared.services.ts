@@ -229,7 +229,7 @@ export class SharedServices extends BaseServices
     {
         switch (message) {
             case 'invalid_token':
-                return 'Unauthorized access. Please sign in.';
+                return 'Unauthorized access. Please sign up.';
             default:
                 break;
         }

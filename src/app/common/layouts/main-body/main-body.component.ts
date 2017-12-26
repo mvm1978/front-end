@@ -20,7 +20,9 @@ export class MainBodyComponent
     {
         let forceSingIn = false;
 
-        this._authServices.checkToken(forceSingIn);
+        if (! localStorage.hasOwnProperty('password-recovery-token')) {
+            this._authServices.checkToken(forceSingIn);
+        }
     }
 
     //**************************************************************************

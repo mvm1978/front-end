@@ -74,16 +74,16 @@ export class HomeComponent
 
         setInterval(function() {
 
-            jQuery('.greeting').eq(index).fadeIn(that.greetingFadeOut);
+            let $greetings = jQuery('.greeting');
 
-            jQuery('.greeting').eq(index).fadeOut(that.greetingFadeOut);
+            $greetings.not($greetings.eq(index)).hide();
+            $greetings.eq(index).fadeOut(that.greetingFadeOut);
 
             index = index == that.greetings.length - 1 ? 0 : index + 1;
 
-            jQuery('.greeting').eq(index).fadeIn(that.greetingFadeOut);
+            $greetings.eq(index).fadeIn(that.greetingFadeOut);
 
         }, this.greetingInterval);
-
     }
 
     //**************************************************************************
