@@ -5,6 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {GlobalEventsManager} from '../common/modules/global-events-manager';
 import {Constants} from '../common/core/constants';
 
+declare let jQuery: any;
+
 @Component({
     selector: 'home',
     templateUrl: Constants.HOME_PATH + 'home.component.html',
@@ -15,6 +17,20 @@ import {Constants} from '../common/core/constants';
 
 export class HomeComponent
 {
+    private greetingFadeIn = 2000;
+    private greetingInterval = 5000;
+    private greetingFadeOut = 2500;
+
+    public greetings: any = [
+        '',
+        'Welcome to Virtual Library!',
+        'You need not to authorize in order to download a book',
+        'Authorization does not require email',
+        'Only authorized users can upload books',
+        'Only authorized users can "like" or dislike" a book',
+    ];
+
+    public greetingText: string = '';
 
     //**************************************************************************
 
@@ -43,6 +59,29 @@ export class HomeComponent
                     this._globalEventsManager.signOut();
                 }
             });
+
+        this.showGreetings();
+    }
+
+    //**************************************************************************
+
+    private showGreetings(): void
+    {
+        let index = 0,
+            that = this;
+
+        jQuery('.greeting').eq(index).fadeIn(this.greetingFadeIn);
+
+        setInterval(function() {
+
+            jQuery('.greeting').eq(index).fadeOut(that.greetingFadeOut);
+
+            index = index == that.greetings.length - 1 ? 0 : index + 1;
+
+            jQuery('.greeting').eq(index).fadeIn(that.greetingFadeOut);
+
+        }, this.greetingInterval);
+
     }
 
     //**************************************************************************
