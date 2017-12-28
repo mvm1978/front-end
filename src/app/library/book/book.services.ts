@@ -133,4 +133,14 @@ export class BooksServices
 
     //**************************************************************************
 
+    public getTopBooks(amount: number): any
+    {
+        let url = this.api + '/top/' + amount,
+            header = this._apiServices.getAuthHeader();
+
+        return this._http.get(url, header).map(res => res.json());
+    }
+
+    //**************************************************************************
+
 }

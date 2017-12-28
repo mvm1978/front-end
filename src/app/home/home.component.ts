@@ -5,10 +5,18 @@ import {ActivatedRoute} from '@angular/router';
 import {GlobalEventsManager} from '../common/modules/global-events-manager';
 import {Constants} from '../common/core/constants';
 
+import {ApiServices} from '../library/api.services';
+import {SharedServices} from '../common/services/shared.services';
+import {AuthServices} from '../auth/auth.services';
+import {BooksServices} from '../library/book/book.services';
+
 declare let jQuery: any;
 
 @Component({
     selector: 'home',
+    providers: [
+        BooksServices
+    ],
     templateUrl: Constants.HOME_PATH + 'home.component.html',
     styleUrls: [
         Constants.HOME_PATH + 'home.component.css'
@@ -21,6 +29,10 @@ export class HomeComponent
     private greetingInterval = 5000;
     private greetingFadeOut = 2500;
 
+    private topBooksFadeIn = 2000;
+    private topBooksInterval = 10000;
+    private topBooksFadeOut = 2500;
+
     public greetings: any = [
         '',
         'Welcome to Virtual Library!',
@@ -30,16 +42,22 @@ export class HomeComponent
         'Only authorized users can "like" or dislike" a book',
     ];
 
-    public greetingText: string = '';
+    public topBooksAmount: number = 5;
+    public topBooks: any = [];
+    public urlRoot: string;
 
     //**************************************************************************
 
     constructor (
         private activatedRoute: ActivatedRoute,
-        private _globalEventsManager: GlobalEventsManager
+        private _globalEventsManager: GlobalEventsManager,
+        private _apiServices: ApiServices,
+        private _sharedServices: SharedServices,
+        private _authServices: AuthServices,
+        private _booksServices: BooksServices
     )
     {
-
+        this.urlRoot = this._apiServices.root;
     }
 
     //**************************************************************************
@@ -59,6 +77,16 @@ export class HomeComponent
                     this._globalEventsManager.signOut();
                 }
             });
+
+        this._booksServices.getTopBooks(this.topBooksAmount)
+            .subscribe(
+                response => {
+                    this.topBooks = response;
+                    this.showTop5Books();
+                },
+                err => {},
+                () => {}
+            );
 
         this.showGreetings();
     }
@@ -84,6 +112,42 @@ export class HomeComponent
             $greetings.eq(index).fadeIn(that.greetingFadeOut);
 
         }, this.greetingInterval);
+    }
+
+    //**************************************************************************
+
+    private showTop5Books(): void
+    {
+        let index = 0,
+            that = this;
+
+        jQuery('.top-books').eq(index).fadeIn(this.topBooksFadeIn);
+
+        setInterval(function() {
+
+            let $topBooks = jQuery('.top-books');
+
+            $topBooks.not($topBooks.eq(index)).hide();
+            $topBooks.eq(index).fadeOut(that.topBooksFadeOut);
+
+            index = index == that.topBooks.length - 1 ? 0 : index + 1;
+
+            $topBooks.eq(index).fadeIn(that.topBooksFadeOut);
+
+        }, this.topBooksInterval);
+    }
+
+    //**************************************************************************
+
+    public onTopBookImageClick($event: any): boolean
+    {
+        let header = this._authServices.getAuthHeader(),
+            downloadName = $event.target.dataset.title + '.pdf',
+            fileName = this._booksServices.api + '/download/' + $event.target.dataset.source;
+
+        this._sharedServices.fileDownload(fileName, downloadName, header);
+
+        return false;
     }
 
     //**************************************************************************
