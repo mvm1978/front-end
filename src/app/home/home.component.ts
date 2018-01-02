@@ -5,17 +5,17 @@ import {ActivatedRoute} from '@angular/router';
 import {GlobalEventsManager} from '../common/modules/global-events-manager';
 import {Constants} from '../common/core/constants';
 
-import {ApiServices} from '../library/api.services';
+import {ApiServices} from '../virtual-library/api.services';
 import {SharedServices} from '../common/services/shared.services';
 import {AuthServices} from '../auth/auth.services';
-import {BooksServices} from '../library/book/book.services';
+import {booksServices} from '../virtual-library/book/book.services';
 
 declare let jQuery: any;
 
 @Component({
     selector: 'home',
     providers: [
-        BooksServices
+        booksServices
     ],
     templateUrl: Constants.HOME_PATH + 'home.component.html',
     styleUrls: [
@@ -25,13 +25,18 @@ declare let jQuery: any;
 
 export class HomeComponent
 {
-    private greetingFadeIn = 2000;
-    private greetingInterval = 5000;
-    private greetingFadeOut = 2500;
-
-    private topBooksFadeIn = 2000;
-    private topBooksInterval = 10000;
-    private topBooksFadeOut = 2500;
+    private fadeInOut: any = {
+        greeting: {
+            fadeIn: 2000,
+            interval: 5000,
+            fadeOut: 2500
+        },
+        'top-books': {
+            fadeIn: 2000,
+            interval: 10000,
+            fadeOut: 2500
+        }
+    };
 
     public greetings: any = [
         '',
@@ -54,10 +59,22 @@ export class HomeComponent
         private _apiServices: ApiServices,
         private _sharedServices: SharedServices,
         private _authServices: AuthServices,
-        private _booksServices: BooksServices
+        private _booksServices: booksServices
     )
     {
         this.urlRoot = this._apiServices.root;
+
+        this._booksServices.getTopBooks(this.topBooksAmount)
+            .subscribe(
+                response => {
+                    this.topBooks = response;
+                    this.showFadeInOut('top-books');
+                },
+                err => {},
+                () => {}
+            );
+
+        this.showFadeInOut('greeting');
     }
 
     //**************************************************************************
@@ -77,75 +94,37 @@ export class HomeComponent
                     this._globalEventsManager.signOut();
                 }
             });
-
-        this._booksServices.getTopBooks(this.topBooksAmount)
-            .subscribe(
-                response => {
-                    this.topBooks = response;
-                    this.showTop5Books();
-                },
-                err => {},
-                () => {}
-            );
-
-        this.showGreetings();
     }
 
     //**************************************************************************
 
-    private showGreetings(): void
+    private showFadeInOut(fadeKey: string): void
     {
         let index = 0,
-            that = this;
+            that = this,
+            fadeInOut = this.fadeInOut[fadeKey];
 
-        jQuery('.greeting').eq(index).fadeIn(this.greetingFadeIn);
+        jQuery('.' + fadeKey).eq(index).fadeIn(fadeInOut.fadeIn);
 
         setInterval(function() {
 
-            let $greetings = jQuery('.greeting');
+            let $greetings = jQuery('.' + fadeKey);
 
             $greetings.not($greetings.eq(index)).hide();
-            $greetings.eq(index).fadeOut(that.greetingFadeOut);
+            $greetings.eq(index).fadeOut(fadeInOut.fadeOut);
 
             index = index == that.greetings.length - 1 ? 0 : index + 1;
 
-            $greetings.eq(index).fadeIn(that.greetingFadeOut);
+            $greetings.eq(index).fadeIn(fadeInOut.fadeOut);
 
-        }, this.greetingInterval);
+        }, fadeInOut.interval);
     }
 
     //**************************************************************************
 
-    private showTop5Books(): void
+    public onBookImageClick(dataset: any): boolean
     {
-        let index = 0,
-            that = this;
-
-        jQuery('.top-books').eq(index).fadeIn(this.topBooksFadeIn);
-
-        setInterval(function() {
-
-            let $topBooks = jQuery('.top-books');
-
-            $topBooks.not($topBooks.eq(index)).hide();
-            $topBooks.eq(index).fadeOut(that.topBooksFadeOut);
-
-            index = index == that.topBooks.length - 1 ? 0 : index + 1;
-
-            $topBooks.eq(index).fadeIn(that.topBooksFadeOut);
-
-        }, this.topBooksInterval);
-    }
-
-    //**************************************************************************
-
-    public onTopBookImageClick($event: any): boolean
-    {
-        let header = this._authServices.getAuthHeader(),
-            downloadName = $event.target.dataset.title + '.pdf',
-            fileName = this._booksServices.api + '/download/' + $event.target.dataset.source;
-
-        this._sharedServices.fileDownload(fileName, downloadName, header);
+        this._sharedServices.downloadBook(this._booksServices.api, dataset);
 
         return false;
     }

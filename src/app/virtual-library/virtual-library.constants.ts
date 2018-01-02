@@ -1,27 +1,33 @@
 import {Constants} from '../common/core/constants';
 
-export class LibraryConstants
+export class VirtualLibraryConstants
 {
     public static get APP(): string {
-        return 'library';
+        return 'virtual-library';
+    }
+
+    //**************************************************************************
+
+    public static get LIBRARY_PATH(): string {
+        return Constants.VIRTUAL_LIBRARY_PATH + 'library/';
     }
 
     //**************************************************************************
 
     public static get BOOK_PATH(): string {
-        return Constants.LIBRARY_PATH + 'book/';
+        return Constants.VIRTUAL_LIBRARY_PATH + 'book/';
     }
 
     //**************************************************************************
 
     public static get GENRE_PATH(): string {
-        return Constants.LIBRARY_PATH + 'genre/';
+        return Constants.VIRTUAL_LIBRARY_PATH + 'genre/';
     }
 
     //**************************************************************************
 
     public static get AUTHOR_PATH(): string {
-        return Constants.LIBRARY_PATH + 'author/';
+        return Constants.VIRTUAL_LIBRARY_PATH + 'author/';
     }
 
     //**************************************************************************

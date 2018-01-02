@@ -20,7 +20,7 @@ export class ApiServices
     //**************************************************************************
 
     public root = this._apiRoot.root;
-    public api = this._apiRoot.api + '/library/v1';
+    public api = this._apiRoot.api + '/virtual-library/v1';
 
     //**************************************************************************
 

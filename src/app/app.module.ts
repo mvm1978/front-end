@@ -7,7 +7,7 @@ import {PathLocationStrategy, LocationStrategy} from '@angular/common';
 import {AppRouting} from './app.routes';
 
 import {AuthModule} from './auth/auth.module';
-import {LibraryModule} from './library/library.module';
+import {VirtualLibraryModule} from './virtual-library/virtual-library.module';
 
 import {PageNotFoundComponent} from './common/layouts/page-not-found/page-not-found.component';
 
@@ -28,7 +28,7 @@ import {CoreProviders} from './common/core/load';
         HttpModule,
         AppRouting,
         AuthModule,
-        LibraryModule
+        VirtualLibraryModule
     ],
     declarations: [
         AppComponent,

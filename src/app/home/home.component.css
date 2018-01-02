@@ -12,7 +12,7 @@
     line-height: 40px;
 }
 
-#top-bookss-wrapper {
+#top-books-wrapper {
     height: 165px;
 }
 
@@ -89,16 +89,16 @@ ul {
     margin-left: 5px;
 }
 
-#greetings-content, #top-bookss-content {
+#greetings-content, #top-books-content {
     position: relative;
     width: 100%;
 }
 
-#top-bookss-header {
+#top-books-header {
 	text-align: center;
 }
 
-#top-bookss-header h4 {
+#top-books-header h4 {
 	margin-top: 0;
 }
 
@@ -108,13 +108,13 @@ ul {
     float: left;
 }
 
-.book-appraisal {
+.book-rating {
     margin-top: 5px;
     width: 50px;
     text-align: center;
 }
 
-.book-appraisal-value {
+.book-rating-value {
     width: 50px;
     text-align: center;
     color: #218838;

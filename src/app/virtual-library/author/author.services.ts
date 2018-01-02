@@ -6,7 +6,7 @@ import {ApiServices} from '../api.services';
 
 @Injectable()
 
-export class BooksServices
+export class AuthorsServices
 {
     public api: string;
 
@@ -16,7 +16,7 @@ export class BooksServices
         private _apiServices: ApiServices
     )
     {
-        this.api = this._apiServices.api + '/book';
+        this.api = this._apiServices.api + '/author';
     }
 
     //**************************************************************************
@@ -24,6 +24,15 @@ export class BooksServices
     public checkToken(): any
     {
         return this._apiServices.checkToken();
+    }
+
+    //**************************************************************************
+
+    public getDropdown(): any
+    {
+        let header = this._apiServices.getAuthHeader();
+
+        return this._http.get(this.api + '/dropdown', header).map(res => res.json());
     }
 
     //**************************************************************************
@@ -56,26 +65,6 @@ export class BooksServices
 
     //**************************************************************************
 
-    public vote(id: number, payload: any): any
-    {
-        let url = this.api + '/vote/' + id,
-            header = this._apiServices.getAuthHeader();
-
-        return this._http.post(url, payload, header).map(res => res.json());
-    }
-
-    //**************************************************************************
-
-    public getCharts(): any
-    {
-        let url = this.api + '/chart',
-            header = this._apiServices.getAuthHeader();
-
-        return this._http.get(url, header).map(res => res.json());
-    }
-
-    //**************************************************************************
-
     public showError(data: any): void
     {
         data['service'] = this;
@@ -102,8 +91,8 @@ export class BooksServices
             service.showRowError(data.output, authorizationError);
         } else {
             switch (data.response.message) {
-                case 'book_exists':
-                    service.showRowError('book-name', 'Book exists');
+                case 'author_exists':
+                    service.showRowError('author', 'Author exists');
                     break;
                 case 'invalid_upload_mime_type':
                     service.showRowError('upload', 'Upload file must be a picture');
@@ -125,7 +114,7 @@ export class BooksServices
 
     public createReportPDF(data: any): any
     {
-        let url = this.api + '/create-report-pdf',
+         let url = this.api + '/create-report-pdf',
             header = this._apiServices.getAuthHeader();
 
         return this._http.post(url, data, header).map(res => res.json());
@@ -133,12 +122,11 @@ export class BooksServices
 
     //**************************************************************************
 
-    public getTopBooks(amount: number): any
+    public getCount(): any
     {
-        let url = this.api + '/top/' + amount,
-            header = this._apiServices.getAuthHeader();
+        let header = this._apiServices.getAuthHeader();
 
-        return this._http.get(url, header).map(res => res.json());
+        return this._http.get(this.api + '/count', header).map(res => res.json());
     }
 
     //**************************************************************************

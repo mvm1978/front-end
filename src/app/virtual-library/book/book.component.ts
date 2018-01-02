@@ -4,14 +4,14 @@ import {AgGridComponent} from '../../common/layouts/ag-grid/ag-grid.component';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {Constants} from '../../common/core/constants';
-import {LibraryConstants} from '../library.constants';
+import {VirtualLibraryConstants} from '../virtual-library.constants';
 import {SharedServices} from '../../common/services/shared.services';
 import {ApiServices} from '../api.services';
 import {AuthServices} from '../../auth/auth.services';
 import {GenresServices} from '../genre/genre.services';
 import {AuthorsServices} from '../author/author.services';
 import {TypesServices} from '../type/type.services';
-import {BooksServices} from '../book/book.services';
+import {booksServices} from '../book/book.services';
 
 declare let jQuery: any;
 
@@ -22,11 +22,11 @@ declare let jQuery: any;
         GenresServices,
         AuthorsServices,
         TypesServices,
-        BooksServices
+        booksServices
     ],
-    templateUrl: LibraryConstants.BOOK_PATH + 'book.component.html',
+    templateUrl: VirtualLibraryConstants.BOOK_PATH + 'book.component.html',
     styleUrls: [
-        LibraryConstants.BOOK_PATH + 'book.component.css',
+        VirtualLibraryConstants.BOOK_PATH + 'book.component.css',
         Constants.AG_GRID_PATH + 'ag-grid.component.css'
     ]
 })
@@ -247,7 +247,7 @@ export class BookComponent
         private _authorsServices: AuthorsServices,
         private _sharedServices: SharedServices,
         private _typesServices: TypesServices,
-        private _booksServices: BooksServices
+        private _booksServices: booksServices
     )
     {
         this.gridInfo.url = this._booksServices.api;
@@ -259,8 +259,6 @@ export class BookComponent
 
     private ngOnInit(): void
     {
-        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/books.jpg\')');
-
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);
 
@@ -292,13 +290,6 @@ export class BookComponent
             );
 
         this.setChartData();
-    }
-
-    //**************************************************************************
-
-    public ngOnDestroy()
-    {
-        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/library.jpg\')');
     }
 
     //**************************************************************************

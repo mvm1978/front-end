@@ -1,10 +1,10 @@
-<div class="" id="{{gridInfo.gridID}}">
-    <div id="genre-grid">
+<div id="{{gridInfo.gridID}}">
+    <div id="author-grid">
         <ag-grid
             [data]="gridInfo">
         </ag-grid>
 
-        <button class="btn btn-success" (click)="onAddGenre()">Add Genre</button>
+        <button class="btn btn-success" (click)="onAddAuthor()">Add Author</button>
     </div>
 
     <a href="#" (click)="downloadPDF()">

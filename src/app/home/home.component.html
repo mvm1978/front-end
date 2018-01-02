@@ -8,26 +8,27 @@
         </div>
     </div>
 
-    <div id="top-bookss-wrapper" class="block-wrapper">
+    <div id="top-books-wrapper" class="block-wrapper">
         <div class="background"></div>
-        <div id="top-bookss-header">
+        <div id="top-books-header">
             <h4>Top {{topBooksAmount}} books</h4>
         </div>
-        <div *ngIf="topBooks.length" id="top-bookss-content">
+        <div *ngIf="topBooks.length" id="top-books-content">
             <div *ngFor="let book of topBooks" class="top-books">
                 <div class="top-books-picture">
-                    <a href="#" (click)="onTopBookImageClick($event)">
+                    <a href="#" (click)="onBookImageClick($event.target.dataset)">
                         <img class="table-picture"
                              src="{{urlRoot}}/storage/{{book.picture}}"
                              attr.data-title="{{book.title}}"
                              attr.data-source="{{book.source}}">
                     </a>
-                    <div class="book-appraisal">Appraisal</div>
-                    <div class="book-appraisal-value">{{book.popularity ? book.popularity : "-"}}</div>
+                    <div class="book-rating">Rating</div>
+                    <div class="book-rating-value">{{book.rating ? book.rating : "-"}}</div>
                 </div>
                 <div class="top-books-content">
                     {{book.title}}<br>
-                    by {{book.author}}
+                    by {{book.author}}<br>
+                    length: {{book.length}}
                 </div>
                 <div class="top-books-description">
                     {{book.description}}
@@ -52,12 +53,12 @@
         <div class="background"></div>
         <div id="languages-content">
             <h4>Used Languages, Frameworks and Libraries</h4>
-            <h5>Back End</h5>
+            <h5>Back End:</h5>
             <ul>
                 <li>PHP 7.0</li>
                 <li>Laravel 5.4</li>
             </ul>
-            <h5>Front End</h5>
+            <h5>Front End:</h5>
             <ul>
                 <li>Javascript</li>
                 <li>Typescript</li>
@@ -65,13 +66,13 @@
                 <li>jQuery 3.2</li>
                 <li>Bootstrap 3</li>
             </ul>
-            <h5>Database</h5>
+            <h5>Database:</h5>
             <ul>
                 <li>MySQL 5.7</li>
             </ul>
-            <h5>OS</h5>
+            <h5>Server:</h5>
             <ul>
-                <li>Ubuntu 16.04</li>
+                <li>Apache/2.4.18 (Ubuntu)</li>
             </ul>
         </div>
     </div>

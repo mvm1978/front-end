@@ -1,27 +1,43 @@
 <nav *ngIf="isHeader" class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Virtual Library</a>
+            <span class="navbar-brand">Virtual Library</span>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active">
+                <a href="#" routerLink="home" routerLinkActive="active">
+                    <span class="glyphicon glyphicon-home"></span>
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="#" routerLink="virtual-library/library" routerLinkActive="active">
+                    <span class="glyphicon glyphicon-book"></span>
+                    Books
+                </a>
+            </li>
             <li id="library-dropdown" class="dropdown"
                 (mouseenter)="mouseEnter($event.target)"
                 (mouseleave)="mouseLeave($event.target)">
+
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                    (click)="onLibraryMenuClick()">
 
-                    Library <b class="caret"></b>
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                    Upload <b class="caret"></b>
                 </a>
                 <ul class="nav dropdown-menu" role="menu">
-                    <li><a href="#" routerLink="library/genre" routerLinkActive="active">Genres</a></li>
-                    <li><a href="#" routerLink="library/author" routerLinkActive="active">Authors</a></li>
-                    <li><a href="#" routerLink="library/book" routerLinkActive="active">Books</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Reports</a></li>
+                    <li><a href="#" routerLink="virtual-library/genre" routerLinkActive="active">Genres</a></li>
+                    <li><a href="#" routerLink="virtual-library/author" routerLinkActive="active">Authors</a></li>
+                    <li><a href="#" routerLink="virtual-library/book" routerLinkActive="active">Books</a></li>
                 </ul>
             </li>
-            <li><a href="#" (click)="onResumeDownload()">Download Resume</a></li>
+            <li>
+                <a href="#" (click)="onResumeDownload()">
+                    <span class="glyphicon glyphicon-download-alt"></span>
+                    Download Resume
+                </a>
+            </li>
         </ul>
         <ul *ngIf="! isSignedIn" class="nav navbar-nav navbar-right">
             <li *ngFor="let item of signMenu['signedOut']">

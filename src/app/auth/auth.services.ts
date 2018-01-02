@@ -30,13 +30,7 @@ export class AuthServices
 
     public getHeader()
     {
-        let header = new Headers();
-
-        header.append('Content-Type', 'application/json');
-
-        return new RequestOptions({
-            headers: header
-        });
+        return this._sharedServices.getHeader();
     }
 
     //**************************************************************************

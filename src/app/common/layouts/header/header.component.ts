@@ -150,9 +150,11 @@ export class HeaderComponent
 
     //**************************************************************************
 
-    public onResumeDownload(): void
+    public onResumeDownload(): boolean
     {
         this._sharedServices.fileDownload('/downloads/Resume.doc', 'test.doc');
+
+        return false;
     }
 
     //**************************************************************************

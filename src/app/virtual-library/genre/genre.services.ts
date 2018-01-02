@@ -108,4 +108,13 @@ export class GenresServices
 
     //**************************************************************************
 
+    public getCount(): any
+    {
+        let header = this._apiServices.getAuthHeader();
+
+        return this._http.get(this.api + '/count', header).map(res => res.json());
+    }
+
+    //**************************************************************************
+
 }

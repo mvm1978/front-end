@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 
 import {AgGridComponent} from '../../common/layouts/ag-grid/ag-grid.component';
 
-import {LibraryConstants} from '../library.constants';
+import {VirtualLibraryConstants} from '../virtual-library.constants';
 import {SharedServices} from '../../common/services/shared.services';
 import {ApiServices} from '../api.services';
 import {AuthServices} from '../../auth/auth.services';
@@ -16,9 +16,9 @@ declare let jQuery: any;
         AuthServices,
         AuthorsServices
     ],
-    templateUrl: LibraryConstants.AUTHOR_PATH + 'author.component.html',
+    templateUrl: VirtualLibraryConstants.AUTHOR_PATH + 'author.component.html',
     styleUrls: [
-        LibraryConstants.AUTHOR_PATH + 'author.component.css'
+        VirtualLibraryConstants.AUTHOR_PATH + 'author.component.css'
     ],
 })
 
@@ -119,20 +119,6 @@ export class AuthorComponent
         this.gridInfo.url = this._authorsServices.api;
         this.gridInfo.service = this._authorsServices;
         this.addPopupInfo.component = this;
-    }
-
-    //**************************************************************************
-
-    public ngOnInit()
-    {
-        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/authors.jpg\')');
-    }
-
-    //**************************************************************************
-
-    public ngOnDestroy()
-    {
-        jQuery('#main-body-backgound').css('background-image', 'url(\'/images/library.jpg\')');
     }
 
     //**************************************************************************

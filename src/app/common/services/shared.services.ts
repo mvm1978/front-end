@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, ResponseContentType} from '@angular/http';
+import {Http, Headers, RequestOptions, ResponseContentType} from '@angular/http';
 
 declare let saveAs: any;
 declare let jQuery: any;
@@ -31,6 +31,19 @@ export class SharedServices extends BaseServices
 
         return Constants.MIME_TYPES.hasOwnProperty(extension) ?
             Constants.MIME_TYPES[extension] : 'text/plain';
+    }
+
+    //**************************************************************************
+    
+    public downloadBook(url: string, dataset: any): boolean
+    {
+        let header = this.getHeader(),
+            downloadName = dataset.title + '.pdf',
+            fileName = url + '/download/' + dataset.source;
+
+        this.fileDownload(fileName, downloadName, header);
+
+        return false;
     }
 
     //**************************************************************************
@@ -253,6 +266,19 @@ export class SharedServices extends BaseServices
                 err => {},
                 () => {}
             );
+    }
+
+    //**************************************************************************
+
+    public getHeader()
+    {
+        let header = new Headers();
+
+        header.append('Content-Type', 'application/json');
+
+        return new RequestOptions({
+            headers: header
+        });
     }
 
     //**************************************************************************

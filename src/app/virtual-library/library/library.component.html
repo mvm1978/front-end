@@ -1,0 +1,71 @@
+<div>
+    <div id="library-body">
+        <div id="library-side-panel">
+            <div class="side-panels">
+                <div *ngFor="let item of sidePanels" class="side-panel">
+                    <h4>{{item.caption}}</h4>
+                    <div id="side-{{item.key}}">
+                        <ul>
+                            <li *ngFor="let value of item.data" class="side-panel-item">
+                                <input type="checkbox"
+                                       id="{{item.key}}-{{value.id}}"
+                                       class="side-panel-checkbox"
+                                       attr.data-id="{{value.id}}"
+                                       attr.data-key="{{item.key}}"
+                                       (change)="onSideChange()">
+                                <label for="{{item.key}}-{{value.id}}">
+                                    {{value.name}} ({{value.count}})
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div id="library-content">
+
+            <div *ngFor="let book of books.data; let index = index" class="gallery">
+                <div class="galley-content">
+                    <div class="library-book-picture">
+                        <a href="#" (click)="onBookImageClick($event.target.dataset)">
+                            <img class="library-picture"
+                                 src="{{urlRoot}}/storage/{{book.picture}}"
+                                 attr.data-title="{{book.title}}"
+                                 attr.data-source="{{book.source}}">
+                        </a>
+                    </div>
+                    <div class="library-book-content">
+                        <div>
+                            <strong>{{book.title}}</strong><br>
+                            by {{book.author}}<br>
+                            length: {{book.length}}<br>
+                        </div>
+                        <div>
+                            <div class="vote up-vote">
+                                <up-vote [container]="voteContainer"
+                                    [service]="_booksServices"
+                                    [params]="books.upVoteInfo[index]">
+
+                                </up-vote>
+                            </div>
+                            <div class="vote down-vote">
+                                <down-vote [container]="voteContainer"
+                                    [service]="_booksServices"
+                                    [params]="books.downVoteInfo[index]">
+
+                                </down-vote>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear-float-left"></div>
+                    <div class="library-book-description">
+                        {{book.description}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

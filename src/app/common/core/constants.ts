@@ -10,9 +10,9 @@ export class Constants
 
     //**************************************************************************
 
-    public static get LIBRARY_PATH(): string
+    public static get VIRTUAL_LIBRARY_PATH(): string
     {
-        return 'app/library/';
+        return 'app/virtual-library/';
     }
 
     //**************************************************************************
@@ -61,7 +61,7 @@ export class Constants
 
     public static get MVM_PATH(): string
     {
-        return 'app/library/';
+        return 'app/virtual-library/';
     }
 
     //**************************************************************************
@@ -139,6 +139,13 @@ export class Constants
     public static get AG_GRID_VOTE_PATH(): string
     {
         return 'app/common/layouts/ag-grid/vote/';
+    }
+
+    //**************************************************************************
+
+    public static get VOTE_PATH(): string
+    {
+        return 'app/common/layouts/vote/';
     }
 
     //**************************************************************************
