@@ -35,7 +35,12 @@ export class LibraryComponent
     private api = this._apiServices.api + '/library';
 
     public filter: any = {
-        limit: 0
+        limit: 0,
+        sort: {
+            "type": "asc",
+            "genre": "asc",
+            "author": "asc"
+        }
     };
     public sidePanels: any = [];
     public books: any = {

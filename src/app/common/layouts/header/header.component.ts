@@ -152,7 +152,7 @@ export class HeaderComponent
 
     public onResumeDownload(): boolean
     {
-        this._sharedServices.fileDownload('/downloads/Resume.doc', 'test.doc');
+        this._sharedServices.fileDownload('/downloads/Resume.doc', 'Resume.doc');
 
         return false;
     }
