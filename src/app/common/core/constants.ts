@@ -136,13 +136,6 @@ export class Constants
 
     //**************************************************************************
 
-    public static get AG_GRID_VOTE_PATH(): string
-    {
-        return 'app/common/layouts/ag-grid/vote/';
-    }
-
-    //**************************************************************************
-
     public static get VOTE_PATH(): string
     {
         return 'app/common/layouts/vote/';

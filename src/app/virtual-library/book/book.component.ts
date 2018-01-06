@@ -4,6 +4,7 @@ import {AgGridComponent} from '../../common/layouts/ag-grid/ag-grid.component';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {Constants} from '../../common/core/constants';
+import {Utils} from '../../common/core/utils';
 import {VirtualLibraryConstants} from '../virtual-library.constants';
 import {SharedServices} from '../../common/services/shared.services';
 import {ApiServices} from '../api.services';
@@ -130,6 +131,9 @@ export class BookComponent
                 enableSorting: true,
                 enableFilterfing: true,
                 editable: true,
+                cellStyle: {
+                    'white-space': 'normal'
+                },
                 cellEditor: 'popupText',
                 cellEditorParams: {
                     maxLength: '100'
@@ -216,23 +220,12 @@ export class BookComponent
                 pinned: true
             },
             {
-                headerName: '',
-                field: 'upvotes',
-                width: 120,
-                significance: 3,
-                service: this._booksServices,
+                headerName: 'Rating',
+                field: 'rating',
+                width: 100,
+                significance: 6,
                 enableSorting: true,
-                customCellRenderer: 'UpVoteComponent',
-                pinned: true
-            },
-            {
-                headerName: '',
-                field: 'downvotes',
-                width: 120,
-                significance: 3,
-                service: this._booksServices,
-                enableSorting: true,
-                customCellRenderer: 'DownVoteComponent',
+                cellRenderer: this.ratingCellRenderer,
                 pinned: true
             }
         ]
@@ -368,6 +361,23 @@ export class BookComponent
     private uploadedOnCellRenderer(data: any): string
     {
         return '<div class="cell-div">' + data.value + '</div>';
+    }
+
+    //**************************************************************************
+
+    private ratingCellRenderer(data: any): string
+    {
+        let absValue = Math.abs(data.value),
+            colorClass = data.value < 0 ? 'downvotes' : 'upvotes',
+            iconClass = data.value < 0 ? 'glyphicon-thumbs-down' :
+                'glyphicon-thumbs-up';
+
+        return `<div class="cell-div">
+                    <span class="glyphicon ` + iconClass + ` ` + colorClass + `"></span>
+                    <span class="` + colorClass + `">` +
+                        Utils.getFormattedRating(absValue) +
+                    `</span>
+                </div>`;
     }
 
     //**************************************************************************

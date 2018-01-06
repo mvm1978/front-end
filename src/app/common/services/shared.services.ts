@@ -34,7 +34,7 @@ export class SharedServices extends BaseServices
     }
 
     //**************************************************************************
-    
+
     public downloadBook(url: string, dataset: any): boolean
     {
         let header = this.getHeader(),
@@ -219,21 +219,6 @@ export class SharedServices extends BaseServices
         }
 
         return addPopupInfo;
-    }
-
-    //**************************************************************************
-
-    public getCount(value: number): string
-    {
-        if (value < Math.pow(10, 3)) {
-            return value.toString();;
-        } else if (value < Math.pow(10, 6)) {
-            return Math.round((value / Math.pow(10, 3)) * 10 ) / 10 + ' K';
-        } else if (value < Math.pow(10, 9)) {
-            return Math.round((value / Math.pow(10, 6)) * 10 ) / 10 + ' M';
-        } else {
-            return Math.round((value / Math.pow(10, 9)) * 10 ) / 10 + ' B';
-        }
     }
 
     //**************************************************************************

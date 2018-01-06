@@ -190,3 +190,15 @@ header {
 #header .navbar {
     margin: 0;
 }
+
+.downvotes {
+    color: #f24747;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.upvotes {
+    color: #28a745;
+    font-size: 1.2em;
+    font-weight: bold;
+}

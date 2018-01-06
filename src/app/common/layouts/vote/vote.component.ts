@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 
+import {Utils} from '../../core/utils';
 import {GlobalEventsManager} from '../../modules/global-events-manager';
-import {SharedServices} from '../../services/shared.services';
 
 declare let jQuery: any;
 
@@ -19,8 +19,7 @@ export class VoteComponent
     public count: any;
 
     constructor(
-        private _globalEventsManager: GlobalEventsManager,
-        private _sharedServices: SharedServices
+        private _globalEventsManager: GlobalEventsManager
     ) {
     }
 
@@ -28,7 +27,7 @@ export class VoteComponent
 
     private ngOnInit(): void
     {
-        this.count = this._sharedServices.getCount(this.params.value);
+        this.count = Utils.getFormattedRating(this.params.value);
     }
 
     //**************************************************************************
@@ -52,12 +51,11 @@ export class VoteComponent
                     this.params.value = response[field];
 
                     let $container = jQuery(this.container),
-                        index = this.params.index,
-                        services = this._sharedServices;
+                        index = this.params.index;
 
                     ['downvotes', 'upvotes'].forEach(function(field) {
 
-                        let displayValue = services.getCount(response[field]);
+                        let displayValue = Utils.getFormattedRating(response[field]);
 
                         jQuery('.' + field, $container).eq(index)
                             .attr('title', response[field])

@@ -11,8 +11,6 @@ import {SharedModule} from '../../modules/shared.module';
 import {AgGridComponent} from '../ag-grid/ag-grid.component';
 import {GridComponent} from '../ag-grid/grid/grid.component';
 import {DownloadButtonComponent} from '../ag-grid/download-button/download-button.component';
-import {UpVoteComponent} from '../ag-grid/vote/up/up-vote.component';
-import {DownVoteComponent} from '../ag-grid/vote/down/down-vote.component';
 import {GridHeaderComponent} from '../ag-grid/header/grid-header.component';
 import {GridFilterComponent} from '../ag-grid/filter/grid-filter.component';
 import {GridUploaderComponent} from '../ag-grid/uploader/grid-uploader.component';
@@ -26,8 +24,6 @@ import {GridNavigationComponent} from '../ag-grid/navigation/grid-navigation.com
         AgGridModule.withComponents(
             [
                 DownloadButtonComponent,
-                UpVoteComponent,
-                DownVoteComponent,
                 GridHeaderComponent
             ]
         )
@@ -39,8 +35,6 @@ import {GridNavigationComponent} from '../ag-grid/navigation/grid-navigation.com
         AgGridComponent,
         GridComponent,
         DownloadButtonComponent,
-        UpVoteComponent,
-        DownVoteComponent,
         GridHeaderComponent,
         GridFilterComponent,
         GridUploaderComponent,
@@ -51,8 +45,6 @@ import {GridNavigationComponent} from '../ag-grid/navigation/grid-navigation.com
         GridComponent,
         GridHeaderComponent,
         DownloadButtonComponent,
-        UpVoteComponent,
-        DownVoteComponent,
         GridFilterComponent,
         GridUploaderComponent,
         GridNavigationComponent
