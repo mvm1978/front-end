@@ -1,3 +1,7 @@
 .pagination {
     margin: 10px 0px;
 }
+
+.pagination li :hover {
+    box-shadow: 0 0 16px #888888;
+}

@@ -173,8 +173,15 @@ header {
 
 .download-pdf {
     content: url('../images/download-pdf.png');
-    width: 64px;
-    height: 56px;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    opacity: 0.95;
+}
+
+.download-pdf:hover {
+    box-shadow: 0 0 16px #888888;
+    opacity: 1;
 }
 
 .download-pdf-link {
