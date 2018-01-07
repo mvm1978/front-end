@@ -1,6 +1,8 @@
 import {Component, Injectable} from '@angular/core';
 import {GlobalEventsManager} from './common/modules/global-events-manager';
 
+declare let jQuery: any;
+
 @Component({
     selector: 'main-app',
     templateUrl: './app/app.component.html'
@@ -18,6 +20,7 @@ export class AppComponent
         private _globalEventsManager: GlobalEventsManager
     )
     {
+        jQuery('#main-body-wait').remove();
     }
 
     //**************************************************************************
