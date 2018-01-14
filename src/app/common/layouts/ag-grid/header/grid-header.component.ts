@@ -37,10 +37,13 @@ export class GridHeaderComponent implements IHeaderAngularComp
         this.params = params;
 
         this.columnInfo = params.column['colDef'];
-
-        this.field = this.columnInfo.field;
         this.caption = this.columnInfo.headerName;
+        this.field = this.columnInfo.hasOwnProperty('table') ?
+                this.columnInfo.table + '.' + this.columnInfo.field :
+                this.columnInfo.field;
     }
+
+    //**************************************************************************
 
     public onMenuClick()
     {

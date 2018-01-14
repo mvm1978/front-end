@@ -66,6 +66,7 @@ export class BookComponent
             {
                 headerName: 'Genre',
                 field: 'genre',
+                table: 'genres',
                 width: 120,
                 significance: 5,
                 enableSorting: true,
@@ -88,6 +89,7 @@ export class BookComponent
             {
                 headerName: 'Author',
                 field: 'author',
+                table: 'authors',
                 width: 120,
                 significance: 2,
                 enableSorting: true,
@@ -107,6 +109,7 @@ export class BookComponent
             {
                 headerName: 'Type',
                 field: 'type',
+                table: 'types',
                 width: 110,
                 significance: 1,
                 enableSorting: true,
