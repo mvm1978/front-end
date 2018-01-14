@@ -1,11 +1,4 @@
-#book-grid {
-    padding: 5px;
-}
-
 .charts {
-    float: left;
-}
-
-.chart-caption {
-    text-align: center;
-}
+  float: left; }
+  .charts .chart-caption {
+    text-align: center; }

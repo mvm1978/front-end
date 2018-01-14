@@ -1,9 +1,6 @@
 .ag-grid {
-    width: 100%;
-    position: relative;
-}
-
-.ag-grid-title {
+  width: 100%;
+  position: relative; }
+  .ag-grid .ag-grid-title {
     margin: 5px 0px;
-    text-align: center;
-}
+    text-align: center; }

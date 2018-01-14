@@ -1,67 +1,56 @@
 #home-content-section {
-	padding-bottom: 30px;
-	min-height: calc(100vh - 100px);
-	width: 100%;
-    overflow-y: auto;
-	overflow-x: hidden;
-}
-
-#greetings-wrapper {
-	text-align: center;
-    height: 60px;
-    line-height: 40px;
-}
-
-#top-books-wrapper {
-    height: 165px;
-}
-
-.greeting, .top-books {
+  padding-bottom: 30px;
+  min-height: calc(100vh - 100px);
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; }
+  #home-content-section #greetings-wrapper #greetings-content, #home-content-section #top-books-wrapper #top-books-content {
+    position: relative;
+    width: 100%; }
+  #home-content-section #git-hub-wrapper *, #home-content-section #languages-wrapper * {
+    text-align: left; }
+  #home-content-section #git-hub-wrapper #git-hub-content h4, #home-content-section #languages-wrapper #languages-content h4 {
+    margin-left: 10px; }
+  #home-content-section #git-hub-wrapper #git-hub-content h5, #home-content-section #languages-wrapper #languages-content h5 {
+    margin-left: 5px; }
+  #home-content-section #git-hub-wrapper #git-hub-content ul, #home-content-section #languages-wrapper #languages-content ul {
+    list-style-type: none; }
+  #home-content-section #greetings-wrapper #greetings-content .greeting, #home-content-section #top-books-wrapper #top-books-content .top-books {
     display: none;
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
     padding: 0px 10px;
-    vertical-align: middle;
-}
-
-@media only screen and (max-width: 359px) {
-    .greeting-text {
-        font-size: 0.8em;
-    }
-}
-
-@media only screen and (min-width: 360px) and (max-width: 399px) {
-    .greeting-text {
-        font-size: .9em;
-    }
-}
-
-@media only screen and (min-width: 400px) and (max-width: 639px) {
-    .greeting-text {
-        font-size: 1em;
-    }
-}
-
-@media only screen and (min-width: 640px) {
-    .greeting-text {
-        font-size: 1.5em;
-    }
-}
-
-ul {
-  list-style-type: none;
-}
-
-.block-wrapper {
+    vertical-align: middle; }
+  #home-content-section #greetings-wrapper {
+    text-align: center;
+    height: 60px;
+    line-height: 40px; }
+  #home-content-section #top-books-wrapper {
+    height: 165px; }
+    #home-content-section #top-books-wrapper #top-books-header {
+      text-align: center; }
+      #home-content-section #top-books-wrapper #top-books-header h4 {
+        margin-top: 0; }
+    #home-content-section #top-books-wrapper #top-books-content .top-books-picture {
+      width: 60px;
+      height: 110px;
+      float: left; }
+    #home-content-section #top-books-wrapper #top-books-content .top-books .book-rating {
+      margin-top: 5px;
+      width: 50px;
+      text-align: center; }
+    #home-content-section #top-books-wrapper #top-books-content .top-books .book-rating-value {
+      width: 50px;
+      text-align: center;
+      color: #218838; }
+  #home-content-section .block-wrapper {
     position: relative;
     border: 1px solid red;
     margin: 10px;
-    padding: 10px 5px;
-}
-
-.background {
+    padding: 10px 5px; }
+  #home-content-section .background {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -71,112 +60,56 @@ ul {
     height: 100%;
     opacity: 0.5;
     z-index: -1;
-    background: White; /* Old browsers */
-    background: -moz-linear-gradient(-20deg, #f5d6db, White); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-20deg, #f5d6db, White); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(160deg, #f5d6db, White); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-}
-
-#git-hub-content *, #languages-content * {
-    text-align: left;
-}
-
-#git-hub-content h4, #languages-content h4 {
-    margin-left: 10px;
-}
-
-#git-hub-content h5, #languages-content h5 {
-    margin-left: 5px;
-}
-
-#greetings-content, #top-books-content {
-    position: relative;
-    width: 100%;
-}
-
-#top-books-header {
-	text-align: center;
-}
-
-#top-books-header h4 {
-	margin-top: 0;
-}
-
-.top-books-picture {
-    width: 60px;
-    height: 110px;
-    float: left;
-}
-
-.book-rating {
-    margin-top: 5px;
-    width: 50px;
-    text-align: center;
-}
-
-.book-rating-value {
-    width: 50px;
-    text-align: center;
-    color: #218838;
-}
-
-@media only screen and (max-width: 499px) {
-
-    .top-books-content {
-        width: calc(100% - 60px);
-        height: 110px;
-        float: left;
-    }
-
-    .top-books-description {
-        visibility: hidden;
-        width: 0;
-        height: 110px;
-        float: left;
-    }
-}
-
-@media only screen and (min-width: 500px) {
-
-    .top-books-content {
-        width: calc(30% - 30px);
-        height: 110px;
-        float: left;
-    }
-
-    .top-books-description {
-        visibility: visible;
-        width: calc(70% - 30px);
-        height: 110px;
-        float: left;
-    }
-}
-
-@media only screen and (max-width: 499px) {
-
-    .top-books-content {
-        font-size: 1.2em;
-    }
-}
-
-@media only screen and (min-width: 500px) and (max-width: 699px) {
-
-    .top-books-content {
-        font-size: 1em;
-    }
-
-    .top-books-description {
-        font-size: 0.9em;
-    }
-}
-
-@media only screen and (min-width: 700px) {
-
-    .top-books-content {
-        font-size: 1.2em;
-    }
-
-    .top-books-description {
-        font-size: 1.2em;
-    }
-}
+    background: White;
+    /* Old browsers */
+    background: -moz-linear-gradient(-20deg, #f5d6db, White);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-20deg, #f5d6db, White);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(160deg, #f5d6db, White);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
+  @media only screen and (max-width: 359px) {
+    #home-content-section .greeting-text {
+      font-size: 0.8em; } }
+  @media only screen and (min-width: 360px) and (max-width: 399px) {
+    #home-content-section .greeting-text {
+      font-size: .9em; } }
+  @media only screen and (min-width: 400px) and (max-width: 639px) {
+    #home-content-section .greeting-text {
+      font-size: 1em; } }
+  @media only screen and (min-width: 640px) {
+    #home-content-section .greeting-text {
+      font-size: 1.5em; } }
+  @media only screen and (max-width: 499px) {
+    #home-content-section .top-books-content {
+      width: calc(100% - 60px);
+      height: 110px;
+      float: left; }
+    #home-content-section .top-books-description {
+      visibility: hidden;
+      width: 0;
+      height: 110px;
+      float: left; } }
+  @media only screen and (min-width: 500px) {
+    #home-content-section .top-books-content {
+      width: calc(30% - 30px);
+      height: 110px;
+      float: left; }
+    #home-content-section .top-books-description {
+      visibility: visible;
+      width: calc(70% - 30px);
+      height: 110px;
+      float: left; } }
+  @media only screen and (max-width: 499px) {
+    #home-content-section .top-books-content {
+      font-size: 1.2em; } }
+  @media only screen and (min-width: 500px) and (max-width: 699px) {
+    #home-content-section .top-books-content {
+      font-size: 1em; }
+    #home-content-section .top-books-description {
+      font-size: 0.9em; } }
+  @media only screen and (min-width: 700px) {
+    #home-content-section .top-books-content {
+      font-size: 1.2em; }
+    #home-content-section .top-books-description {
+      font-size: 1.2em; } }

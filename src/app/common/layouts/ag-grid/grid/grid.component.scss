@@ -1,0 +1,84 @@
+$row-border: 1px solid #000;
+$cell-border: 1px solid #ddd;
+
+@mixin box-sizing($box-sizing) {
+    -webkit-box-sizing: $box-sizing;
+    -moz-box-sizing: $box-sizing;
+    box-sizing: $box-sizing;
+}
+
+.ag-fresh {
+    width: 100%;
+}
+
+.ag-root {
+
+    width: auto;
+    height: auto;
+    @include box-sizing(content-box);
+
+    .ag-header {
+        .ag-header-row {
+            border-bottom: 2px solid #000;
+            font-weight: bold;
+            font-size: 13px;
+            line-height: 1em;
+            color: #000;
+            background: LightGrey; /* Old browsers */
+            background: -moz-linear-gradient(White, LightGrey); /* FF3.6-15 */
+            background: -webkit-linear-gradient(White, LightGrey); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(White, LightGrey); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+            .ag-header-cell {
+                border-top: $row-border;
+                border-left: $cell-border;
+            }
+        }
+    }
+
+    .ag-body {
+
+        width: auto;
+        @include box-sizing(content-box);
+
+        .ag-row {
+
+            &:nth-child(even) {
+                background-color: #eee;
+            }
+
+            &:last-child {
+                border-bottom: $row-border;
+            }
+
+            &:hover {
+                background-color: #d9edf7;
+            }
+
+            .ag-cell {
+
+                padding: 0px 3px;
+                color: #333;
+                border-bottom: $cell-border;
+                border-left: $cell-border;
+
+                &:last-child {
+                    border-right: $cell-border;
+                }
+
+                .cell-div {
+                    position: absolute;
+                    top: 25%;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+.alert {
+    margin: 2px 0px;
+    padding: 2px 5px;
+    display: none;
+}

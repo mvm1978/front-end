@@ -50,6 +50,11 @@ export class FooterComponent
                     'tool-tip': 'TypeScript'
                 },
                 {
+                    logo: 'java',
+                    link: 'https://en.wikipedia.org/wiki/Java_(programming_language)',
+                    'tool-tip': 'Java'
+                },
+                {
                     logo: 'perl',
                     link: 'https://en.wikipedia.org/wiki/Perl',
                     'tool-tip': 'Perl'
@@ -89,6 +94,11 @@ export class FooterComponent
                     logo: 'jquery',
                     link: 'https://en.wikipedia.org/wiki/JQuery',
                     'tool-tip': 'jQuery'
+                },
+                {
+                    logo: 'sass',
+                    link: 'https://en.wikipedia.org/wiki/Sass_(stylesheet_language)',
+                    'tool-tip': 'Sass'
                 }
             ]
         },
