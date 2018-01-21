@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 import {ModalPopupComponent} from '../../../layouts/modal-popup/modal-popup.component';
+import {SharedServices} from '../../../services/shared.services';
 import {InlineInputRowInputGroupComponent} from '../../row-input-group/inline-input/inline-input-row-input-group.component';
 
 import {AgGridServices} from '../ag-grid.services';
@@ -39,6 +40,7 @@ export class GridUploaderComponent extends ModalPopupComponent
     //**************************************************************************
 
     constructor(
+        private _sharedServices: SharedServices,
         private _agGridServices: AgGridServices
     )
     {
@@ -47,7 +49,22 @@ export class GridUploaderComponent extends ModalPopupComponent
 
     //**************************************************************************
 
-    public ngAfterViewInit(): void
+    public handleClick($event: any): void
+    {
+        if (! $event.x && ! $event.y) {
+            return;
+        }
+
+        let $content = jQuery('#grid-uploader-popup-content');
+
+        if (this._sharedServices.checkIfOuterClick($event.x, $event.y, $content)) {
+            this._agGridServices.showUploader({});
+        }
+    }
+
+    //**************************************************************************
+
+    public ngAfterViewInit()
     {
         this.status = 'Opened';
     }
@@ -82,8 +99,6 @@ export class GridUploaderComponent extends ModalPopupComponent
 
         formData.append('upload', file);
 
-//        this._globalEventsManager.showLoadingOverload(true);
-
         this.gridData.service.patch(this.info.field, this.info.id, formData)
             .subscribe(
                 response => {
@@ -92,16 +107,8 @@ export class GridUploaderComponent extends ModalPopupComponent
                 },
                 err => {
                     this._agGridServices.showUploaderError(err, 'Error uploading file');
-console.log(err);
-//                    service.showError(err, this.addPopupInfo.errorMessage);
-
-//                    this._authorsServices.showError(err, 'Error uploading');
-
-//                    this._globalEventsManager.showLoadingOverload(false);
                 },
-                () => {
-//                    this._globalEventsManager.showLoadingOverload(false);
-                }
+                () => {}
             );
 
         return false;

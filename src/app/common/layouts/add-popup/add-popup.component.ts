@@ -1,6 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 import {ModalPopupComponent} from '../../layouts/modal-popup/modal-popup.component';
+import {SharedServices} from '../../services/shared.services';
 import {GlobalEventsManager} from '../../modules/global-events-manager';
 import {Constants} from '../../core/constants';
 
@@ -24,14 +25,43 @@ export class AddPopupComponent extends ModalPopupComponent
     @Output() addPopupStatusChange = new EventEmitter<boolean>();
 
     protected selector: string = 'add-popup';
+    private initPopup: boolean = false;
 
     //**************************************************************************
 
     constructor (
+        private _sharedServices: SharedServices,
         private _globalEventsManager: GlobalEventsManager
     )
     {
         super();
+    }
+
+    //**************************************************************************
+
+    public handleClick($event: any): void
+    {
+        if (! $event.x && ! $event.y) {
+            return;
+        }
+
+        if (this.initPopup) {
+            this.initPopup = false;
+        } else {
+
+            let $content = jQuery('#' + this.addPopupInfo.id + '-popup-content');
+
+            if (this._sharedServices.checkIfOuterClick($event.x, $event.y, $content)) {
+                this.addPopupStatusChange.emit(false);
+            }
+        }
+    }
+
+    //**************************************************************************
+
+    public ngAfterViewInit()
+    {
+        this.initPopup = true;
     }
 
     //**************************************************************************

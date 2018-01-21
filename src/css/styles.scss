@@ -16,6 +16,25 @@
     font-weight: bold;
 }
 
+@function iif($condition, $if-value, $else-value) {
+    @if ($condition == true) {
+        @return $if-value;
+    } @else {
+        @return $else-value;
+    }
+}
+
+@mixin popup-content-width($content-width, $left: null) {
+
+    .popup-wrapper .popup-content {
+        width: $content-width;
+    }
+
+    .popup-content {
+        left: iif($left == null, calc((100% - #{$content-width}) / 2), $left);
+    }
+}
+
 * {
     box-sizing: border-box;
 }
@@ -96,37 +115,53 @@ a:hover, a:visited {
     overflow: auto;
 }
 
-@media only screen and (max-width: 359px) {
-    .popup-wrapper .popup-content {
-        width: 340px;
+$popup-screen-width: 360px, 400px, 640px;
+$prev-popup-screen-width: 0;
+$popup-screen-margin: 10px;
+
+@each $width in $popup-screen-width {
+
+    $value: calc(100% - #{$popup-screen-margin});
+    $left-margin: #{$popup-screen-margin / 2};
+
+    @if $prev-popup-screen-width == 0 {
+        @media only screen and (max-width: #{$width - 1}) {
+            @include popup-content-width($value, $left-margin);
+        }
+    } @else {
+        @media only screen and (min-width: $prev-popup-screen-width) and (max-width: #{$width - 1}) {
+            @include popup-content-width($value, $left-margin);
+        }
     }
+
+    @if $width == nth($popup-screen-width, -1) {
+        @media only screen and (min-width: $width) {
+            @include popup-content-width(#{$width - $popup-screen-margin});
+        }
+    }
+
+    $popup-screen-margin: $popup-screen-margin + 10px;
+    $prev-popup-screen-width: $width;
 }
 
-@media only screen and (min-width: 360px) and (max-width: 399px) {
-    .popup-wrapper .popup-content {
-        width: 350px;
-    }
-}
-
-@media only screen and (min-width: 400px) and (max-width: 639px) {
-    .popup-wrapper .popup-content {
-        width: 390px;
-    }
-}
-
-@media only screen and (min-width: 640px) {
-    .popup-wrapper .popup-content {
-        width: 620px;
-    }
+.popup-background {
+    background: #000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: -1;
 }
 
 .popup-content {
+    position: absolute;
     padding: 15px;
     border-radius: 5px;
     border: 1px solid #888;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 100px;
+	top: 100px;
 	border-color: #cfcfcf;
 	background-color: #efefef;
     /* shadow */

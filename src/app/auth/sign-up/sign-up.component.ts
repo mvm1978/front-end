@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, Output, EventEmitter} from '@angular/core';
 
 import {GlobalEventsManager} from '../../common/modules/global-events-manager';
 import {Constants} from '../../common/core/constants';
@@ -27,6 +27,8 @@ export class SignUpComponent
 {
     @ViewChild(CredentialsRowComponent) credentialRows: CredentialsRowComponent;
     @ViewChild(RecoveryQuestionsComponent) recoveryQuestions: RecoveryQuestionsComponent;
+
+    @Output() onSubmitPopup = new EventEmitter<void>();
 
     public isRecoveryQuestions: boolean = false;
 
@@ -104,6 +106,7 @@ export class SignUpComponent
         if (! data.email && ! this.isRecoveryQuestions) {
             // show page with password recovery questions if no email was input
             this.isRecoveryQuestions = true;
+            this.onSubmitPopup.emit();
 
             return false;
         }

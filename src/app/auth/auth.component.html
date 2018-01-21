@@ -1,16 +1,20 @@
-<div *ngIf="authPopup" class="popup-wrapper auth-popup-wrapper">
-    <div class="popup-content container">
+<div *ngIf="authPopup" class="popup-wrapper">
+    <div class="popup-background"></div>
+    <div id="auth-popup-wrapper" class="popup-wrapper auth-popup-wrapper">
+        <div id="auth-popup-content" class="popup-content container">
 
-        <a href="#" class="close-popup" (click)="onClose()">
-            <span class="glyphicon glyphicon-remove"></span>
-        </a>
-        <h3>{{authPopup}}</h3>
-        <hr class="popup-section-delimiter">
+            <a href="#" class="close-popup" (click)="onClose()">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+            <h3>{{authPopup}}</h3>
+            <hr class="popup-section-delimiter">
 
-        <sign-in *ngIf="authPopup == 'Sign In'"></sign-in>
-        <sign-up *ngIf="authPopup == 'Sign Up'"></sign-up>
-        <user-info *ngIf="authPopup == 'User Info'"></user-info>
-        <password-reset *ngIf="authPopup == 'Password Reset'"></password-reset>
-        <password-recovery *ngIf="authPopup == 'Password Recovery'"></password-recovery>
+            <sign-in *ngIf="authPopup == 'Sign In'"></sign-in>
+            <sign-up *ngIf="authPopup == 'Sign Up'"
+                (onSubmitPopup)="submitPopup()"></sign-up>
+            <user-info *ngIf="authPopup == 'User Info'"></user-info>
+            <password-reset *ngIf="authPopup == 'Password Reset'"></password-reset>
+            <password-recovery *ngIf="authPopup == 'Password Recovery'"></password-recovery>
+        </div>
     </div>
 </div>

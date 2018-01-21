@@ -268,4 +268,22 @@ export class SharedServices extends BaseServices
 
     //**************************************************************************
 
+    public checkIfOuterClick(x: number, y: number, $content: any): boolean
+    {
+        if (! $content.length) {
+            return false;
+        }
+
+        let offset = $content.offset();
+
+        let height = $content.outerHeight(),
+            width = $content.outerWidth(),
+            top = offset.top,
+            left = offset.left;
+
+        return x < left || x > left + width || y < top || y > top + height;
+    }
+
+    //**************************************************************************
+
 }
