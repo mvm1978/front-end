@@ -274,7 +274,7 @@ export class SharedServices extends BaseServices
             return false;
         }
 
-        let offset = $content.offset();
+        let offset = $content.position();
 
         let height = $content.outerHeight(),
             width = $content.outerWidth(),

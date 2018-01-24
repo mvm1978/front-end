@@ -9,7 +9,9 @@
     padding: 10px; }
     #library-body #library-side-panel .side-panels {
       position: fixed;
-      width: 220px; }
+      width: 220px;
+      max-height: calc(100% - 70px);
+      overflow-y: auto; }
       #library-body #library-side-panel .side-panels h4 {
         text-align: center; }
       #library-body #library-side-panel .side-panels ul {
