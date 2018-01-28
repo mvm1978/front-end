@@ -7,20 +7,30 @@
         <button class="btn btn-success" (click)="onAddBook()">Add Book</button>
     </div>
 
-    <div *ngFor="let chart of pieCharts" class="charts">
-        <h3 class="chart-caption">{{chart.title}}</h3>
-        <pie-chart id="{{chart.id}}"
-            [pieChartData]="chart.data"
-            [pieChartLabels]="chart.labels">
+    <div *ngFor="let chart of charts" class="charts">
+        <div id="{{chart.id}}">
+            <h3 class="chart-caption">{{chart.title}}</h3>
+            <pie-chart *ngIf="chart.id != 'books-chart'"
+                [pieChartData]="chart.data"
+                [pieChartLabels]="chart.labels">
 
-        </pie-chart>
+            </pie-chart>
+
+            <bar-chart *ngIf="chart.id == 'books-chart'"
+                [barChartData]="chart.data"
+                [barChartLabels]="chart.labels">
+
+            </bar-chart>
+        </div>
     </div>
     <div class="clear-float-left">
     </div>
 
-    <a href="#" (click)="downloadPDF()">
-        <img class="download-pdf">
-    </a>
+    <div class="download-report">
+        <a href="#" (click)="downloadPDF()">
+            <img class="download-pdf">
+        </a>
+    </div>
 
     <add-popup *ngIf="showAddPopup"
         [addPopupInfo]="addPopupInfo"

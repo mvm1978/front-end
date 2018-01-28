@@ -4,6 +4,7 @@ import {ChartsModule} from 'ng2-charts';
 import {RichGridModule} from '../../common/layouts/ag-grid/ag-grid.module';
 import {SharedModule} from '../../common/modules/shared.module';
 
+import {BarChartComponent} from '../../common/layouts/charts/bar/bar-chart.component';
 import {PieChartComponent} from '../../common/layouts/charts/pie/pie-chart.component';
 
 import {BookComponent} from './book.component';
@@ -15,6 +16,7 @@ import {BookComponent} from './book.component';
         RichGridModule
     ],
     declarations: [
+        BarChartComponent,
         PieChartComponent,
         BookComponent
     ],
@@ -22,6 +24,7 @@ import {BookComponent} from './book.component';
         ChartsModule,
         SharedModule,
         RichGridModule,
+        BarChartComponent,
         PieChartComponent,
         BookComponent
     ]

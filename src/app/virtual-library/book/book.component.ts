@@ -39,7 +39,7 @@ export class BookComponent
     private api = this._apiServices.api + '/book';
     public showAddPopup: boolean = false;
 
-    public pieCharts: Array<any> = [];
+    public charts: Array<any> = [];
 
     public addPopupInfo: any = {
         id: 'book-popup',
@@ -292,18 +292,18 @@ export class BookComponent
 
     public setChartData(): void
     {
-        this.pieCharts = [];
+        this.charts = [];
 
         this._booksServices.getCharts()
             .subscribe(
                 response => {
                     for (let key in response) {
                         if (response.hasOwnProperty(key)) {
-                            if (! ~jQuery.inArray(key, ['genres', 'authors'])) {
+                            if (! ~jQuery.inArray(key, ['genres', 'authors', 'books'])) {
                                 continue;
                             }
 
-                            this.pieCharts.push({
+                            this.charts.push({
                                 id: key + '-chart',
                                 title: 'Top 5 ' + key.charAt(0).toUpperCase() + key.slice(1),
                                 data: response[key].data,
@@ -416,10 +416,20 @@ export class BookComponent
             }
         }
 
+        let $canvas = jQuery('canvas');
+
         let params = {
             charts: {
-                'Top 5 Authors': jQuery('canvas')[0].toDataURL(),
-                'Top 5 Genres': jQuery('canvas')[1].toDataURL()
+                'Top 5 Authors': {
+                    file: $canvas[0].toDataURL()
+                },
+                'Top 5 Genres': {
+                    file: $canvas[1].toDataURL()
+                },
+                'Top 5 Books': {
+                    file: $canvas[2].toDataURL(),
+                    'width-factor': 2.2
+                }
             },
             columnInfo: columnInfo,
             outputSettings: this.agGridComponent.getTableSettings()

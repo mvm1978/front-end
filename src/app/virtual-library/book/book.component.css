@@ -2,3 +2,14 @@
   float: left; }
   .charts .chart-caption {
     text-align: center; }
+
+#authors-chart, #genres-chart {
+  width: 350px;
+  height: 400px; }
+
+#books-chart {
+  width: 1000px;
+  height: 550px; }
+  @media only screen and (max-width: 1000px) {
+    #books-chart {
+      display: none; } }
