@@ -56,42 +56,39 @@
 
         height: 165px;
 
-        #top-books-header {
-
+        h4 {
             text-align: center;
-
-            h4 {
-                margin-top: 0;
-            }
+            margin-top: 0;
         }
 
         #top-books-content {
 
-            @extend %content;
-
             .top-books-picture {
                 width: 60px;
-                height: 110px;
+                height: 120px;
                 float: left;
             }
 
-            .top-books {
+            .book-rating {
+                margin-top: 5px;
+                width: 50px;
+                text-align: center;
+            }
 
-                @extend %hide-show-text;
-
-                .book-rating {
-                    margin-top: 5px;
-                    width: 50px;
-                    text-align: center;
-                }
-
-                .book-rating-value {
-                    width: 50px;
-                    text-align: center;
-                    color: #218838;
-                }
+            .book-rating-value {
+                width: 50px;
+                text-align: center;
+                color: #218838;
             }
         }
+    }
+
+    #git-hub {
+        height: 120px;
+        width: 100%;
+        background: LightGrey;
+        padding: 10px;
+        margin: 10px 0px;
     }
 
     #git-hub-wrapper {
@@ -140,7 +137,6 @@
 
     .block-wrapper {
         position: relative;
-        border: 1px solid red;
         margin: 10px;
         padding: 10px 5px;
     }

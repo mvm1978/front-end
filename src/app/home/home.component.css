@@ -4,7 +4,7 @@
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden; }
-  #home-content-section #greetings-wrapper #greetings-content, #home-content-section #top-books-wrapper #top-books-content {
+  #home-content-section #greetings-wrapper #greetings-content {
     position: relative;
     width: 100%; }
   #home-content-section #git-hub-wrapper *, #home-content-section #languages-wrapper * {
@@ -15,7 +15,7 @@
     margin-left: 5px; }
   #home-content-section #git-hub-wrapper #git-hub-content ul, #home-content-section #languages-wrapper #languages-content ul {
     list-style-type: none; }
-  #home-content-section #greetings-wrapper #greetings-content .greeting, #home-content-section #top-books-wrapper #top-books-content .top-books {
+  #home-content-section #greetings-wrapper #greetings-content .greeting {
     display: none;
     position: absolute;
     width: 100%;
@@ -29,25 +29,29 @@
     line-height: 40px; }
   #home-content-section #top-books-wrapper {
     height: 165px; }
-    #home-content-section #top-books-wrapper #top-books-header {
-      text-align: center; }
-      #home-content-section #top-books-wrapper #top-books-header h4 {
-        margin-top: 0; }
+    #home-content-section #top-books-wrapper h4 {
+      text-align: center;
+      margin-top: 0; }
     #home-content-section #top-books-wrapper #top-books-content .top-books-picture {
       width: 60px;
-      height: 110px;
+      height: 120px;
       float: left; }
-    #home-content-section #top-books-wrapper #top-books-content .top-books .book-rating {
+    #home-content-section #top-books-wrapper #top-books-content .book-rating {
       margin-top: 5px;
       width: 50px;
       text-align: center; }
-    #home-content-section #top-books-wrapper #top-books-content .top-books .book-rating-value {
+    #home-content-section #top-books-wrapper #top-books-content .book-rating-value {
       width: 50px;
       text-align: center;
       color: #218838; }
+  #home-content-section #git-hub {
+    height: 120px;
+    width: 100%;
+    background: LightGrey;
+    padding: 10px;
+    margin: 10px 0px; }
   #home-content-section .block-wrapper {
     position: relative;
-    border: 1px solid red;
     margin: 10px;
     padding: 10px 5px; }
   #home-content-section .background {

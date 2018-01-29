@@ -7,7 +7,6 @@ import {Constants} from '../common/core/constants';
 
 import {ApiServices} from '../virtual-library/api.services';
 import {SharedServices} from '../common/services/shared.services';
-import {AuthServices} from '../auth/auth.services';
 import {booksServices} from '../virtual-library/book/book.services';
 
 declare let jQuery: any;
@@ -30,11 +29,6 @@ export class HomeComponent
             fadeIn: 2000,
             interval: 5000,
             fadeOut: 2500
-        },
-        'top-books': {
-            fadeIn: 2000,
-            interval: 10000,
-            fadeOut: 2500
         }
     };
 
@@ -44,7 +38,7 @@ export class HomeComponent
         'You need not to authorize in order to download a book',
         'Authorization does not require email',
         'Only authorized users can upload books',
-        'Only authorized users can "like" or dislike" a book',
+        'Only authorized users can "upvote" or "downvote" a book'
     ];
 
     public topBooksAmount: number = 5;
@@ -58,7 +52,6 @@ export class HomeComponent
         private _globalEventsManager: GlobalEventsManager,
         private _apiServices: ApiServices,
         private _sharedServices: SharedServices,
-        private _authServices: AuthServices,
         private _booksServices: booksServices
     )
     {
@@ -67,8 +60,14 @@ export class HomeComponent
         this._booksServices.getTopBooks(this.topBooksAmount)
             .subscribe(
                 response => {
+
                     this.topBooks = response;
-                    this.showFadeInOut('top-books');
+
+                    setTimeout(function () {
+                        jQuery('#top-5-books-carousel').carousel({
+                            interval: 10000
+                        })
+                    }, 0);
                 },
                 err => {},
                 () => {}

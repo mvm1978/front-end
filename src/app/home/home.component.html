@@ -1,6 +1,5 @@
 <div id="home-content-section">
     <div id="greetings-wrapper" class="block-wrapper">
-        <div class="background"></div>
         <div id="greetings-content">
             <div *ngFor="let greeting of greetings" class="greeting greeting-text">
                 {{greeting}}
@@ -8,37 +7,37 @@
         </div>
     </div>
 
-    <div id="top-books-wrapper" class="block-wrapper">
-        <div class="background"></div>
-        <div id="top-books-header">
-            <h4>Top {{topBooksAmount}} books</h4>
-        </div>
-        <div *ngIf="topBooks.length" id="top-books-content">
-            <div *ngFor="let book of topBooks" class="top-books">
-                <div class="top-books-picture">
-                    <a href="#" (click)="onBookImageClick($event.target.dataset)">
-                        <img class="table-picture"
-                             src="{{urlRoot}}/storage/{{book.picture}}"
-                             attr.data-title="{{book.title}}"
-                             attr.data-source="{{book.source}}">
-                    </a>
-                    <div class="book-rating">Rating</div>
-                    <div class="book-rating-value">{{book.rating ? book.rating : "-"}}</div>
-                </div>
-                <div class="top-books-content">
-                    {{book.title}}<br>
-                    by {{book.author}}<br>
-                    length: {{book.length}}
-                </div>
-                <div class="top-books-description">
-                    {{book.description}}
+    <div *ngIf="topBooks.length" id="top-books-wrapper" class="container">
+        <h4>Top {{topBooksAmount}} books</h4>
+        <div id="top-5-books-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div *ngFor="let book of topBooks; let index=index"
+                    id="top-books-content"
+                    class="item top-books {{index==1 ? 'active' : ''}}">
+                    <div class="top-books-picture">
+                        <a href="#" (click)="onBookImageClick($event.target.dataset)">
+                            <img class="table-picture"
+                                 src="{{urlRoot}}/storage/{{book.picture}}"
+                                 attr.data-title="{{book.title}}"
+                                 attr.data-source="{{book.source}}">
+                        </a>
+                        <div class="book-rating">Rating</div>
+                        <div class="book-rating-value">{{book.rating ? book.rating : "-"}}</div>
+                    </div>
+                    <div class="top-books-content">
+                        {{book.title}}<br>
+                        by {{book.author}}<br>
+                        length: {{book.length}}
+                    </div>
+                    <div class="top-books-description">
+                        {{book.description}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="git-hub-wrapper" class="block-wrapper">
-        <div class="background"></div>
+    <div id="git-hub">
         <div id="git-hub-content">
             <h4>GitHub</h4>
             <ul>
@@ -50,7 +49,6 @@
     </div>
 
     <div id="languages-wrapper" class="block-wrapper">
-        <div class="background"></div>
         <div id="languages-content">
             <h4>Used Languages, Frameworks and Libraries</h4>
             <h5>Back End:</h5>
