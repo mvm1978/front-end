@@ -71,6 +71,9 @@ export class LibraryComponent
 
     public ngOnInit()
     {
+        jQuery('li', '.navbar-nav').removeClass('active');
+        jQuery('#library-menu-item').addClass('active');
+
         Observable.forkJoin(
             this._typesServices.getCount(),
             this._genresServices.getCount(),

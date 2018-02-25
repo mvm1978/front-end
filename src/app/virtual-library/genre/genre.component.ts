@@ -82,6 +82,14 @@ export class GenreComponent
 
     //**************************************************************************
 
+    private ngOnInit(): void
+    {
+        jQuery('li', '.navbar-nav').removeClass('active');
+        jQuery('#upload-menu-item').addClass('active');
+    }
+
+    //**************************************************************************
+
     public onAddGenre(): void
     {
         this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :

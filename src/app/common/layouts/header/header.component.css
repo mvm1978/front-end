@@ -1,0 +1,39 @@
+#main-navbar #main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 30px;
+  background-color: #222; }
+
+@media screen and (max-width: 767px) {
+  #main-navbar #main-header {
+    height: 50px; }
+  #main-navbar .navbar-right {
+    padding-right: 10px; }
+  #main-navbar .navbar-nav {
+    float: left;
+    margin: 0;
+    height: 38px; }
+  #main-navbar .navbar-nav > li {
+    float: left; }
+  #main-navbar .navbar-right {
+    float: right; }
+  #main-navbar .navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px; }
+  #main-navbar #site-caption, #main-navbar .caption {
+    display: none; } }
+
+@media screen and (min-width: 768px) {
+  #main-navbar #site-caption {
+    padding: 15px 10px; }
+  #main-navbar .navbar-right {
+    padding-right: 15px; }
+  #main-navbar .small-main-navbar {
+    height: 38px; }
+  #main-navbar #main-header .small-icon {
+    padding: 5px 10px; }
+  #main-navbar .small-header {
+    height: 30px; } }

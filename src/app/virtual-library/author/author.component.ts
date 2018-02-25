@@ -123,6 +123,14 @@ export class AuthorComponent
 
     //**************************************************************************
 
+    private ngOnInit(): void
+    {
+        jQuery('li', '.navbar-nav').removeClass('active');
+        jQuery('#upload-menu-item').addClass('active');
+    }
+
+    //**************************************************************************
+
     public onAddAuthor()
     {
         this.addPopupInfo = this.addPopupInfo.length ? this.addPopupInfo :

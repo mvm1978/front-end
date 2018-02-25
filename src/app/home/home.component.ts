@@ -24,14 +24,6 @@ declare let jQuery: any;
 
 export class HomeComponent
 {
-    private fadeInOut: any = {
-        greeting: {
-            fadeIn: 2000,
-            interval: 5000,
-            fadeOut: 2500
-        }
-    };
-
     public greetings: any = [
         '',
         'Welcome to Virtual Library!',
@@ -73,7 +65,11 @@ export class HomeComponent
                 () => {}
             );
 
-        this.showFadeInOut('greeting');
+        setTimeout(function () {
+            jQuery('#greeting-carousel').carousel({
+                interval: 8000
+            });
+        }, 0);
     }
 
     //**************************************************************************
@@ -81,6 +77,9 @@ export class HomeComponent
     private ngOnInit(): void
     {
         localStorage.removeItem('password-recovery-token');
+
+        jQuery('li', '.navbar-nav').removeClass('active');
+        jQuery('#home-menu-item').addClass('active');
 
         this.activatedRoute.queryParams
             .subscribe(response => {
@@ -93,30 +92,6 @@ export class HomeComponent
                     this._globalEventsManager.signOut();
                 }
             });
-    }
-
-    //**************************************************************************
-
-    private showFadeInOut(fadeKey: string): void
-    {
-        let index = 0,
-            that = this,
-            fadeInOut = this.fadeInOut[fadeKey];
-
-        jQuery('.' + fadeKey).eq(index).fadeIn(fadeInOut.fadeIn);
-
-        setInterval(function() {
-
-            let $greetings = jQuery('.' + fadeKey);
-
-            $greetings.not($greetings.eq(index)).hide();
-            $greetings.eq(index).fadeOut(fadeInOut.fadeOut);
-
-            index = index == that.greetings.length - 1 ? 0 : index + 1;
-
-            $greetings.eq(index).fadeIn(fadeInOut.fadeOut);
-
-        }, fadeInOut.interval);
     }
 
     //**************************************************************************

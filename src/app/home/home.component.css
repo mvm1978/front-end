@@ -4,29 +4,25 @@
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden; }
-  #home-content-section #greetings-wrapper #greetings-content {
-    position: relative;
-    width: 100%; }
-  #home-content-section #git-hub-wrapper *, #home-content-section #languages-wrapper * {
+  #home-content-section #languages-wrapper * {
     text-align: left; }
-  #home-content-section #git-hub-wrapper #git-hub-content h4, #home-content-section #languages-wrapper #languages-content h4 {
+  #home-content-section #languages-wrapper #languages-content h4 {
     margin-left: 10px; }
-  #home-content-section #git-hub-wrapper #git-hub-content h5, #home-content-section #languages-wrapper #languages-content h5 {
+  #home-content-section #languages-wrapper #languages-content h5 {
     margin-left: 5px; }
-  #home-content-section #git-hub-wrapper #git-hub-content ul, #home-content-section #languages-wrapper #languages-content ul {
+  #home-content-section #languages-wrapper #languages-content ul {
     list-style-type: none; }
-  #home-content-section #greetings-wrapper #greetings-content .greeting {
-    display: none;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    padding: 0px 10px;
-    vertical-align: middle; }
-  #home-content-section #greetings-wrapper {
+  #home-content-section #greeting-carousel {
     text-align: center;
     height: 60px;
     line-height: 40px; }
+    #home-content-section #greeting-carousel .carousel-inner .item {
+      opacity: 0;
+      transition-property: opacity;
+      transition-duration: 4s;
+      transition-timing-function: linear; }
+    #home-content-section #greeting-carousel .carousel-inner .active {
+      opacity: 1; }
   #home-content-section #top-books-wrapper {
     height: 165px; }
     #home-content-section #top-books-wrapper h4 {
@@ -45,44 +41,38 @@
       text-align: center;
       color: #218838; }
   #home-content-section #git-hub {
-    height: 120px;
     width: 100%;
     background: LightGrey;
     padding: 10px;
     margin: 10px 0px; }
+    @media only screen and (max-width: 389px) {
+      #home-content-section #git-hub {
+        height: 140px; } }
+    @media only screen and (min-width: 390px) {
+      #home-content-section #git-hub {
+        height: 120px; } }
   #home-content-section .block-wrapper {
     position: relative;
     margin: 10px;
     padding: 10px 5px; }
-  #home-content-section .background {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.5;
-    z-index: -1;
-    background: White;
-    /* Old browsers */
-    background: -moz-linear-gradient(-20deg, #f5d6db, White);
-    /* FF3.6-15 */
-    background: -webkit-linear-gradient(-20deg, #f5d6db, White);
-    /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(160deg, #f5d6db, White);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
   @media only screen and (max-width: 359px) {
-    #home-content-section .greeting-text {
+    #home-content-section #greeting-carousel {
+      height: 40px;
       font-size: 0.8em; } }
   @media only screen and (min-width: 360px) and (max-width: 399px) {
-    #home-content-section .greeting-text {
+    #home-content-section #greeting-carousel {
+      padding-top: 5px;
+      height: 50px;
       font-size: .9em; } }
   @media only screen and (min-width: 400px) and (max-width: 639px) {
-    #home-content-section .greeting-text {
+    #home-content-section #greeting-carousel {
+      padding-top: 10px;
+      height: 60px;
       font-size: 1em; } }
   @media only screen and (min-width: 640px) {
-    #home-content-section .greeting-text {
+    #home-content-section #greeting-carousel {
+      padding-top: 20px;
+      height: 80px;
       font-size: 1.5em; } }
   @media only screen and (max-width: 499px) {
     #home-content-section .top-books-content {

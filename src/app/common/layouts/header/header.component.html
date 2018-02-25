@@ -1,30 +1,30 @@
-<nav *ngIf="isHeader" class="navbar navbar-inverse">
-    <div class="container-fluid">
+<nav *ngIf="isHeader" id="main-navbar" class="navbar navbar-inverse">
+    <div id="main-header">
         <div class="navbar-header">
-            <span class="navbar-brand">Virtual Library</span>
+            <span id="site-caption" class="navbar-brand">Virtual Library</span>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active">
+            <li id="home-menu-item" class="active">
                 <a href="#" routerLink="home" routerLinkActive="active">
                     <span class="glyphicon glyphicon-home"></span>
-                    Home
+                    <span class="caption">Home</span>
                 </a>
             </li>
-            <li>
+            <li id="library-menu-item">
                 <a href="#" routerLink="virtual-library/library" routerLinkActive="active">
                     <span class="glyphicon glyphicon-book"></span>
-                    Books
+                    <span class="caption">Library</span>
                 </a>
             </li>
-            <li id="library-dropdown" class="dropdown"
+            <li id="upload-menu-item" class="dropdown"
                 (mouseenter)="mouseEnter($event.target)"
                 (mouseleave)="mouseLeave($event.target)">
 
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                <a href="#" class="dropdown-toggle"
                    (click)="onLibraryMenuClick()">
 
                     <span class="glyphicon glyphicon-cloud-upload"></span>
-                    Upload <b class="caret"></b>
+                    <span class="caption">Upload <b class="caret"></b></span>
                 </a>
                 <ul class="nav dropdown-menu" role="menu">
                     <li><a href="#" routerLink="virtual-library/genre" routerLinkActive="active">Genres</a></li>
@@ -35,7 +35,7 @@
             <li>
                 <a href="#" (click)="onResumeDownload()">
                     <span class="glyphicon glyphicon-download-alt"></span>
-                    Download Resume
+                    <span class="caption">Download Resume</span>
                 </a>
             </li>
         </ul>
@@ -43,7 +43,7 @@
             <li *ngFor="let item of signMenu['signedOut']">
                 <a href="#" (click)="onClick(item.caption)">
                     <span class="glyphicon glyphicon-{{item.glyphicon}}"></span>
-                    {{item.caption}}
+                    <span class="caption">{{item.caption}}</span>
                 </a>
             </li>
         </ul>
@@ -54,7 +54,7 @@
             <li *ngFor="let item of signMenu['signedIn']">
                 <a href="#" (click)="onClick(item.caption)">
                     <span class="glyphicon glyphicon-{{item.glyphicon}}"></span>
-                    {{item.caption}}
+                    <span class="caption">{{item.caption}}</span>
                 </a>
             </li>
         </ul>

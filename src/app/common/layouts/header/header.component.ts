@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 
 import {GlobalEventsManager} from '../../../common/modules/global-events-manager';
+import {Constants} from '../../../common/core/constants';
 
 import {SharedServices} from '../../../common/services/shared.services';
 import {AuthServices} from '../../../auth/auth.services';
@@ -94,6 +95,28 @@ export class HeaderComponent
         this.showHeaderSubscription.unsubscribe();
         this.signedInSubscription.unsubscribe();
         this.updateUserHomeSubscription.unsubscribe();
+    }
+
+    //**************************************************************************
+
+    @HostListener("window:scroll", [])
+    onWindowScroll(): void
+    {
+        if (jQuery(window).innerWidth() > Constants.BOOTSTRAP_MOBILE_WINDOW_MAX_WIDTH) {
+            if (jQuery(window).scrollTop()) {
+                jQuery('.caption').hide(100);
+                jQuery('#site-caption').hide();
+                jQuery('#main-navbar').addClass('small-main-navbar');
+                jQuery('#main-header').addClass('small-header');
+                jQuery('#main-header a').addClass('small-icon');
+            } else {
+                jQuery('.caption').show(100);
+                jQuery('#site-caption').show();
+                jQuery('#main-navbar').removeClass('small-main-navbar');
+                jQuery('#main-header').removeClass('small-header');
+                jQuery('#main-header a').removeClass('small-icon');
+            }
+        }
     }
 
     //**************************************************************************

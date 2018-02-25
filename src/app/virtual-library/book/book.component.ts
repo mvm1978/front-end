@@ -258,6 +258,9 @@ export class BookComponent
         this._globalEventsManager.showHeader(true);
         this._globalEventsManager.showFooter(true);
 
+        jQuery('li', '.navbar-nav').removeClass('active');
+        jQuery('#upload-menu-item').addClass('active');
+
         this._genresServices.getDropdown()
             .subscribe(
                 response => {
@@ -393,27 +396,29 @@ export class BookComponent
 
             let info = this.gridInfo.columnDefs[count];
 
-            if (! ~jQuery.inArray(info.field, ['source'])) {
+            let caption = info.headerName,
+                width = info.width;
 
-                let caption = '';
-
-                switch (info.field) {
-                    case 'upvotes':
-                        caption = 'Upvotes';
-                        break;
-                    case 'downvotes':
-                        caption = 'Downvotes';
-                        break;
-                    default:
-                        caption = info.headerName;
-                }
-
-                columnInfo.push({
-                    caption: caption,
-                    field: info.field,
-                    width: info.width
-                });
+            switch (info.field) {
+                case 'source':
+                    caption = 'Download';
+                    width = 100;
+                    break;
+                case 'upvotes':
+                    caption = 'Upvotes';
+                    break;
+                case 'downvotes':
+                    caption = 'Downvotes';
+                    break;
+                default:
+                    break;
             }
+
+            columnInfo.push({
+                caption: caption,
+                field: info.field,
+                width: width
+            });
         }
 
         let $canvas = jQuery('canvas');

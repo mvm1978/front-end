@@ -1,10 +1,5 @@
 #home-content-section {
 
-    %content {
-        position: relative;
-        width: 100%;
-    }
-
     %content-text {
         text-align: left;
     }
@@ -21,33 +16,28 @@
         list-style-type: none;
     }
 
-    %hide-show-text {
-        display: none;
-        position: absolute;
-        width: 100%;
-        top: 0;
-        left: 0;
-        padding: 0px 10px;
-        vertical-align: middle;
-    }
-
 	padding-bottom: 30px;
 	min-height: calc(100vh - 100px);
 	width: 100%;
     overflow-y: auto;
 	overflow-x: hidden;
 
-    #greetings-wrapper {
+    #greeting-carousel {
+
         text-align: center;
         height: 60px;
         line-height: 40px;
 
-        #greetings-content {
+        .carousel-inner {
+            .item {
+                opacity: 0;
+                transition-property: opacity;
+                transition-duration: 4s;
+                transition-timing-function: linear;
+            }
 
-            @extend %content;
-
-            .greeting {
-                @extend %hide-show-text;
+            .active {
+                opacity: 1;
             }
         }
     }
@@ -84,31 +74,21 @@
     }
 
     #git-hub {
-        height: 120px;
+
         width: 100%;
         background: LightGrey;
         padding: 10px;
         margin: 10px 0px;
-    }
 
-    #git-hub-wrapper {
-
-        * {
-            @extend %content-text;
+        @media only screen and (max-width: 389px) {
+            & {
+                height: 140px;
+            }
         }
 
-        #git-hub-content {
-
-            h4 {
-                @extend %content-h4;
-            }
-
-            h5 {
-                @extend %content-h5;
-            }
-
-            ul {
-                @extend %content-ul;
+        @media only screen and (min-width: 390px) {
+            & {
+                height: 120px;
             }
         }
     }
@@ -141,42 +121,33 @@
         padding: 10px 5px;
     }
 
-    .background {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.5;
-        z-index: -1;
-        background: White; /* Old browsers */
-        background: -moz-linear-gradient(-20deg, #f5d6db, White); /* FF3.6-15 */
-        background: -webkit-linear-gradient(-20deg, #f5d6db, White); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(160deg, #f5d6db, White); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    }
-
     @media only screen and (max-width: 359px) {
-        .greeting-text {
+        #greeting-carousel {
+            height: 40px;
             font-size: 0.8em;
         }
     }
 
     @media only screen and (min-width: 360px) and (max-width: 399px) {
-        .greeting-text {
+        #greeting-carousel {
+            padding-top: 5px;
+            height: 50px;
             font-size: .9em;
         }
     }
 
     @media only screen and (min-width: 400px) and (max-width: 639px) {
-        .greeting-text {
+        #greeting-carousel {
+            padding-top: 10px;
+            height: 60px;
             font-size: 1em;
         }
     }
 
     @media only screen and (min-width: 640px) {
-        .greeting-text {
+        #greeting-carousel {
+            padding-top: 20px;
+            height: 80px;
             font-size: 1.5em;
         }
     }
