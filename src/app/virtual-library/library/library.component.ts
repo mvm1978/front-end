@@ -32,8 +32,6 @@ declare let jQuery: any;
 
 export class LibraryComponent
 {
-    private api = this._apiServices.api + '/library';
-
     public filter: any = {
         limit: 0,
         sort: {
@@ -42,15 +40,20 @@ export class LibraryComponent
             "author": "asc"
         }
     };
+
     public sidePanels: any = [];
+
     public books: any = {
         data: [],
         upVoteInfo: [],
         downVoteInfo: []
     };
+
     public urlRoot: string;
 
     public voteContainer: string = '#library-content';
+
+    private searchDelay: number = 0;
 
     //**************************************************************************
 
@@ -180,6 +183,36 @@ export class LibraryComponent
         this.filter['filter'] = params;
 
         this.reload();
+    }
+
+    //**************************************************************************
+
+    public onSearch($event: any): boolean
+    {
+        if ($event.keyCode == 27) {
+            // empty search input on Esc
+            jQuery('#search-input').val('');
+        }
+
+        this.searchDelay++;
+
+        let that = this;
+
+        setTimeout(function() {
+            // search execution will fire in 1 sec. upon last key was pressed
+            that.searchDelay--;
+
+            if (that.searchDelay <= 0) {
+
+                that.filter['search'] = jQuery('#search-input').val();
+
+                that.searchDelay = 0;
+
+                that.reload();
+            }
+        }, 1000);
+
+        return true;
     }
 
     //**************************************************************************

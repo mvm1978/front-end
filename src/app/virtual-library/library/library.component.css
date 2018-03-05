@@ -1,6 +1,6 @@
 #library-body {
   display: flex;
-  padding-right: 10px; }
+  padding-right: 5px; }
   #library-body #library-side-panel {
     max-width: 240px;
     min-width: 240px;
@@ -23,7 +23,23 @@
         #library-body #library-side-panel .side-panels .side-panel-item label:hover {
           color: #cd0a0a; }
   #library-body #library-content {
-    padding: 10px; }
+    padding-left: 5px;
+    padding-top: 5px;
+    width: 100%; }
+    #library-body #library-content #search-wrapper {
+      width: 100%; }
+      @media screen and (min-width: 768px) {
+        #library-body #library-content #search-wrapper #search-input {
+          width: 50%;
+          margin-left: 50%; } }
+      #library-body #library-content #search-wrapper .inner-addon {
+        position: relative; }
+      #library-body #library-content #search-wrapper .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none; }
+      #library-body #library-content #search-wrapper .right-addon .glyphicon {
+        right: 0px; }
     #library-body #library-content .gallery {
       margin: 5px;
       padding: 5px;
