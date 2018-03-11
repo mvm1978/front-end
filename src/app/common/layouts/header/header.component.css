@@ -23,7 +23,7 @@
   #main-navbar .navbar-nav > li > a {
     padding-top: 15px;
     padding-bottom: 15px; }
-  #main-navbar #site-caption, #main-navbar .caption {
+  #main-navbar #site-caption, #main-navbar .caption, #main-navbar .navbar-text {
     display: none; } }
 
 @media screen and (min-width: 768px) {
