@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {Observable} from 'rxjs/Rx';
 
@@ -52,8 +52,7 @@ export class LibraryComponent
     public urlRoot: string;
 
     public voteContainer: string = '#library-content';
-
-    private searchDelay: number = 0;
+    public component: any = null;
 
     //**************************************************************************
 
@@ -68,6 +67,7 @@ export class LibraryComponent
     )
     {
         this.urlRoot = this._apiServices.root;
+        this.component = this;
     }
 
     //**************************************************************************
@@ -183,36 +183,6 @@ export class LibraryComponent
         this.filter['filter'] = params;
 
         this.reload();
-    }
-
-    //**************************************************************************
-
-    public onSearch($event: any): boolean
-    {
-        if ($event.keyCode == 27) {
-            // empty search input on Esc
-            jQuery('#search-input').val('');
-        }
-
-        this.searchDelay++;
-
-        let that = this;
-
-        setTimeout(function() {
-            // search execution will fire in 1 sec. upon last key was pressed
-            that.searchDelay--;
-
-            if (that.searchDelay <= 0) {
-
-                that.filter['search'] = jQuery('#search-input').val();
-
-                that.searchDelay = 0;
-
-                that.reload();
-            }
-        }, 1000);
-
-        return true;
     }
 
     //**************************************************************************

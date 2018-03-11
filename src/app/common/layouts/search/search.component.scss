@@ -1,0 +1,32 @@
+$bootstrap-monitor-window-min-width: 768px;
+
+#search-wrapper {
+
+    width: 100%;
+    margin-bottom: 5px;
+
+    @media screen and (min-width: $bootstrap-monitor-window-min-width) {
+
+        #search-input {
+            width: 50%;
+            margin-left: 50%;
+        }
+    }
+
+    .inner-addon {
+        position: relative;
+    }
+
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+    .right-addon {
+
+        .glyphicon {
+            right: 0px;
+        }
+    }
+}

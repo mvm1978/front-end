@@ -31,6 +31,13 @@ export class Constants
 
     //**************************************************************************
 
+    public static get SEARCH_PATH(): string
+    {
+        return this.LAYOUTS_PATH + 'search/';
+    }
+
+    //**************************************************************************
+
     public static get MODAL_POPUP_PATH(): string
     {
         return this.LAYOUTS_PATH + 'modal-popup/';

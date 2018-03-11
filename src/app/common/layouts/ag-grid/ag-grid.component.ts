@@ -28,6 +28,8 @@ export class AgGridComponent
     private showFilterSubscription: any = null;
     private showUploaderSubscription: any = null;
 
+    public component: any = null;
+
     constructor(
         private _agGridServices: AgGridServices
     )
@@ -53,6 +55,8 @@ export class AgGridComponent
                 this.uploaderInfo = data;
             }
         );
+
+        this.component = this.gridComponent;
     }
 
     //**************************************************************************

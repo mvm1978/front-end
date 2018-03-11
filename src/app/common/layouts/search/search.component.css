@@ -1,0 +1,15 @@
+#search-wrapper {
+  width: 100%;
+  margin-bottom: 5px; }
+  @media screen and (min-width: 768px) {
+    #search-wrapper #search-input {
+      width: 50%;
+      margin-left: 50%; } }
+  #search-wrapper .inner-addon {
+    position: relative; }
+  #search-wrapper .inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none; }
+  #search-wrapper .right-addon .glyphicon {
+    right: 0px; }

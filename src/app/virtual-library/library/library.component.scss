@@ -53,36 +53,6 @@ $bootstrap-monitor-window-min-width: 768px;
         padding-top: 5px;
         width: 100%;
 
-        #search-wrapper {
-
-            width: 100%;
-
-            @media screen and (min-width: $bootstrap-monitor-window-min-width) {
-
-                #search-input {
-                    width: 50%;
-                    margin-left: 50%;
-                }
-            }
-
-            .inner-addon {
-              position: relative;
-            }
-
-            .inner-addon .glyphicon {
-                position: absolute;
-                padding: 10px;
-                pointer-events: none;
-            }
-
-            .right-addon {
-
-                .glyphicon {
-                    right: 0px;
-                }
-            }
-        }
-
         .gallery {
 
             margin: 5px;

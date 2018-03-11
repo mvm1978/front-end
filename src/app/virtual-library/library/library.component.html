@@ -24,14 +24,7 @@
             </div>
         </div>
         <div id="library-content">
-            <div id="search-wrapper">
-                <div class="inner-addon right-addon">
-                    <i class="glyphicon glyphicon-search"></i>
-                    <input type="text" id="search-input" class="form-control"
-                           placeholder="Search"
-                           (keyup)="onSearch($event)">
-                </div>
-            </div>
+            <search [component]="component"></search>
             <div *ngFor="let book of books.data; let index = index" class="gallery">
                 <div class="galley-content">
                     <div class="library-book-picture">
