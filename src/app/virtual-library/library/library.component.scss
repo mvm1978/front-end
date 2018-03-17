@@ -1,5 +1,5 @@
-$bootstrap-mobile-window-max-width: 767px;
-$bootstrap-monitor-window-min-width: 768px;
+$mobile-window-max-width: 659px;
+$mobile-window-min-width: 660px;
 
 #library-body {
 
@@ -88,13 +88,54 @@ $bootstrap-monitor-window-min-width: 768px;
                     float: left;
                     width: 50%;
                     padding: 0 5px;
-                    margin: 10px 0;
+                    margin: 8px 0;
+                }
+            }
+        }
+
+        #description {
+
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            overflow: auto;
+            display: none;
+
+            #description-content {
+
+                position: absolute;
+                border-style: solid;
+                border-width: 1px;
+                border-color: #cfcfcf;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                background-color: #efefef;
+                text-align: left;
+                width: calc(100% - 30px);
+                padding: 15px;
+                left: 15px;
+                top: 100px;
+                opacity: 0.95;
+
+                h3 {
+                    margin-top: 5px;
+                    text-shadow: 2px 2px 8px #555;
                 }
             }
         }
     }
 
-    @media only screen and (max-width: 659px) {
+    @media only screen and (min-width: $mobile-window-min-width) {
+
+        .description-button {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: $mobile-window-max-width) {
 
         #library-side-panel, .library-book-description {
             display: none;
@@ -103,9 +144,15 @@ $bootstrap-monitor-window-min-width: 768px;
         .gallery {
             height: 152px;
         }
+
+        .description-button {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            width: 100%;
+        }
     }
 
-    @media only screen and (min-width: 660px) {
+    @media only screen and (min-width: $mobile-window-min-width) {
 
         .gallery {
             height: 280px;

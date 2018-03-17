@@ -24,6 +24,9 @@ declare let jQuery: any;
         TypesServices,
         booksServices
     ],
+    host: {
+        '(document:click)': 'handleClick($event)',
+    },
     templateUrl: VirtualLibraryConstants.LIBRARY_PATH + 'library.component.html',
     styleUrls: [
         VirtualLibraryConstants.LIBRARY_PATH + 'library.component.css'
@@ -53,6 +56,7 @@ export class LibraryComponent
 
     public voteContainer: string = '#library-content';
     public component: any = null;
+    public descriptionBookTitle: string = "";
 
     //**************************************************************************
 
@@ -192,6 +196,45 @@ export class LibraryComponent
         this._sharedServices.downloadBook(this._booksServices.api, dataset);
 
         return false;
+    }
+
+    //**************************************************************************
+
+    public showDescription(title: string, description: string): boolean
+    {
+        jQuery('#description-text').html(description);
+        jQuery('#description').stop(true, true).delay(200).fadeIn(500);
+
+        this.descriptionBookTitle = title;
+
+        return false;
+    }
+
+    //**************************************************************************
+
+    public onDescriptionClose(): boolean
+    {
+        jQuery('#description').stop(true, true).delay(200).fadeOut(500);
+
+        return false;
+    }
+
+    //**************************************************************************
+
+    public handleClick($event: any): void
+    {
+        if (! $event.x && ! $event.y) {
+            return;
+        }
+
+        if (jQuery('#description').is(':visible')) {
+
+            let $content = jQuery('#description-content');
+
+            if (this._sharedServices.checkIfOuterClick($event.x, $event.y, $content)) {
+                this.onDescriptionClose();
+            }
+        }
     }
 
     //**************************************************************************

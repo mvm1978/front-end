@@ -57,6 +57,22 @@
                                 </down-vote>
                             </div>
                         </div>
+                        <div>
+                            <button type="button" class="btn btn-info description-button"
+                                    (click)="showDescription(book.title, book.description)">
+                                Description
+                            </button>
+                        </div>
+                        <div id="description">
+                            <div id="description-content">
+                                <a href="#" class="close-popup" (click)="onDescriptionClose()">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                                <h3>{{descriptionBookTitle}}</h3>
+                                <hr class="popup-section-delimiter">
+                                <div id="description-text"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="clear-float-left"></div>
                     <div class="library-book-description">

@@ -50,12 +50,45 @@
           float: left;
           width: 50%;
           padding: 0 5px;
-          margin: 10px 0; }
+          margin: 8px 0; }
+    #library-body #library-content #description {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      overflow: auto;
+      display: none; }
+      #library-body #library-content #description #description-content {
+        position: absolute;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #cfcfcf;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        background-color: #efefef;
+        text-align: left;
+        width: calc(100% - 30px);
+        padding: 15px;
+        left: 15px;
+        top: 100px;
+        opacity: 0.95; }
+        #library-body #library-content #description #description-content h3 {
+          margin-top: 5px;
+          text-shadow: 2px 2px 8px #555; }
+  @media only screen and (min-width: 660px) {
+    #library-body .description-button {
+      display: none; } }
   @media only screen and (max-width: 659px) {
     #library-body #library-side-panel, #library-body .library-book-description {
       display: none; }
     #library-body .gallery {
-      height: 152px; } }
+      height: 152px; }
+    #library-body .description-button {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      width: 100%; } }
   @media only screen and (min-width: 660px) {
     #library-body .gallery {
       height: 280px; } }
