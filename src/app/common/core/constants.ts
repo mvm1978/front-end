@@ -180,7 +180,7 @@ export class Constants
 
     public static get BOOTSTRAP_MOBILE_WINDOW_MAX_WIDTH(): number
     {
-        return 767;
+        return 800;
     }
 
     //**************************************************************************

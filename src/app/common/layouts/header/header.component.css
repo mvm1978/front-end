@@ -7,7 +7,7 @@
   height: 30px;
   background-color: #222; }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 800px) {
   #main-navbar #main-header {
     height: 50px; }
   #main-navbar .navbar-right {
@@ -26,7 +26,7 @@
   #main-navbar #site-caption, #main-navbar .caption, #main-navbar .navbar-text {
     display: none; } }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 801px) {
   #main-navbar #site-caption {
     padding: 15px 10px; }
   #main-navbar .navbar-right {
