@@ -1,4 +1,4 @@
-#main-body-wait, #app {
+#main-body-wait, #main-body-wait #main-body-wait-background, #main-body-wait #loading-spinner, #app {
   width: 100%;
   height: 100%; }
 
@@ -19,8 +19,18 @@
 a:hover, a:visited {
   text-decoration: none !important; }
 
-#main-body-wait {
-  content: url("../images/loading-overlay.gif"); }
+#main-body-wait #main-body-wait-background {
+  background-image: url("../images/load-image.jpg");
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#main-body-wait #loading-spinner {
+  content: url("../images/loading-overlay.gif");
+  opacity: 0.8; }
 
 @media only screen and (max-width: 399px) {
   #main-body-wait {

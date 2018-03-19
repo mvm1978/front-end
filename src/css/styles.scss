@@ -45,8 +45,25 @@ a:hover, a:visited {
 
 #main-body-wait {
 
-    content: url('../images/loading-overlay.gif');
     @extend %full-size;
+
+    #main-body-wait-background {
+
+        background-image: url("../images/load-image.jpg");
+        position: absolute;
+        top: 0;
+        left: 0;
+        @extend %full-size;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #loading-spinner {
+        content: url('../images/loading-overlay.gif');
+        opacity: 0.8;
+        @extend %full-size;
+    }
 }
 
 @media only screen and (max-width: 399px) {
