@@ -8,15 +8,15 @@
     </div>
 
     <div *ngFor="let chart of charts" class="charts">
-        <div id="{{chart.id}}">
+        <div id="{{chart.id}}" attr.data-chart-type="{{chart.chart}}">
             <h3 class="chart-caption">{{chart.title}}</h3>
-            <pie-chart *ngIf="chart.id != 'books-chart'"
+            <pie-chart *ngIf="chart.chart == 'pie'"
                 [pieChartData]="chart.data"
                 [pieChartLabels]="chart.labels">
 
             </pie-chart>
 
-            <bar-chart *ngIf="chart.id == 'books-chart'"
+            <bar-chart *ngIf="chart.chart == 'bar'"
                 [barChartData]="chart.data"
                 [barChartLabels]="chart.labels">
 

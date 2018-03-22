@@ -13,8 +13,8 @@
                                        attr.data-id="{{value.id}}"
                                        attr.data-key="{{item.key}}"
                                        (change)="onSideChange()">
-                                <label for="{{item.key}}-{{value.id}}">
-                                    {{value.name}} ({{value.count}})
+                                <label for="{{item.key}}-{{value.id}}">{{value.name}}
+                                    <span class="badge">{{value.count}}</span>
                                 </label>
                             </li>
                         </ul>

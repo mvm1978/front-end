@@ -306,11 +306,23 @@ export class BookComponent
                                 continue;
                             }
 
+                            let caption = key.charAt(0).toUpperCase() + key.slice(1),
+                                chartType = key == 'books' ? 'bar' : 'pie';
+
                             this.charts.push({
-                                id: key + '-chart',
-                                title: 'Top 5 ' + key.charAt(0).toUpperCase() + key.slice(1),
-                                data: response[key].data,
-                                labels: response[key].labels
+                                id: key + '-rating-chart',
+                                chart: chartType,
+                                title: 'Top 5 Praised ' + caption,
+                                data: response[key]['rating'].data,
+                                labels: response[key]['rating'].labels
+                            });
+
+                            this.charts.push({
+                                id: key + '-downloads-chart',
+                                chart: chartType,
+                                title: 'Top 5 Downloaded ' + caption,
+                                data: response[key]['downloads'].data,
+                                labels: response[key]['downloads'].labels
                             });
                         }
                     }
@@ -390,7 +402,8 @@ export class BookComponent
 
     public downloadPDF(): boolean {
 
-        let columnInfo: any = [];
+        let columnInfo: any = [],
+            charts: any = {};
 
         for (let count=0; count<this.gridInfo.columnDefs.length; count++) {
 
@@ -421,21 +434,24 @@ export class BookComponent
             });
         }
 
-        let $canvas = jQuery('canvas');
+        let $canvas = jQuery('canvas'),
+            count: number = 0;
+
+        jQuery('.chart-caption').map(function() {
+
+            let key: string = jQuery(this).text();
+
+            charts[key] = {
+                file: $canvas[count++].toDataURL()
+            };
+
+            if (jQuery(this).parent().attr('data-chart-type') == 'bar') {
+                charts[key]['width-factor'] =  2.2;
+            }
+        });
 
         let params = {
-            charts: {
-                'Top 5 Authors': {
-                    file: $canvas[0].toDataURL()
-                },
-                'Top 5 Genres': {
-                    file: $canvas[1].toDataURL()
-                },
-                'Top 5 Books': {
-                    file: $canvas[2].toDataURL(),
-                    'width-factor': 2.2
-                }
-            },
+            charts: charts,
             columnInfo: columnInfo,
             outputSettings: this.agGridComponent.getTableSettings()
         };

@@ -7,9 +7,9 @@
   width: 350px;
   height: 400px; }
 
-#books-chart {
+#books-rating-chart, #books-downloads-chart {
   width: 1000px;
   height: 550px; }
   @media only screen and (max-width: 1000px) {
-    #books-chart {
+    #books-rating-chart, #books-downloads-chart {
       display: none; } }
