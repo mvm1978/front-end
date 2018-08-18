@@ -57,6 +57,7 @@ export class LibraryComponent
     public voteContainer: string = '#library-content';
     public component: any = null;
     public descriptionBookTitle: string = "";
+    public selectedBook: number = 0;
 
     //**************************************************************************
 
@@ -235,6 +236,15 @@ export class LibraryComponent
                 this.onDescriptionClose();
             }
         }
+    }
+
+    //**************************************************************************
+
+    public sideBookSelect(book: any): boolean
+    {
+        this.selectedBook = book;
+console.log(book);
+        return false;
     }
 
     //**************************************************************************

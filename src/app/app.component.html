@@ -1,8 +1,14 @@
-<div id="app">
+<div id="app" class="div-full-height">
     <auth></auth>
-    <header id="header"></header>
-    <main-body></main-body>
-    <footer id="footer"></footer>
+    <div id="header-wrapper">
+        <header id="header"></header>
+    </div>
+    <div id="main-body-wrapper" class="div-full-height">
+        <main-body></main-body>
+    </div>
+    <div id="footer-wrapper">
+        <footer id="footer"></footer>
+    </div>
     <message-box></message-box>
     <div *ngIf="isLoadingOverlay">
         <img class="loading-overlay-gif">

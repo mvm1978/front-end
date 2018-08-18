@@ -1,85 +1,205 @@
-<div>
-    <div id="library-body">
-        <div id="library-side-panel">
-            <div class="side-panels">
-                <div *ngFor="let item of sidePanels" class="side-panel">
-                    <h4>{{item.caption}}</h4>
-                    <div id="side-{{item.key}}">
-                        <ul>
-                            <li *ngFor="let value of item.data" class="side-panel-item">
-                                <input type="checkbox"
-                                       id="{{item.key}}-{{value.id}}"
-                                       class="side-panel-checkbox"
-                                       attr.data-id="{{value.id}}"
-                                       attr.data-key="{{item.key}}"
-                                       (change)="onSideChange()">
-                                <label for="{{item.key}}-{{value.id}}">{{value.name}}
-                                    <span class="badge">{{value.count}}</span>
-                                </label>
-                            </li>
-                        </ul>
+<search [component]="component"></search>
+<div id="library-body" class="div-full-height">
+
+    <div id="library-content" class="div-full-height">
+        <div id="library-content-body" class="div-full-height">
+
+            <div id="books" class="div-full-height">
+                <div id="books-body" class="div-full-height">
+                    <div *ngIf="selectedBook" id="book" class="div-full-height">
+                        <h4 class="block-title">{{selectedBook.title}}</h4>
                     </div>
-                    <hr>
+                    <div *ngIf="! selectedBook" id="books-content" class="div-full-height">
+                        <h4 class="block-title">Books</h4>
+                        <div *ngFor="let book of books.data; let index = index" class="gallery">
+                            <div class="galley-content">
+                                <div class="library-book-picture">
+                                    <a href="#" (click)="onBookImageClick($event.target.dataset)">
+                                        <img class="library-picture"
+                                             src="{{urlRoot}}/storage/{{book.picture}}"
+                                             attr.data-title="{{book.title}}"
+                                             attr.data-source="{{book.source}}">
+                                    </a>
+                                </div>
+                                <div class="library-book-content">
+                                    <book-definition [book]="book"></book-definition>
+                                    <book-vote [container]="voteContainer"
+                                        [service]="_booksServices"
+                                        [upVoteInfo]="books.upVoteInfo[index]"
+                                        [downVoteInfo]="books.downVoteInfo[index]">
+
+                                    </book-vote>
+                                    <div>
+                                        <button type="button" class="btn btn-info description-button"
+                                                (click)="showDescription(book.title, book.description)">
+                                            Description
+                                        </button>
+                                    </div>
+                                    <div id="description">
+                                        <div id="description-content">
+                                            <a href="#" class="close-popup" (click)="onDescriptionClose()">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+                                            <h3>{{descriptionBookTitle}}</h3>
+                                            <hr class="popup-section-delimiter">
+                                            <div id="description-text"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear-float-left"></div>
+                                <div class="library-book-description">
+                                    {{book.description}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="library-content">
-            <search [component]="component"></search>
-            <div *ngFor="let book of books.data; let index = index" class="gallery">
-                <div class="galley-content">
-                    <div class="library-book-picture">
-                        <a href="#" (click)="onBookImageClick($event.target.dataset)">
-                            <img class="library-picture"
-                                 src="{{urlRoot}}/storage/{{book.picture}}"
-                                 attr.data-title="{{book.title}}"
-                                 attr.data-source="{{book.source}}">
-                        </a>
-                    </div>
-                    <div class="library-book-content">
-                        <div>
-                            <strong>{{book.title}}</strong><br>
-                            by {{book.author}}<br>
-                            length: {{book.length}}<br>
-                        </div>
-                        <div>
-                            <div class="vote up-vote">
-                                <up-vote [container]="voteContainer"
-                                    [service]="_booksServices"
-                                    [params]="books.upVoteInfo[index]">
 
-                                </up-vote>
+            <div id="books-side-panel" class="div-full-height">
+                <div id="books-side-panels">
+                    <h4 class="block-title">Inventory</h4>
+                    <a href="#" *ngFor="let book of books.data; let index = index" class="books-side-panels"
+                       (click)="sideBookSelect(book)">
+                        <div class="books-side-panel-item">
+                            <div class="books-side-picture">
+                                <img class="book-picture"
+                                     src="{{urlRoot}}/storage/{{book.picture}}">
                             </div>
-                            <div class="vote down-vote">
-                                <down-vote [container]="voteContainer"
-                                    [service]="_booksServices"
-                                    [params]="books.downVoteInfo[index]">
-
-                                </down-vote>
-                            </div>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-info description-button"
-                                    (click)="showDescription(book.title, book.description)">
-                                Description
-                            </button>
-                        </div>
-                        <div id="description">
-                            <div id="description-content">
-                                <a href="#" class="close-popup" (click)="onDescriptionClose()">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </a>
-                                <h3>{{descriptionBookTitle}}</h3>
-                                <hr class="popup-section-delimiter">
-                                <div id="description-text"></div>
+                            <div class="library-book-content">
+                                <book-definition [book]="book"></book-definition>
                             </div>
                         </div>
-                    </div>
-                    <div class="clear-float-left"></div>
-                    <div class="library-book-description">
-                        {{book.description}}
-                    </div>
+                    </a>
                 </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="library-side-panel" class="div-full-height">
+        <div id="library-side-panels">
+            <div *ngFor="let item of sidePanels" class="side-panel">
+                <h4 class="block-title">{{item.caption}}</h4>
+                <div id="side-{{item.key}}">
+                    <ul>
+                        <li *ngFor="let value of item.data" class="side-panel-item">
+                            <input type="checkbox"
+                                   id="{{item.key}}-{{value.id}}"
+                                   class="side-panel-checkbox"
+                                   attr.data-id="{{value.id}}"
+                                   attr.data-key="{{item.key}}"
+                                   (change)="onSideChange()">
+                            <label for="{{item.key}}-{{value.id}}">{{value.name}}
+                                <span class="badge">{{value.count}}</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
             </div>
         </div>
     </div>
+
+
+
+<!--    <div id="library-side-panel" class="div-full-height">
+        <div id="library-side-panels">
+            <div *ngFor="let item of sidePanels" class="side-panel">
+                <h4 class="block-title">{{item.caption}}</h4>
+                <div id="side-{{item.key}}">
+                    <ul>
+                        <li *ngFor="let value of item.data" class="side-panel-item">
+                            <input type="checkbox"
+                                   id="{{item.key}}-{{value.id}}"
+                                   class="side-panel-checkbox"
+                                   attr.data-id="{{value.id}}"
+                                   attr.data-key="{{item.key}}"
+                                   (change)="onSideChange()">
+                            <label for="{{item.key}}-{{value.id}}">{{value.name}}
+                                <span class="badge">{{value.count}}</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div id="library-content" class="div-full-height">
+        <div id="library-content-body">
+            library-content-body
+
+            <div id="books" class="div-full-height">
+                books
+                <div id="books-body" class="div-full-height">
+                    books-body
+                    <div *ngIf="selectedBook" id="book" class="div-full-height">
+                        <h4 class="block-title">{{selectedBook.title}}</h4>
+                    </div>
+                    <div *ngIf="! selectedBook" id="books-content" class="div-full-height">
+                        <h4 class="block-title">Books</h4>
+                        <div *ngFor="let book of books.data; let index = index" class="gallery">
+                            <div class="galley-content">
+                                <div class="library-book-picture">
+                                    <a href="#" (click)="onBookImageClick($event.target.dataset)">
+                                        <img class="library-picture"
+                                             src="{{urlRoot}}/storage/{{book.picture}}"
+                                             attr.data-title="{{book.title}}"
+                                             attr.data-source="{{book.source}}">
+                                    </a>
+                                </div>
+                                <div class="library-book-content">
+                                    <book-definition [book]="book"></book-definition>
+                                    <book-vote [container]="voteContainer"
+                                        [service]="_booksServices"
+                                        [upVoteInfo]="books.upVoteInfo[index]"
+                                        [downVoteInfo]="books.downVoteInfo[index]">
+
+                                    </book-vote>
+                                    <div>
+                                        <button type="button" class="btn btn-info description-button"
+                                                (click)="showDescription(book.title, book.description)">
+                                            Description
+                                        </button>
+                                    </div>
+                                    <div id="description">
+                                        <div id="description-content">
+                                            <a href="#" class="close-popup" (click)="onDescriptionClose()">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+                                            <h3>{{descriptionBookTitle}}</h3>
+                                            <hr class="popup-section-delimiter">
+                                            <div id="description-text"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear-float-left"></div>
+                                <div class="library-book-description">
+                                    {{book.description}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="books-side-panel" class="div-full-height">
+                books-side-panel
+                <div id="books-side-panels">
+                    <h4 class="block-title">Inventory</h4>
+                    <a href="#" *ngFor="let book of books.data; let index = index"
+                       (click)="sideBookSelect(book)">
+                        <div class="books-side-panel-item">
+                            <div class="books-side-picture">
+                                <img class="library-picture"
+                                     src="{{urlRoot}}/storage/{{book.picture}}">
+                            </div>
+                            <div class="library-book-content">
+                                <book-definition [book]="book"></book-definition>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>-->
 </div>

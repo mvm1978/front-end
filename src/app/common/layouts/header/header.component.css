@@ -27,13 +27,9 @@
     display: none; } }
 
 @media screen and (min-width: 801px) {
-  #main-navbar #site-caption {
-    padding: 15px 10px; }
   #main-navbar .navbar-right {
     padding-right: 15px; }
-  #main-navbar .small-main-navbar {
-    height: 38px; }
+  #main-navbar #main-header #site-caption {
+    padding: 15px 10px; }
   #main-navbar #main-header .small-icon {
-    padding: 5px 10px; }
-  #main-navbar .small-header {
-    height: 30px; } }
+    padding: 5px 10px; } }

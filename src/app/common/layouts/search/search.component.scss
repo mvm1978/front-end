@@ -2,14 +2,21 @@ $bootstrap-monitor-window-min-width: 768px;
 
 #search-wrapper {
 
-    width: 100%;
-    margin-bottom: 5px;
+    z-index: 100;
+    position: fixed;
+    margin-left: 60%;
+    width: 40%;
+    padding: 5px;
+    opacity: 0.7;
+
+    &:hover {
+        opacity: 0.9;
+    }
 
     @media screen and (min-width: $bootstrap-monitor-window-min-width) {
 
         #search-input {
-            width: 50%;
-            margin-left: 50%;
+            width: 100%;
         }
     }
 
